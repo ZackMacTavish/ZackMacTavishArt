@@ -61,6 +61,13 @@ const LandingImage = styled.img`
   width: clamp(360px, 75vw, 2100px);
   position: relative;
   z-index: 1;
+  transition: transform 0.5s ease;
+
+  ${({ isMobile }) =>
+    isMobile &&
+    `
+    transform: scale(3); /* Zoom in on mobile */
+  `}
 `;
 
 const SpotlightText = styled.div`
@@ -89,8 +96,20 @@ const SpotlightText = styled.div`
 export default function LandingPage() {
   const containerRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: '50%', y: '50%' });
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect mobile
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mouse spotlight effect (desktop only)
+  useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -99,16 +118,22 @@ export default function LandingPage() {
         setMousePos({ x: `${xPercent}%`, y: `${yPercent}%` });
       }
     };
+
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   return (
     <LandingDiv ref={containerRef}>
-      <LandingImage src={landingimage} alt="Landing" />
-      <SpotlightText style={{ '--x': mousePos.x, '--y': mousePos.y }}>
-        Glad you stopped by
-      </SpotlightText>
+      <LandingImage src={landingimage} alt="Landing" isMobile={isMobile} />
+
+      {/* Only show spotlight text on desktop */}
+      {!isMobile && (
+        <SpotlightText style={{ '--x': mousePos.x, '--y': mousePos.y }}>
+          Glad you stopped by
+        </SpotlightText>
+      )}
+
       <Socials />
     </LandingDiv>
   );
