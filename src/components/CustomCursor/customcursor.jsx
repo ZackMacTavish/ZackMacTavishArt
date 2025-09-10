@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalCursorStyle = createGlobalStyle`
@@ -27,13 +27,10 @@ const AppCursorstyles = styled.div`
   &.visible {
     display: block;
   }
-
-  @media (max-width: 450px) {
-    display: none;
-  }
 `;
 
 const CustomCursor = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
   const target = useRef({ x: 0, y: 0 });
@@ -41,6 +38,16 @@ const CustomCursor = () => {
   const firstMove = useRef(false);
 
   useEffect(() => {
+    // Detect if screen is mobile size
+    const checkMobile = () => setIsMobile(window.innerWidth <= 450);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // disable all cursor logic on mobile
+
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
 
@@ -48,7 +55,6 @@ const CustomCursor = () => {
       const mouseY = e.clientY - cursorRef.current.clientHeight / 2;
 
       if (!firstMove.current) {
-        // Teleport cursor immediately to first mouse position
         current.current = { x: mouseX, y: mouseY };
         target.current = { x: mouseX, y: mouseY };
         cursorRef.current.classList.add('visible');
@@ -67,14 +73,12 @@ const CustomCursor = () => {
       if (document.visibilityState === 'hidden') {
         hideCursor();
       } else {
-        // reset firstMove to allow teleport to new pointer location on re-entry
         firstMove.current = false;
       }
     };
 
     const animate = () => {
       if (cursorRef.current && firstMove.current) {
-        // smooth follow
         current.current.x += (target.current.x - current.current.x) * 0.65;
         current.current.y += (target.current.y - current.current.y) * 0.65;
 
@@ -121,7 +125,9 @@ const CustomCursor = () => {
         el.removeEventListener('mouseleave', onHoverOut);
       });
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null; // Don’t render anything on mobile
 
   return (
     <>
