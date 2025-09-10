@@ -66,7 +66,7 @@ const LandingImage = styled.img`
   ${({ isMobile }) =>
     isMobile &&
     `
-    transform: scale(3); /* Zoom in on mobile */
+    transform: scale(1.3); /* Zoom in on mobile */
   `}
 `;
 
@@ -95,7 +95,7 @@ const SpotlightText = styled.div`
 
 export default function LandingPage() {
   const containerRef = useRef(null);
-  const [mousePos, setMousePos] = useState({ x: '50%', y: '50%' });
+  const [mousePos, setMousePos] = useState(null); // start as null
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile
@@ -127,8 +127,8 @@ export default function LandingPage() {
     <LandingDiv ref={containerRef}>
       <LandingImage src={landingimage} alt="Landing" isMobile={isMobile} />
 
-      {/* Only show spotlight text on desktop */}
-      {!isMobile && (
+      {/* Only show spotlight text on desktop and after mouse moves */}
+      {!isMobile && mousePos && (
         <SpotlightText style={{ '--x': mousePos.x, '--y': mousePos.y }}>
           Glad you stopped by
         </SpotlightText>

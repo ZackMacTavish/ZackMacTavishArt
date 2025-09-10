@@ -264,7 +264,7 @@ const About = () => {
       <FullHeightTextSection style={{ backgroundColor: 'white' }}>
         <TextContainer>
           <TextContent style={{ color: '#5d5d5d' }}>
-            Some of the agencies I have worked with include Publicis Groupe, Arkane Society, 
+            Some of the agencies I have worked with include Publicis Groupe, Prarie & Forge, 
             and Varfaj Partners. I’ve also lived in New York City, working as a graphic designer 
             in Manhattan for Outsource Consultants, and studied design in Chicago. 
             I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology 
