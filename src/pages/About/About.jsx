@@ -261,17 +261,49 @@ const About = () => {
       </NewSectionTheme>
 
       {/* ---------- Module 2: Second Paragraph ---------- */}
-      <FullHeightTextSection style={{ backgroundColor: 'white' }}>
-        <TextContainer>
-          <TextContent style={{ color: '#5d5d5d' }}>
-            Some of the agencies I have worked with include Publicis Groupe, Prarie & Forge, 
-            and Varfaj Partners. I’ve also lived in New York City, working as a graphic designer 
-            in Manhattan for Outsource Consultants, and studied design in Chicago. 
-            I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology 
-            on Disney-branded products, and Chip Ganassi Racing.
-          </TextContent>
-        </TextContainer>
-      </FullHeightTextSection>
+<FullHeightTextSection style={{ backgroundColor: 'white' }}>
+  <TextContainer>
+    <TextContent style={{ color: '#5d5d5d' }}>
+      Some of the agencies I have worked with include{' '}
+      <a
+        href="https://www.publicisgroupe.com/en"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+      >
+        Publicis Groupe
+      </a>
+      ,{' '}
+      <a
+        href="https://prairieandforge.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+      >
+        Prairie & Forge
+      </a>
+      , and{' '}
+      <a
+        href="https://varfaj.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+      >
+        Varfaj Partners
+      </a>
+      . I’ve also lived in New York City, working as a graphic designer in Manhattan for{' '}
+      <a
+        href="https://www.outsourceconsultants.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
+      >
+        Outsource Consultants
+      </a>
+      , and studied design in Chicago. I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
       {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
       <QuiltContainer>
