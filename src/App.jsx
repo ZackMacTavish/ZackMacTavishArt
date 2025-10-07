@@ -28,6 +28,9 @@ import Piton from "./pages/Piton/Piton";
 // Combined Artworks Page
 import Artworks from "./pages/Printmaking/Artworks";
 
+// Intro Animation
+import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
+
 // Assets
 import sun from './assets/Sun-DRKGREEN-01.svg';
 
@@ -43,42 +46,25 @@ function App() {
       <GlobalStyles />
       <div className="App">
         <Router>
-          {/* Theme Toggle Button (temporarily disabled) */}
-          {/*
-          <img 
-            src={sun} 
-            onClick={themeToggler} 
-            style={{ 
-              zIndex: 100, 
-              width: 'clamp(45px, 2.5vw, 100px)', 
-              position: 'fixed', 
-              right: '2vw', 
-              bottom: '2vw', 
-              cursor: 'pointer' 
-            }} 
-          />
-          */}
           <Customcursor />
           <Nav />
           <Routes>
-            {/* Redirect root to /MacTavish */}
-            <Route path="/" element={<Navigate to="/MacTavish" replace />} />
+            {/* Root shows IntroAnimation first */}
+            <Route path="/" element={<IntroAnimation />} />
 
+            {/* Landing page */}
+            <Route path="/MacTavish" element={<LandingPage />} />
+
+            {/* Art and other pages */}
             <Route path="/Composition" element={<Composition />} />
-            
-            {/* All art pages route to Artworks */}
             <Route path="/Artworks" element={<Artworks />} />
             <Route path="/Painting" element={<Artworks />} />
             <Route path="/Collages" element={<Artworks />} />
             <Route path="/Printmaking" element={<Artworks />} />
-
             <Route path="/Dwelling" element={<Dwelling />} />
             <Route path="/Photography" element={<Photography />} />
-
-            {/* Graffiti page accessible via both paths */}
             <Route path="/Graffiti" element={<Graffiti />} />
             <Route path="/MergedGraffiti" element={<Graffiti />} />
-
             <Route path="/Giga" element={<Giga />} />
             <Route path="/AccessDirect" element={<AccessDirect />} />
             <Route path="/Outsource" element={<Outsource />} />
@@ -87,10 +73,9 @@ function App() {
             <Route path="/ThreePillars" element={<ThreePillars />} />
             <Route path="/Piton" element={<Piton />} />
             <Route path="/About" element={<About />} />
-            <Route path="/MacTavish" element={<LandingPage />} />
 
             {/* Fallback for unknown routes */}
-            <Route path="*" element={<Navigate to="/MacTavish" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>
       </div>
