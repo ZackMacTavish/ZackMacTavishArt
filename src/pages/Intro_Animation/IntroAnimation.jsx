@@ -30,7 +30,7 @@ const IntroDiv = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: #84927B; /* muted light olive */
   position: absolute;
   top: 0;
   left: 0;
@@ -40,7 +40,7 @@ const IntroDiv = styled.div`
   ${props =>
     props.animateOut &&
     css`
-      animation: ${wipeOutVertical} 0.35s ease-in-out forwards; /* snappy wipe */
+      animation: ${wipeOutVertical} 0.35s ease-in-out forwards;
     `}
 `;
 
@@ -57,7 +57,6 @@ function FlowerModel({ onLoaded, ...props }) {
   const { scene } = useGLTF('/models/scene.glb');
   const ref = useRef();
 
-  // Trigger rotation
   useFrame(() => {
     if (ref.current) {
       ref.current.rotation.y += 0.0015;
@@ -65,7 +64,6 @@ function FlowerModel({ onLoaded, ...props }) {
     }
   });
 
-  // Notify parent when model has loaded
   useEffect(() => {
     if (ref.current && onLoaded) onLoaded();
   }, [ref, onLoaded]);
@@ -106,7 +104,6 @@ export default function IntroAnimation() {
   const [showIntro, setShowIntro] = useState(true);
   const [modelLoaded, setModelLoaded] = useState(false);
 
-  // Start animations only after model loads
   useEffect(() => {
     if (!modelLoaded) return;
 
@@ -123,7 +120,7 @@ export default function IntroAnimation() {
 
   return (
     <>
-      <LandingPage /> {/* stays live behind intro */}
+      <LandingPage />
       {showIntro && (
         <IntroDiv animateOut={animateOut}>
           <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />
