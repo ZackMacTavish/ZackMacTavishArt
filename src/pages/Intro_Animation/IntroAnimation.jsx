@@ -53,10 +53,11 @@ const IntroText = styled.h1`
   z-index: 20;
 `;
 
-function FlowerModel(props) {
+function FlowerModel({ onLoaded, ...props }) {
   const { scene } = useGLTF('/models/scene.glb');
   const ref = useRef();
 
+  // Trigger rotation
   useFrame(() => {
     if (ref.current) {
       ref.current.rotation.y += 0.0015;
@@ -64,10 +65,15 @@ function FlowerModel(props) {
     }
   });
 
+  // Notify parent when model has loaded
+  useEffect(() => {
+    if (ref.current && onLoaded) onLoaded();
+  }, [ref, onLoaded]);
+
   return <primitive ref={ref} object={scene} {...props} />;
 }
 
-function FloatingFlower() {
+function FloatingFlower({ onModelLoaded }) {
   return (
     <Canvas
       style={{
@@ -85,7 +91,7 @@ function FloatingFlower() {
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <Suspense fallback={null}>
         <Float floatIntensity={0.1} rotationIntensity={0.05}>
-          <FlowerModel scale={8} position={[0, 0, 0]} />
+          <FlowerModel scale={8} position={[0, 0, 0]} onLoaded={onModelLoaded} />
         </Float>
       </Suspense>
       <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
@@ -98,25 +104,29 @@ export default function IntroAnimation() {
   const [showText, setShowText] = useState(false);
   const [animateOut, setAnimateOut] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
+  // Start animations only after model loads
   useEffect(() => {
-    const textTimer = setTimeout(() => setShowText(true), 1500);
-    const wipeTimer = setTimeout(() => setAnimateOut(true), 4000);
-    const hideTimer = setTimeout(() => setShowIntro(false), 4400);
+    if (!modelLoaded) return;
+
+    const textTimer = setTimeout(() => setShowText(true), 1000);
+    const wipeTimer = setTimeout(() => setAnimateOut(true), 3800);
+    const hideTimer = setTimeout(() => setShowIntro(false), 4200);
 
     return () => {
       clearTimeout(textTimer);
       clearTimeout(wipeTimer);
       clearTimeout(hideTimer);
     };
-  }, []);
+  }, [modelLoaded]);
 
   return (
     <>
-      <LandingPage /> {/* animations remain active */}
+      <LandingPage /> {/* stays live behind intro */}
       {showIntro && (
         <IntroDiv animateOut={animateOut}>
-          <FloatingFlower />
+          <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />
           {showText && <IntroText>{text}</IntroText>}
         </IntroDiv>
       )}
