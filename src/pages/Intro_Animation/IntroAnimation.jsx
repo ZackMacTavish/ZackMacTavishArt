@@ -30,7 +30,7 @@ const IntroDiv = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #84927B; /* muted light olive */
+  background-color: #3F4739; /* muted light olive */
   position: absolute;
   top: 0;
   left: 0;
