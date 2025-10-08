@@ -40,6 +40,8 @@ import quilt6 from "../../assets/quilt6.jpg";
 import quilt7 from "../../assets/quilt7.jpg";
 import quilt8 from "../../assets/quilt8.jpg";
 import quilt9 from "../../assets/quilt9.jpg";
+import grandparents from "../../assets/JanetDavidDominicMarie.JPG"
+import greatgrandparents from "../../assets/JanetDavidGrandpaNana.JPG"
 
 // Styled Components
 export const TextSection = styled.h1`
@@ -202,6 +204,25 @@ export default function Dwelling() {
                   <ArtHeader>Open House Back</ArtHeader>
                   <ArtYear>2021-22</ArtYear>
                   <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
+              </ArtTexttwo>
+          </ArtSectionthreeog>
+
+            {/* Tuzio's */}
+          <ArtSectionthreeog Backgroundcolor='white'>
+              {/* Front image */}
+              <Orbital src={greatgrandparents} />
+              <ArtText> 
+                  <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
+                  <ArtYear>July, 1960</ArtYear>
+                  <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
+              </ArtText>
+
+              {/* Back image */}
+              <GridRowTwo src={grandparents} />
+              <ArtTexttwo> 
+                  <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
+               
+                  <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
               </ArtTexttwo>
           </ArtSectionthreeog>
 
