@@ -40,7 +40,7 @@ const SpotlightRight = styled(Spotlight)`
   right: 0;
   animation: ${spotlightRightMove} 6s ease-in-out infinite;
 `;
-// ---------- Keyframes ----------
+
 const slideFade = keyframes`
   0% { transform: translateX(0); opacity: 1; }
   33% { transform: translateX(calc(100vw - 650px)); opacity: 1; }
@@ -49,8 +49,6 @@ const slideFade = keyframes`
   100% { transform: translateX(0); opacity: 0; }
 `;
 
-
-// ---------- Styled Components ----------
 const Navdiv = styled.div`
   display: flex;
   align-items: center;
@@ -93,19 +91,12 @@ const NeonStroke = styled.span`
   left: 0;
   width: 650px;
   height: 4px;
-
-  /* Full gradient with proper coverage */
   background: linear-gradient(to right, #FF8D67, #E88D67, #FFAA88);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
-  /* blur for neon effect */
   filter: blur(20px);
-
-  /* softer mask to fade left/right edges */
   mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
   -webkit-mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
-
   animation: ${slideFade} 10s ease-in-out forwards;
   z-index: 999;
 `;
@@ -122,8 +113,6 @@ const PinkMicroStroke = styled.span`
   left: 0;
   width: 700px; 
   height: 16px;
-
-  /* Main pink gradient with smooth left/right fade */
   background: linear-gradient(
     to right,
     transparent 0%, 
@@ -135,15 +124,10 @@ const PinkMicroStroke = styled.span`
   background-size: 100% 100%;
   background-repeat: no-repeat;
   filter: blur(36px);
-
-  /* vertical fade into nav bar */
   mask-image: linear-gradient(to top, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
-
-  /* follow orange stroke animation */
   animation: ${slideFade} 10s ease-in-out forwards;
 
-  /* micro animation: brightest pink moves slightly within stroke */
   &::after {
     content: '';
     position: absolute;
@@ -164,13 +148,12 @@ const PinkMicroStroke = styled.span`
     animation: ${pinkPulse} 2s ease-in-out infinite;
   }
 
-  /* optional overlay for extra right-side fade */
   &::before {
     content: '';
     position: absolute;
     right: 0;
     top: 0;
-    width: 60px; /* width of the feather */
+    width: 60px;
     height: 100%;
     background: linear-gradient(to right, rgba(255, 30, 150, 0.2), transparent);
     pointer-events: none;
@@ -178,7 +161,7 @@ const PinkMicroStroke = styled.span`
 
   z-index: 1001;
 `;
-// ---------- Logo / Nav Links ----------
+
 const Logo = styled.img`
   width: clamp(46px, 2.6vw, 90px);
   transition: all 0.3s ease;
@@ -277,11 +260,10 @@ const DropdownDivider = styled.div`
   margin: 0.25rem 0;
 `;
 
-// ---------- Nav Component ----------
 export default function Nav() {
   return (
     <Navdiv>
-      <Link to="/MacTavish" style={{ cursor: 'none' }}>
+      <Link to="/home" style={{ cursor: 'none' }}>
         <Logo src={logo} />
       </Link>
 
@@ -293,22 +275,9 @@ export default function Nav() {
               <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
               <DropdownMenu to="/Composition">Composition</DropdownMenu>
               <DropdownDivider />
-              <DropdownMenu to="/Artworks">Artworks</DropdownMenu>
-              <DropdownMenu to="/Photography">Photo</DropdownMenu>
-              <DropdownMenu to="/Graffiti">3D + Graffiti</DropdownMenu>
-            </Dropdown>
-          </ListItem>
-
-          <ListItem>
-            <NavLabel>Design</NavLabel>
-            <Dropdown>
-              <DropdownMenu to="/Outsource">Outsource</DropdownMenu>
-              <DropdownMenu to="/Ux">Leysi</DropdownMenu>
-              <DropdownMenu to="/Piton">Piton</DropdownMenu>
-              <DropdownMenu to="/ThreePillars">Three Pillars</DropdownMenu>
-              <DropdownMenu to="/AccessDirect">Access Direct</DropdownMenu>
-              <DropdownMenu to="/Giga">Giga</DropdownMenu>
-              <DropdownMenu to="/GraphicDesign">Graphic Design</DropdownMenu>
+              <DropdownMenu to="/Printmaking">Printmaking</DropdownMenu>
+              <DropdownMenu to="/Photography">Photography</DropdownMenu>
+              <DropdownMenu to="/3d">3D + Graffiti</DropdownMenu>
             </Dropdown>
           </ListItem>
 
@@ -318,12 +287,12 @@ export default function Nav() {
         </NavLinks>
 
         <StrokeWrapper>
-  <SolidStroke />
-  <NeonStroke />
-  <PinkMicroStroke />
-  <SpotlightLeft />
-  <SpotlightRight />
-</StrokeWrapper>
+          <SolidStroke />
+          <NeonStroke />
+          <PinkMicroStroke />
+          <SpotlightLeft />
+          <SpotlightRight />
+        </StrokeWrapper>
       </NavLinksWrapper>
     </Navdiv>
   );

@@ -124,7 +124,7 @@ export const QuiltContainer = styled.div`
   width: 100%;
   padding: 5vh 10vw; /* desktop padding */
   gap: 4vw;
-  background-color: transparent;
+  background-color: ${(props) => props.theme.backgroundColor};
 
   @media (max-width: 1000px) {
     flex-direction: column;
@@ -306,15 +306,15 @@ const About = () => {
 </FullHeightTextSection>
 
       {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
-      <QuiltContainer>
-        <QuiltImage src={quilthanging} alt="Quilt hanging" />
-        <QuiltText Widthsize='45%'>
-          Outside of work, I live with my partner Olivia, who is also an artist. 
-          In my own creative time, I focus on making quilts that combine photography, 
-          textile techniques, and mixed media, exploring the intersection of art, 
-          design, and storytelling.
-        </QuiltText>
-      </QuiltContainer>
+   <QuiltContainer>
+  <QuiltImage src={quilthanging} alt="Quilt hanging" />
+  <QuiltText Widthsize='45%' >
+    Outside of work, I live with my partner Olivia, who is also an artist. 
+    In my own creative time, I focus on making quilts that combine photography, 
+    textile techniques, and mixed media, exploring the intersection of art, 
+    design, and storytelling.
+  </QuiltText>
+</QuiltContainer>
 
       {/* ---------- Module 4: Three.js Scene ---------- */}
       <ArtDiv>

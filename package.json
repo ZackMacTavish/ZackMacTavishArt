@@ -1,15 +1,15 @@
 {
-  "name": "2025Portfolio",
+  "name": "ZackMacTavishArt",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://zackmactavish.com",
+  "homepage": "https://zackmactavish.github.io/ZackMacTavishArt",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "predeploy": "vite build && cp CNAME dist/",
+    "predeploy": "vite build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
