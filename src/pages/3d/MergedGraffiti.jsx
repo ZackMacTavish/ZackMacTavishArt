@@ -140,7 +140,7 @@ export default function MergedGraffiti() {
       <ArtSectionthreeog>
         <Orbital src={bfa} />
         <ArtText>
-          <ArtHeader>BFA Exhibition (Chicago, IL)</ArtHeader>
+          <ArtHeader>BFA Exhibition < br/>(Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on brick veneer.</ArtDesc>
         </ArtText>
@@ -229,7 +229,7 @@ export default function MergedGraffiti() {
         <ArtText>
           <ArtHeader>Sushi X</ArtHeader>
           <ArtYear>2016</ArtYear>
-          <ArtDesc>Spray paint on brick. (Collaboration with 'Leks')</ArtDesc>
+          <ArtDesc>Spray paint on brick. <br />(Collaboration with 'Leks')</ArtDesc>
         </ArtText>
 
         <GridRowTwo src={enova} />
