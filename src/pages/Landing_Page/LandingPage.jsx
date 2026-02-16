@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Seo } from '@zackmactavish/foundation'
+import { useLocation } from 'react-router-dom'
+import { canonicalFromLocation } from '../../utils/seo'
 import styled, { keyframes } from 'styled-components';
 import Socials from '../../Components/Social Bar/Socials';
 import landingimage from '../../assets/Collection_Web.png';
@@ -125,6 +128,13 @@ export default function LandingPage() {
 
   return (
     <LandingDiv ref={containerRef}>
+      <Seo 
+        title="Home — Zack MacTavish Art & Design" 
+        description="Portfolio home showcasing art, design, printmaking, photography, and 3D works by Zack MacTavish." 
+        image={landingimage}
+        url={canonicalFromLocation(useLocation())}
+        keywords={["home", "portfolio", "art", "design", "printmaking", "photography", "3D"]}
+      />
       <LandingImage src={landingimage} alt="Landing" isMobile={isMobile} />
 
       {/* Only show spotlight text on desktop and after mouse moves */}

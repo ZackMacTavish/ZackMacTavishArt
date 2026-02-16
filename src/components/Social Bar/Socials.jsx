@@ -22,7 +22,9 @@ align-items: center;
 `
 const SocialImages = styled.img`
 padding: 1vw;
-width: clamp(44px, 2vw, 70px);
+/* Make icons larger across typical desktop widths while keeping a sensible cap */
+width: clamp(52px, 4vw, 84px);
+height: auto;
 -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;

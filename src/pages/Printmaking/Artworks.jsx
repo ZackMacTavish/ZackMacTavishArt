@@ -1,5 +1,8 @@
 // src/pages/Artworks.jsx
 import React, { useLayoutEffect } from 'react';
+import { Seo, Grid60 } from '@zackmactavish/foundation'
+import { useLocation } from 'react-router-dom'
+import { canonicalFromLocation } from '../../utils/seo'
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import {
   ArtDesc,
@@ -167,6 +170,13 @@ export default function Artworks() {
 
   return (
     <div>
+      <Seo 
+        title="Printmaking — Screenprints and Collaborations by Zack MacTavish" 
+        description="Screen printing and mixed media works, including collaborations with Olivia Zita Smith and CMYK experiments." 
+        image={screenprint1}
+        url={canonicalFromLocation(useLocation())}
+        keywords={["printmaking", "screenprint", "collaboration", "CMYK", "collage"]}
+      />
 
 
 
@@ -194,11 +204,15 @@ export default function Artworks() {
   }}
 />
       
-            {/* Olivia Collabs Section */}
-    <TwoImageGrid>
-  <img src={olivia4} alt="Olivia 4" />
-  <img src={olivia2} alt="Olivia 2" />
-</TwoImageGrid>
+      {/* Olivia Collabs Section */}
+    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+      <Grid60>
+        <TwoImageGrid className="one-row">
+          <img src={olivia4} alt="Olivia 4" />
+          <img src={olivia2} alt="Olivia 2" />
+        </TwoImageGrid>
+      </Grid60>
+    </div>
 
 <FullHeightTextSection>
   <TextContent>
@@ -227,43 +241,56 @@ export default function Artworks() {
   </TextContent>
 </FullHeightTextSection>
 
-            {/* Screenprints */}
- <ThreeImageGrid>
-      <img src={screenprint2} alt="Screen Print 2" />
-      <img src={screenprint2_1} alt="Screen Print 2.1" />
-      <img src={screenprint1} alt="Screen Print 1" />
-    </ThreeImageGrid>
+        {/* Screenprints */}
+  <div style={{ backgroundColor: 'white', width: '100vw', padding: '8vh 0' }}>
+      <ThreeImageGrid
+        className="large multiply"
+        style={{ width: 'min(98vw, 100%)', maxWidth: '1800px', margin: '0 auto' }}
+      >
+        <img src={screenprint2} alt="Screen Print 2" style={{ mixBlendMode: 'multiply' }} />
+        <img src={screenprint2_1} alt="Screen Print 2.1" style={{ mixBlendMode: 'multiply' }} />
+        <img src={screenprint1} alt="Screen Print 1" style={{ mixBlendMode: 'multiply' }} />
+      </ThreeImageGrid>
+  </div>
 
             {/* Olivia Collabs */}
- <TwoImageGrid>
-  <img src={oliviacollab1} alt="Olivia 4" />
-  <img src={oliviacollab2} alt="Olivia 2" />
-</TwoImageGrid>
+ <div style={{ backgroundColor: 'white', width: '100vw' }}>
+   <TwoImageGrid className="one-row">
+     <img src={oliviacollab1} alt="Olivia 4" />
+     <img src={oliviacollab2} alt="Olivia 2" />
+   </TwoImageGrid>
+ </div>
 
             <RisoFlex>
               <RisoItem Width="60vw" img src={oliviacollab3} />
             </RisoFlex>
 
-             <TwoImageGrid>
-  <img src={oliviacollab6} alt="Olivia 4" />
-  <img src={oliviacollab5} alt="Olivia 2" />
-</TwoImageGrid>
+             <div style={{ backgroundColor: 'white', width: '100vw' }}>
+               <TwoImageGrid className="one-row">
+                 <img src={oliviacollab6} alt="Olivia 4" />
+                 <img src={oliviacollab5} alt="Olivia 2" />
+               </TwoImageGrid>
+             </div>
 
-   <TwoImageGrid>
-  <img src={oliviacollab7} alt="Olivia 4" />
-  <img src={oliviacollab8} alt="Olivia 2" />
-</TwoImageGrid>
+   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+     <TwoImageGrid className="one-row">
+       <img src={oliviacollab7} alt="Olivia 4" />
+       <img src={oliviacollab8} alt="Olivia 2" />
+     </TwoImageGrid>
+   </div>
       
  
         
       
             {/* CMYK Screenprints up to "The Nuns" */}
 
-            <ThreeImageGrid>
-      <img src={bear} alt="Screen Print 2" />
-      <img src={graffiticollage} alt="Screen Print 2.1" />
-      <img src={thetown} alt="Screen Print 1" />
-    </ThreeImageGrid>
+            <div style={{ backgroundColor: 'white', width: '100vw' }}>
+              <ThreeImageGrid className="large">
+                <img src={bear} alt="Screen Print 2" />
+                <img src={graffiticollage} alt="Screen Print 2.1" />
+                <img src={thetown} alt="Screen Print 1" />
+              </ThreeImageGrid>
+            </div>
 
     
       {/* ===================== PAINTING SECTION ===================== */}
@@ -360,12 +387,14 @@ export default function Artworks() {
            </RisoFlex> */}
    
    
-               {/* Section with 3 photos */}
-    <ThreeImageGrid>
-        <img src={collage32} alt="Screen Print 2" />
-        <img src={collage47} alt="Screen Print 2.1" />
-        <img src={collage50} alt="Screen Print 1" />
-      </ThreeImageGrid>
+              {/* Section with 3 photos */}
+              <div style={{ backgroundColor: 'white', width: '100vw' }}>
+                <ThreeImageGrid className="large">
+                  <img src={collage32} alt="Screen Print 2" />
+                  <img src={collage47} alt="Screen Print 2.1" />
+                  <img src={collage50} alt="Screen Print 1" />
+                </ThreeImageGrid>
+              </div>
                
                    <RisoFlex >
    
@@ -378,11 +407,13 @@ export default function Artworks() {
    
                     {/* Section with 3 photos */}
 
-                     <ThreeImageGrid>
-        <img src={collage1} alt="Screen Print 2" />
-        <img src={collage2} alt="Screen Print 2.1" />
-        <img src={collage3} alt="Screen Print 1" />
-      </ThreeImageGrid>
+                    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+                      <ThreeImageGrid className="large">
+                        <img src={collage1} alt="Screen Print 2" />
+                        <img src={collage2} alt="Screen Print 2.1" />
+                        <img src={collage3} alt="Screen Print 1" />
+                      </ThreeImageGrid>
+                    </div>
 
                   
    
@@ -395,11 +426,13 @@ export default function Artworks() {
    
          {/* Section with 3 photos */}
 
-          <ThreeImageGrid>
-        <img src={collage4} alt="Screen Print 2" />
-        <img src={collagefour} alt="Screen Print 2.1" />
-        <img src={collage45} alt="Screen Print 1" />
-      </ThreeImageGrid>
+         <div style={{ backgroundColor: 'white', width: '100vw' }}>
+           <ThreeImageGrid className="large">
+             <img src={collage4} alt="Screen Print 2" />
+             <img src={collagefour} alt="Screen Print 2.1" />
+             <img src={collage45} alt="Screen Print 1" />
+           </ThreeImageGrid>
+         </div>
               
    
                <RisoFlex >
@@ -412,11 +445,13 @@ export default function Artworks() {
    
      {/* Section with 3 photos */}
 
-        <ThreeImageGrid>
-        <img src={collage44} alt="Screen Print 2" />
-        <img src={collage37} alt="Screen Print 2.1" />
-        <img src={collage48} alt="Screen Print 1" />
-      </ThreeImageGrid>
+     <div style={{ backgroundColor: 'white', width: '100vw' }}>
+       <ThreeImageGrid className="large">
+         <img src={collage44} alt="Screen Print 2" />
+         <img src={collage37} alt="Screen Print 2.1" />
+         <img src={collage48} alt="Screen Print 1" />
+       </ThreeImageGrid>
+     </div>
                                 
                    <RisoFlex >
    
@@ -428,11 +463,13 @@ export default function Artworks() {
    
    {/* Section with 3 photos */}
 
-      <ThreeImageGrid>
-        <img src={collage40} alt="Screen Print 2" />
-        <img src={collage39} alt="Screen Print 2.1" />
-        <img src={collage38} alt="Screen Print 1" />
-      </ThreeImageGrid>
+   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+     <ThreeImageGrid className="large">
+       <img src={collage40} alt="Screen Print 2" />
+       <img src={collage39} alt="Screen Print 2.1" />
+       <img src={collage38} alt="Screen Print 1" />
+     </ThreeImageGrid>
+   </div>
       
                    <RisoFlex >
    
@@ -444,11 +481,13 @@ export default function Artworks() {
    
    {/* Section with 3 photos */}
 
-     <ThreeImageGrid>
-        <img src={collage34} alt="Screen Print 2" />
-        <img src={collage35} alt="Screen Print 2.1" />
-        <img src={collage31} alt="Screen Print 1" />
-      </ThreeImageGrid>
+   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+     <ThreeImageGrid className="large">
+       <img src={collage34} alt="Screen Print 2" />
+       <img src={collage35} alt="Screen Print 2.1" />
+       <img src={collage31} alt="Screen Print 1" />
+     </ThreeImageGrid>
+   </div>
    
                    <RisoFlex >
    
@@ -457,11 +496,13 @@ export default function Artworks() {
    </RisoFlex>
    {/* Section with 3 photos */}
 
-     <ThreeImageGrid>
-        <img src={collage28} alt="Screen Print 2" />
-        <img src={collage29} alt="Screen Print 2.1" />
-        <img src={collage30} alt="Screen Print 1" />
-      </ThreeImageGrid>
+   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+     <ThreeImageGrid className="large">
+       <img src={collage28} alt="Screen Print 2" />
+       <img src={collage29} alt="Screen Print 2.1" />
+       <img src={collage30} alt="Screen Print 1" />
+     </ThreeImageGrid>
+   </div>
    
    
                  <FullBg 
@@ -474,19 +515,23 @@ export default function Artworks() {
   }} 
 />
    
-                   {/* Section with 3 photos */}
+                    {/* Section with 3 photos */}
 
-                    <ThreeImageGrid>
-        <img src={collage46} alt="Screen Print 2" />
-        <img src={collage33} alt="Screen Print 2.1" />
-        <img src={collage49} alt="Screen Print 1" />
-      </ThreeImageGrid>
+                    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+                      <ThreeImageGrid className="large">
+                        <img src={collage46} alt="Screen Print 2" />
+                        <img src={collage33} alt="Screen Print 2.1" />
+                        <img src={collage49} alt="Screen Print 1" />
+                      </ThreeImageGrid>
+                    </div>
 
-         <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
-  <img src={collage41} alt="Screen Print 2" />
-  <img src={collage42} alt="Screen Print 2.1" />
-  <img src={collage43} alt="Screen Print 1" />
-</ThreeImageGrid>
+         <div style={{ backgroundColor: 'white', width: '100vw' }}>
+           <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
+             <img src={collage41} alt="Screen Print 2" />
+             <img src={collage42} alt="Screen Print 2.1" />
+             <img src={collage43} alt="Screen Print 1" />
+           </ThreeImageGrid>
+         </div>
 
 
             

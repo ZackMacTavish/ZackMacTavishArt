@@ -1,8 +1,11 @@
 import React, { useLayoutEffect } from 'react';
+import { Seo, Grid60, ImageTextSplit } from '@zackmactavish/foundation'
+import { useLocation } from 'react-router-dom'
+import { canonicalFromLocation } from '../../utils/seo'
 import styled from 'styled-components';
 
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
-import {QuiltContainer, QuiltImage, QuiltText} from '../About/About';
+// Removed QuiltContainer/QuiltImage/QuiltText in favor of foundation ImageTextSplit
 
 // Assets
 import fullcover from '../../assets/Composition-BackCover-Pt.2-01.jpg';
@@ -347,6 +350,24 @@ export const ArtDesc = styled.h2`
   @media(max-width: 830px) { font-size: 0.9rem; }
 `;
 
+// Slightly larger, consistent text style for ImageTextSplit copy blocks
+const SplitTextComp = styled.div`
+  font-family: 'Space Grotesk', sans-serif;
+  color: #5d5d5d;
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  line-height: 1.6;
+
+  @media (max-width: 1400px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 450px) {
+    font-size: 1.2rem;
+  }
+`;
+
 
 export default function Composition() {
 
@@ -354,7 +375,28 @@ export default function Composition() {
         window.scrollTo(0, 0)
     });
 
+    const canonical = canonicalFromLocation(useLocation());
+
     return (<div>
+<style>{`
+  /* Match About page split spacing and width */
+  .tight-split {
+    gap: 12px !important;
+    width: 80vw;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (max-width: 900px) {
+    .tight-split { width: 92vw; }
+  }
+`}</style>
+<Seo 
+  title="Composition — Art Series by Zack MacTavish" 
+  description="Composition uses the familiar design of composition notebooks as a metaphor for self-reflection, with paintings, renders, and photographs." 
+  image={fullcover}
+  url={canonical}
+  keywords={["composition", "painting", "render", "photography"]}
+/>
 
 {/*COMPOSITION NOTEBOOK Part 2 Landing */}
   <LanderSection>
@@ -388,18 +430,13 @@ export default function Composition() {
 {/*Art Book + Text */}
 {/* ---------- Art Book + Text Section ---------- */}
 {/* ---------- Art Book + Text Section ---------- */}
-<QuiltContainer style={{ backgroundColor: 'white' }}>
-  <QuiltImage 
-    src={artbook} 
-    alt="Art book"
-  />
-  <QuiltText
-    Widthsize='45%'
-    style={{ color: '#5d5d5d', paddingRight: '5vw' }}
-  >
-    Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
-  </QuiltText>
-</QuiltContainer>
+<div style={{ backgroundColor: '#f5f5f5', width: '100vw', padding: '8vh 0' }}>
+  <ImageTextSplit className="tight-split" imageSrc={artbook} imageAlt="Art book">
+    <SplitTextComp>
+      Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
+    </SplitTextComp>
+  </ImageTextSplit>
+</div>
 
 
 

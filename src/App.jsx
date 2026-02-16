@@ -4,7 +4,7 @@ import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import './App.css';
 
 // Themes
-import { lightTheme, darkTheme, GlobalStyles } from './components/Themes/Themes';
+import { GlobalStyles, lightTheme, darkTheme, CustomCursor, tokens } from '@zackmactavish/foundation'
 
 // Components
 import Customcursor from "./components/CustomCursor/customcursor";
@@ -27,18 +27,22 @@ import IntroAnimation from "./pages/Intro_Animation/IntroAnimation";
 // Assets removed - no theme toggle needed
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, _setTheme] = useState("light");
 
-  const themeToggler = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  // Theme toggler (currently unused)
+  // const themeToggler = () => {
+  //   setTheme(theme === "light" ? "dark" : "light");
+  // };
+
+  const GS = GlobalStyles || GlobalStyles
+  const Cursor = CustomCursor || Customcursor
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <GlobalStyles />
+    <ThemeProvider theme={theme === "light" ? { ...lightTheme, tokens } : { ...darkTheme, tokens }}>
+      <GS />
       <div className="App">
         <Router>
-          <Customcursor />
+          <Cursor />
           <Nav theme={theme} />
         
         <Routes>

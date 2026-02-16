@@ -1,10 +1,13 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { Seo, ImageTextSplit } from '@zackmactavish/foundation'
 import styled, { keyframes } from 'styled-components';
 import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import quilthanging from '../../assets/hangingquilts.jpg';
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
+// Removed agency/client section; no longer importing text layout components from Printmaking
+import { useLocation } from 'react-router-dom';
+import { canonicalFromLocation } from '../../utils/seo';
 
 
 /* Writing the first main section in flex, but switching over to grids, with Theme Provider built in for dark-light modes*/
@@ -69,6 +72,26 @@ const ParagraphTwo = styled.div`
 
   @media (max-width: 450px) {
     font-size: 1.4rem;
+  }
+`;
+
+// Smaller text variant for ImageTextSplit sections to avoid oversized copy
+const SplitText = styled(ParagraphTwo)`
+  width: auto;
+  color: #5d5d5d;
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  line-height: 1.6;
+  max-width: none;
+  padding-right: 0;
+
+  @media (max-width: 1400px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 450px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -166,6 +189,26 @@ export const QuiltText = styled(ParagraphTwo)`
     padding-bottom: 3vh; /* add padding below */
   }
 `;
+
+// Smaller quilt text when used inside ImageTextSplit
+const SplitQuiltText = styled(QuiltText)`
+  max-width: none;
+  width: auto;
+  color: #5d5d5d;
+  font-size: clamp(1.15rem, 1.5vw, 1.5rem);
+  line-height: 1.6;
+  padding-right: 0;
+
+  @media (max-width: 1400px) {
+    font-size: 1.35rem;
+  }
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 450px) {
+    font-size: 1.2rem;
+  }
+`;
 /* ---------- Scene Section Styling ---------- */
 const ArtDiv = styled.div`
   overflow-y: hidden;
@@ -220,6 +263,8 @@ const About = () => {
   const [showArrow, setShowArrow] = useState(true);
   const [hiddenForever, setHiddenForever] = useState(false);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 450);
+  const location = useLocation();
+  const canonical = canonicalFromLocation(location);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -245,76 +290,55 @@ const About = () => {
 
   return (
     <div>
-      {/* ---------- Module 1: About Picture + First Paragraph ---------- */}
-      <NewSectionTheme Backgroundheight="100vh" style={{ position: "relative" }}>
-        <AboutPicture src={me} />
-        <ParagraphTwo Widthsize='47vw'>
-          Hi, I’m Zack MacTavish, an artist and product designer based in Philadelphia, PA.
-          For the past three years, I’ve been with Microsoft’s Shopping Team, shaping user
-          experiences for digital products.
-        </ParagraphTwo>
+      <style>{`
+        /* Reduce the default gap and slightly widen the ImageTextSplit container */
+        .tight-split {
+          gap: 12px !important;
+          width: 80vw;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+        @media (max-width: 900px) {
+          .tight-split {
+            width: 92vw;
+          }
+        }
+      `}</style>
+      <Seo 
+        title="About — Zack MacTavish Art & Design" 
+        description="About Zack MacTavish, an artist and product designer based in Philadelphia, PA." 
+        image={me}
+        url={canonical}
+        keywords={["about", "artist", "product designer", "Philadelphia"]}
+      />
+      {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
+      <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
+        <ImageTextSplit className="tight-split" imageSrc={me} imageAlt="Portrait of Zack MacTavish">
+          <SplitText style={{ color: '#5d5d5d' }}>
+            Hi, I’m Zack MacTavish, an artist and product designer based in Philadelphia, PA.
+            For the past three years, I’ve been with Microsoft’s Shopping Team, shaping user
+            experiences for digital products.
+          </SplitText>
+        </ImageTextSplit>
         {!hiddenForever && (
           <ArrowWrapper visible={showArrow}>
             <Arrow />
           </ArrowWrapper>
         )}
-      </NewSectionTheme>
+      </div>
+      {/* ---------- Module 2 removed per request ---------- */}
 
-      {/* ---------- Module 2: Second Paragraph ---------- */}
-<FullHeightTextSection style={{ backgroundColor: 'white' }}>
-  <TextContainer>
-    <TextContent style={{ color: '#5d5d5d' }}>
-      Some of the agencies I have worked with include{' '}
-      <a
-        href="https://www.publicisgroupe.com/en"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Publicis Groupe
-      </a>
-      ,{' '}
-      <a
-        href="https://prairieandforge.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Prairie & Forge
-      </a>
-      , and{' '}
-      <a
-        href="https://varfaj.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Varfaj Partners
-      </a>
-      . I’ve also lived in New York City, working as a graphic designer in Manhattan for{' '}
-      <a
-        href="https://www.outsourceconsultants.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#5d5d5d', textDecoration: 'underline' }}
-      >
-        Outsource Consultants
-      </a>
-      , and studied design in Chicago. I’ve collaborated with clients such as Microsoft, Walmart, Seagate Technology on Disney-branded products, and Chip Ganassi Racing.
-    </TextContent>
-  </TextContainer>
-</FullHeightTextSection>
-
-      {/* ---------- Module 3: Quilt + Third Paragraph ---------- */}
-   <QuiltContainer>
-  <QuiltImage src={quilthanging} alt="Quilt hanging" />
-  <QuiltText Widthsize='45%' >
-    Outside of work, I live with my partner Olivia, who is also an artist. 
-    In my own creative time, I focus on making quilts that combine photography, 
-    textile techniques, and mixed media, exploring the intersection of art, 
-    design, and storytelling.
-  </QuiltText>
-</QuiltContainer>
+      {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
+      <div style={{ width: '100vw', padding: '8vh 0' }}>
+        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageAlt="Quilt hanging">
+          <SplitQuiltText style={{ color: 'white' }}>
+            Outside of work, I live with my partner Olivia, who is also an artist.
+            In my own creative time, I focus on making quilts that combine photography,
+            textile techniques, and mixed media, exploring the intersection of art,
+            design, and storytelling.
+          </SplitQuiltText>
+        </ImageTextSplit>
+      </div>
 
       {/* ---------- Module 4: Three.js Scene ---------- */}
       <ArtDiv>

@@ -1,5 +1,8 @@
 import React, { useLayoutEffect } from 'react';
-import styled from 'styled-components';
+import { Seo, Grid60 } from '@zackmactavish/foundation'
+import { useLocation } from 'react-router-dom'
+import { canonicalFromLocation } from '../../utils/seo'
+// styled is not used in this file
 import {ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 
 // Composition components
@@ -51,14 +54,25 @@ export default function Photography() {
 
   return (
     <div>
+      <Seo 
+        title="Photography — Film and Polaroids by Zack MacTavish" 
+        description="A selection of film photographs and polaroids from Hawaii, New York, Portland, and more." 
+        image={Hawaii1}
+        url={canonicalFromLocation(useLocation())}
+        keywords={["photography", "film", "polaroid", "Hawaii", "Brooklyn", "Portland"]}
+      />
 
       {/* Section with three polaroids */}
 
-     <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
-  <img src={polaroid1} alt="Screen Print 2" />
-  <img src={polaroid2} alt="Screen Print 2.1" />
-  <img src={polaroid3} alt="Screen Print 1" />
-</ThreeImageGrid>
+     <div style={{ backgroundColor: '#191919', width: '100vw', paddingTop: '8vh' }}>
+       <Grid60 style={{ justifyItems: 'center', alignItems: 'center' }}>
+         <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
+           <img src={polaroid1} alt="Screen Print 2" />
+           <img src={polaroid2} alt="Screen Print 2.1" />
+           <img src={polaroid3} alt="Screen Print 1" />
+         </ThreeImageGrid>
+       </Grid60>
+     </div>
 
 
       {/* Full image section */}

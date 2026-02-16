@@ -1,4 +1,7 @@
 import React, { useLayoutEffect } from 'react';
+import { Seo, Grid60 } from '@zackmactavish/foundation'
+import { useLocation } from 'react-router-dom'
+import { canonicalFromLocation } from '../../utils/seo'
 import styled from 'styled-components';
 import { 
   ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, 
@@ -74,6 +77,13 @@ export default function MergedGraffiti() {
 
   return (
     <div>
+      <Seo 
+        title="3D & Graffiti — Rhino Renders and Murals by Zack MacTavish" 
+        description="Graffiti roots, Rhino 3D renders, and murals across Chicago, Brooklyn, Denver, and more." 
+        image={fiftytwo}
+        url={canonicalFromLocation(useLocation())}
+        keywords={["3D", "graffiti", "Rhino", "murals", "Chicago", "Brooklyn", "Denver"]}
+      />
       {/* --- ThreeD Section --- */}
       <FullBg src={fiftytwo} />
  <FullBg
@@ -119,11 +129,15 @@ export default function MergedGraffiti() {
       </ArtSectionthreeog>
 
       {/* --- Graffiti Section --- */}
-      <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
-        <img src={artbash1} alt="Screen Print 2" />
-        <img src={artbash2} alt="Screen Print 2.1" />
-        <img src={artbash3} alt="Screen Print 1" />
-      </ThreeImageGrid>
+      <div style={{ backgroundColor: '#191919', width: '100%', display: 'block', padding: '8vh 0' }}>
+        <Grid60>
+          <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+            <img src={artbash1} alt="Screen Print 2" />
+            <img src={artbash2} alt="Screen Print 2.1" />
+            <img src={artbash3} alt="Screen Print 1" />
+          </ThreeImageGrid>
+        </Grid60>
+      </div>
 
 
 <FullBg
