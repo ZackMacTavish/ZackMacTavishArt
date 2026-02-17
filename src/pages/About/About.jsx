@@ -305,11 +305,35 @@ const About = () => {
         }
       `}</style>
       <Seo 
-        title="About — Zack MacTavish Art & Design" 
+        title="About  Zack MacTavish Art & Design" 
         description="About Zack MacTavish, an artist and product designer based in Philadelphia, PA." 
-        image={me}
+        image={require('../../assets/og/website-logoresolutions-1200x630.png')}
         url={canonical}
         keywords={["about", "artist", "product designer", "Philadelphia"]}
+        authorName="Zack MacTavish"
+        authorAlternateNames={["Zachary MacTavish"]}
+        sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+        favicons={[
+          { rel: 'icon', sizes: '16x16', href: require('../../assets/og/favicon-16.png') },
+          { rel: 'icon', sizes: '32x32', href: require('../../assets/og/favicon-32.png') },
+          { rel: 'icon', sizes: '48x48', href: require('../../assets/og/favicon-48.png') },
+          { rel: 'icon', sizes: '64x64', href: require('../../assets/og/favicon-64.png') },
+          { rel: 'icon', sizes: '128x128', href: require('../../assets/og/favicon-128.png') },
+          { rel: 'icon', sizes: '256x256', href: require('../../assets/og/favicon-256.png') },
+          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/favicon-512.png') },
+          { rel: 'apple-touch-icon', sizes: '180x180', href: require('../../assets/og/website-logoresolutions-180px.png') },
+          { rel: 'icon', sizes: '192x192', href: require('../../assets/og/website-logoresolutions-192px.png') },
+          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/website-logoresolutions-512px.png') },
+          { rel: 'icon', href: '/favicon.ico' }
+        ]}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Zack MacTavish",
+          "alternateName": ["Zachary MacTavish"],
+          "url": canonical,
+          "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+        }}
       />
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>

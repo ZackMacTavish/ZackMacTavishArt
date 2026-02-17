@@ -327,11 +327,39 @@ export default function Dwelling() {
   return (
       <div>
           <Seo 
-            title="Dwelling — Quilts, Collages, and Mixed Media by Zack MacTavish" 
+            title="Dwelling  Quilts, Collages, and Mixed Media by Zack MacTavish" 
             description="Dwelling is a series of quilts, collages, and mixed media works exploring houses, memories, and storytelling." 
-            image={housemash}
+            image={require('../../assets/og/website-logoresolutions-1200x630.png')}
             url={canonical}
             keywords={["dwelling", "quilts", "collages", "mixed media", "houses", "memories"]}
+            authorName="Zack MacTavish"
+            authorAlternateNames={["Zachary MacTavish"]}
+            sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+            favicons={[
+              { rel: 'icon', sizes: '16x16', href: require('../../assets/og/favicon-16.png') },
+              { rel: 'icon', sizes: '32x32', href: require('../../assets/og/favicon-32.png') },
+              { rel: 'icon', sizes: '48x48', href: require('../../assets/og/favicon-48.png') },
+              { rel: 'icon', sizes: '64x64', href: require('../../assets/og/favicon-64.png') },
+              { rel: 'icon', sizes: '128x128', href: require('../../assets/og/favicon-128.png') },
+              { rel: 'icon', sizes: '256x256', href: require('../../assets/og/favicon-256.png') },
+              { rel: 'icon', sizes: '512x512', href: require('../../assets/og/favicon-512.png') },
+              { rel: 'apple-touch-icon', sizes: '180x180', href: require('../../assets/og/website-logoresolutions-180px.png') },
+              { rel: 'icon', sizes: '192x192', href: require('../../assets/og/website-logoresolutions-192px.png') },
+              { rel: 'icon', sizes: '512x512', href: require('../../assets/og/website-logoresolutions-512px.png') },
+              { rel: 'icon', href: '/favicon.ico' }
+            ]}
+            jsonLd={{
+              "@context": "https://schema.org",
+              "@type": "CreativeWork",
+              "name": "Dwelling Series",
+              "url": canonical,
+              "author": {
+                "@type": "Person",
+                "name": "Zack MacTavish",
+                "alternateName": ["Zachary MacTavish"],
+                "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+              }
+            }}
           />
           <style>{`
             /* Keep the measured section white */
