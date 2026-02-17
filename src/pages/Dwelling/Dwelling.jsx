@@ -1,3 +1,18 @@
+// Composition assets for ImageTextSplit sections
+import orbital from '../../assets/Orbital.jpg';
+import spraywash from '../../assets/Spraypaintwash.png';
+import staircases from '../../assets/Staircases.jpg';
+import coney from '../../assets/Coney.jpg';
+import brooklyn from '../../assets/Brooklyn.jpg';
+import brooklyn2 from '../../assets/Brooklyn2.jpg';
+import rug from '../../assets/Rug.jpg';
+import mash1 from '../../assets/Mash1.png';
+import mash2 from '../../assets/Mash2.png';
+import mash3 from '../../assets/Mash3.png';
+import mash4 from '../../assets/Mash4.png';
+import mash5 from '../../assets/Mash5.png';
+import og from '../../assets/No.3.png';
+import grain from '../../assets/Grain.jpg';
 import React, { useLayoutEffect, useEffect } from 'react';
 import { Seo, ImageTextSplit } from '@zackmactavish/foundation'
 import { useLocation } from 'react-router-dom'
@@ -538,7 +553,7 @@ export default function Dwelling() {
 
           {/* Orbital */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Orbital.jpg')} imageAlt="Orbital">
+            <ImageTextSplit imageSrc={orbital} imageAlt="Orbital">
               <ArtHeader>ORBITAL</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
@@ -547,7 +562,7 @@ export default function Dwelling() {
 
           {/* Erasure 1 */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Spraypaintwash.png')} imageAlt="Erasure 1">
+            <ImageTextSplit imageSrc={spraywash} imageAlt="Erasure 1">
               <ArtHeader>ERASURE I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
@@ -556,7 +571,7 @@ export default function Dwelling() {
 
           {/* Staircases */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Staircases.jpg')} imageAlt="Staircases">
+            <ImageTextSplit imageSrc={staircases} imageAlt="Staircases">
               <ArtHeader>STAIRCASES</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Graphite on heavy paper.</ArtDesc>
@@ -565,7 +580,7 @@ export default function Dwelling() {
 
           {/* CONEY ISLAND, NY */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Coney.jpg')} imageAlt="Coney Island, NY">
+            <ImageTextSplit imageSrc={coney} imageAlt="Coney Island, NY">
               <ArtHeader>CONEY ISLAND, NY</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Film photograph with light leaks.</ArtDesc>
@@ -574,7 +589,7 @@ export default function Dwelling() {
 
           {/* BROOKLYN, NY I */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Brooklyn.jpg')} imageAlt="Brooklyn, NY I">
+            <ImageTextSplit imageSrc={brooklyn} imageAlt="Brooklyn, NY I">
               <ArtHeader>BROOKLYN, NY I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Double exposure film photograph.</ArtDesc>
@@ -583,7 +598,7 @@ export default function Dwelling() {
 
           {/* BROOKLYN, NY II */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Brooklyn2.jpg')} imageAlt="Brooklyn, NY II">
+            <ImageTextSplit imageSrc={brooklyn2} imageAlt="Brooklyn, NY II">
               <ArtHeader>BROOKLYN, NY II</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Double exposure film photograph.</ArtDesc>
@@ -592,7 +607,7 @@ export default function Dwelling() {
 
           {/* RUG I */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Rug.jpg')} imageAlt="Rug I">
+            <ImageTextSplit imageSrc={rug} imageAlt="Rug I">
               <ArtHeader>RUG I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
@@ -601,7 +616,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION III */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Mash1.png')} imageAlt="Composition III">
+            <ImageTextSplit imageSrc={mash1} imageAlt="Composition III">
               <ArtHeader>COMPOSITION III</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -610,7 +625,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION IV */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Mash2.png')} imageAlt="Composition IV">
+            <ImageTextSplit imageSrc={mash2} imageAlt="Composition IV">
               <ArtHeader>COMPOSITION IV</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -619,7 +634,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION V */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Mash3.png')} imageAlt="Composition V">
+            <ImageTextSplit imageSrc={mash3} imageAlt="Composition V">
               <ArtHeader>COMPOSITION V</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -628,7 +643,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION VI */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Mash4.png')} imageAlt="Composition VI">
+            <ImageTextSplit imageSrc={mash4} imageAlt="Composition VI">
               <ArtHeader>COMPOSITION VI</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -637,7 +652,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION VII */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Mash5.png')} imageAlt="Composition VII">
+            <ImageTextSplit imageSrc={mash5} imageAlt="Composition VII">
               <ArtHeader>COMPOSITION VII</ArtHeader>
               <ArtYear>2020</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -646,7 +661,7 @@ export default function Dwelling() {
 
           {/* COMPOSITION I */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/No.3.png')} imageAlt="Composition I">
+            <ImageTextSplit imageSrc={og} imageAlt="Composition I">
               <ArtHeader>COMPOSITION I</ArtHeader>
               <ArtYear>2018</ArtYear>
               <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
@@ -655,7 +670,7 @@ export default function Dwelling() {
 
           {/* GRAIN */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={require('../../assets/Grain.jpg')} imageAlt="Grain">
+            <ImageTextSplit imageSrc={grain} imageAlt="Grain">
               <ArtHeader>GRAIN</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
