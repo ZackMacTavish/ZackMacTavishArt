@@ -479,29 +479,24 @@ export default function Composition() {
 
 
 
-                    {/* Orbital + Erasure I */}
 
-                    <ArtSectionThreetwo>
-                    <Orbital src={orbital} />
-                            <ArtText> 
+          {/* Orbital */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={orbital} imageAlt="Orbital">
+              <ArtHeader>ORBITAL</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-                            <ArtHeader>ORBITAL</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
-
-                            </ArtText>
-
-
-                            <GridRowTwo src={spraywash} />
-                            <ArtTexttwo> 
-
-                            <ArtHeader>ERASURE I</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc >Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
-
-                            </ArtTexttwo>
-                        
-                    </ArtSectionThreetwo>
+          {/* Erasure 1 */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={spraywash} imageAlt="Erasure 1">
+              <ArtHeader>ERASURE I</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
 {/*RENDER 2 FULL SCREEN */}
                     <img
@@ -517,18 +512,15 @@ export default function Composition() {
 
 
 
-{/*STAIRCASES SINGLE SECTION */}
-                    <ArtSectionThreeone>
-                    <Orbital src={staircases} />
-                    <ArtText> 
 
-                            <ArtHeader>STAIRCASES</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Graphite on heavy paper.</ArtDesc>
-
-                            </ArtText>
-
-                    </ArtSectionThreeone>
+          {/* Staircases */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={staircases} imageAlt="Staircases">
+              <ArtHeader>STAIRCASES</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Graphite on heavy paper.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
                     {/*EPHEMERAL I & II SECTION */}
                     <ArtSectiontwins>
@@ -557,37 +549,33 @@ export default function Composition() {
                     
 
 
-                    {/* 3 photos - Passing Grid-template-row props */}
-                    <ArtSectionthreeog>
-                    <Orbital src={coney} />
-                            <ArtText> 
 
-                            <ArtHeader>CONEY ISLAND, NY</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Film photograph with light leaks.</ArtDesc>
+          {/* CONEY ISLAND, NY */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={coney} imageAlt="Coney Island, NY">
+              <ArtHeader>CONEY ISLAND, NY</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Film photograph with light leaks.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-                            </ArtText>
+          {/* BROOKLYN, NY I */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={brooklyn} imageAlt="Brooklyn, NY I">
+              <ArtHeader>BROOKLYN, NY I</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Double exposure film photograph.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-
-                            <GridRowTwo src={brooklyn} />
-                            <ArtTexttwo> 
-
-                            <ArtHeader>BROOKLYN, NY I</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Double exposure film photograph.</ArtDesc>
-
-                            </ArtTexttwo>
-
-                            <GridRowThree src={brooklyn2} />
-                            <ArtTextthree> 
-
-                            <ArtHeader>BROOKLYN, NY II</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Double exposure film photograph.</ArtDesc>
-
-                            </ArtTextthree>
-
-                            </ArtSectionthreeog>
+          {/* BROOKLYN, NY II */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={brooklyn2} imageAlt="Brooklyn, NY II">
+              <ArtHeader>BROOKLYN, NY II</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Double exposure film photograph.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
                                {/*Render4 FULL SCREEN */}
                  <img
@@ -601,37 +589,33 @@ export default function Composition() {
   }}
 />
 
-                    {/* 3 Mashes - Passing Grid-template-row props*/}
-                    <ArtSectionthreeog>
-                    <Rug src={rug} />
-                            <ArtText> 
 
-                            <ArtHeader>RUG I</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
+          {/* RUG I */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={rug} imageAlt="Rug I">
+              <ArtHeader>RUG I</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-                            </ArtText>
+          {/* COMPOSITION III */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={mash1} imageAlt="Composition III">
+              <ArtHeader>COMPOSITION III</ArtHeader>
+              <ArtYear>2019</ArtYear>
+              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-
-                            <GridRowTwo src={mash1} />
-                            <ArtTexttwo> 
-
-                            <ArtHeader>COMPOSITION III</ArtHeader> 
-                            <ArtYear>2019</ArtYear> 
-                            <ArtDesc>Digital collage (study for a painting).</ArtDesc> 
-
-                            </ArtTexttwo>  
-
-                            <GridRowThree src={mash2} />  
-                            <ArtTextthree> 
-
-                            <ArtHeader>COMPOSITION IV</ArtHeader> 
-                            <ArtYear>2019</ArtYear>
-                            <ArtDesc>Digital collage (study for a painting).</ArtDesc> 
-
-                            </ArtTextthree> 
-
-                            </ArtSectionthreeog>
+          {/* COMPOSITION IV */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={mash2} imageAlt="Composition IV">
+              <ArtHeader>COMPOSITION IV</ArtHeader>
+              <ArtYear>2019</ArtYear>
+              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
                                 {/*Render5 FULL SCREEN */}
                    <img
@@ -645,37 +629,33 @@ export default function Composition() {
   }}
 />
 
-                     {/* 3 photos - Passing Grid-template-row props */}
-                     <ArtSectionthreeog>
-                    <Orbital src={mash3} />
-                            <ArtText> 
 
-                            <ArtHeader>COMPOSITION V</ArtHeader>
-                            <ArtYear>2019</ArtYear>
-                            <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+          {/* COMPOSITION V */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={mash3} imageAlt="Composition V">
+              <ArtHeader>COMPOSITION V</ArtHeader>
+              <ArtYear>2019</ArtYear>
+              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-                            </ArtText>
+          {/* COMPOSITION VI */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={mash4} imageAlt="Composition VI">
+              <ArtHeader>COMPOSITION VI</ArtHeader>
+              <ArtYear>2019</ArtYear>
+              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-
-                            <GridRowTwo src={mash4} />
-                            <ArtTexttwo> 
-
-                            <ArtHeader>COMPOSITION VI</ArtHeader>
-                            <ArtYear>2019</ArtYear>
-                            <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-
-                            </ArtTexttwo>
-
-                            <GridRowThree src={mash5} />
-                            <ArtTextthree> 
-
-                            <ArtHeader>COMPOSITION VII</ArtHeader>
-                            <ArtYear>2020</ArtYear>
-                            <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-
-                            </ArtTextthree>
-
-                            </ArtSectionthreeog>
+          {/* COMPOSITION VII */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={mash5} imageAlt="Composition VII">
+              <ArtHeader>COMPOSITION VII</ArtHeader>
+              <ArtYear>2020</ArtYear>
+              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
                                   {/*MATTOS FULL SCREEN */}
                                   <img
@@ -689,30 +669,24 @@ export default function Composition() {
   }}
 />
 
-                        {/* 3 Pieces - Passing Grid-template-row props */}
-                     <ArtSectionthreeog>
-                    <Orbital src={og} />
-                            <ArtText> 
 
-                            <ArtHeader>COMPOSITION I</ArtHeader>
-                            <ArtYear>2018</ArtYear>
-                            <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
+          {/* COMPOSITION I */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={og} imageAlt="Composition I">
+              <ArtHeader>COMPOSITION I</ArtHeader>
+              <ArtYear>2018</ArtYear>
+              <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
-                            </ArtText>
-
-
-                            <GridRowTwo src={grain} />
-                            <ArtTexttwo> 
-
-                            <ArtHeader>GRAIN</ArtHeader>
-                            <ArtYear>2021</ArtYear>
-                            <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
-
-                            </ArtTexttwo>
-
-                        
-
-                            </ArtSectionthreeog>
+          {/* GRAIN */}
+          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+            <ImageTextSplit imageSrc={grain} imageAlt="Grain">
+              <ArtHeader>GRAIN</ArtHeader>
+              <ArtYear>2021</ArtYear>
+              <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
+            </ImageTextSplit>
+          </div>
 
                             {/*EPHEMERAL I & II SECTION */}
 <ArtSectiontwins>
