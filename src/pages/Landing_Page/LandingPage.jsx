@@ -5,6 +5,17 @@ import { canonicalFromLocation } from '../../utils/seo'
 import styled, { keyframes } from 'styled-components';
 import Socials from '../../Components/Social Bar/Socials';
 import landingimage from '../../assets/Collection_Web.png';
+import ogImage from '../../assets/og/website-logoresolutions-1200x630.png';
+import favicon16 from '../../assets/og/favicon-16.png';
+import favicon32 from '../../assets/og/favicon-32.png';
+import favicon48 from '../../assets/og/favicon-48.png';
+import favicon64 from '../../assets/og/favicon-64.png';
+import favicon128 from '../../assets/og/favicon-128.png';
+import favicon256 from '../../assets/og/favicon-256.png';
+import favicon512 from '../../assets/og/favicon-512.png';
+import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
+import icon192 from '../../assets/og/website-logoresolutions-192px.png';
+import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 
 // Spotlight background animations
 const spotlightLeftMove = keyframes`
@@ -35,44 +46,9 @@ const LandingDiv = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
   position: relative;
   overflow: hidden;
-
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    width: 40vw;
-    height: 40vw;
-    border-radius: 50%;
-    filter: blur(200px);
-    background: rgba(255, 255, 255, 0.3);
-    z-index: 0;
-  }
-
-  &::before {
-    top: 20%;
-    left: 10%;
-    animation: ${spotlightLeftMove} 35s ease-in-out infinite;
-  }
-
-  &::after {
-    top: 40%;
-    left: 65%;
-    animation: ${spotlightRightMove} 40s ease-in-out infinite;
-  }
 `;
 
-const LandingImage = styled.img`
-  width: clamp(360px, 75vw, 2100px);
-  position: relative;
-  z-index: 1;
-  transition: transform 0.5s ease;
-
-  ${({ isMobile }) =>
-    isMobile &&
-    `
-    transform: scale(1.3); /* Zoom in on mobile */
-  `}
-`;
-
+// Styled-components must be defined outside the component function
 const SpotlightText = styled.div`
   position: absolute;
   inset: 0;
@@ -94,6 +70,21 @@ const SpotlightText = styled.div`
   mask-repeat: no-repeat;
   mask-position: var(--x) var(--y);
   transition: mask-position 0.05s, -webkit-mask-position 0.05s;
+`;
+
+const LandingImage = styled.img`
+  width: 100vw;
+  max-width: 900px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  z-index: 1;
+  position: relative;
+  pointer-events: none;
+  user-select: none;
+  @media (max-width: 768px) {
+    max-width: 98vw;
+  }
 `;
 
 export default function LandingPage() {
@@ -129,25 +120,25 @@ export default function LandingPage() {
   return (
     <LandingDiv ref={containerRef}>
       <Seo 
-        title="Home  Zack MacTavish Art & Design" 
+        title="Home  Zack MacTavish Art & Design" 
         description="Portfolio home showcasing art, design, printmaking, photography, and 3D works by Zack MacTavish." 
-        image={require('../../assets/og/website-logoresolutions-1200x630.png')}
+        image={ogImage}
         url={canonicalFromLocation(useLocation())}
         keywords={["home", "portfolio", "art", "design", "printmaking", "photography", "3D"]}
         authorName="Zack MacTavish"
         authorAlternateNames={["Zachary MacTavish"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
-          { rel: 'icon', sizes: '16x16', href: require('../../assets/og/favicon-16.png') },
-          { rel: 'icon', sizes: '32x32', href: require('../../assets/og/favicon-32.png') },
-          { rel: 'icon', sizes: '48x48', href: require('../../assets/og/favicon-48.png') },
-          { rel: 'icon', sizes: '64x64', href: require('../../assets/og/favicon-64.png') },
-          { rel: 'icon', sizes: '128x128', href: require('../../assets/og/favicon-128.png') },
-          { rel: 'icon', sizes: '256x256', href: require('../../assets/og/favicon-256.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/favicon-512.png') },
-          { rel: 'apple-touch-icon', sizes: '180x180', href: require('../../assets/og/website-logoresolutions-180px.png') },
-          { rel: 'icon', sizes: '192x192', href: require('../../assets/og/website-logoresolutions-192px.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/website-logoresolutions-512px.png') },
+          { rel: 'icon', sizes: '16x16', href: favicon16 },
+          { rel: 'icon', sizes: '32x32', href: favicon32 },
+          { rel: 'icon', sizes: '48x48', href: favicon48 },
+          { rel: 'icon', sizes: '64x64', href: favicon64 },
+          { rel: 'icon', sizes: '128x128', href: favicon128 },
+          { rel: 'icon', sizes: '256x256', href: favicon256 },
+          { rel: 'icon', sizes: '512x512', href: favicon512 },
+          { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
+          { rel: 'icon', sizes: '192x192', href: icon192 },
+          { rel: 'icon', sizes: '512x512', href: icon512 },
           { rel: 'icon', href: '/favicon.ico' }
         ]}
         jsonLd={{

@@ -8,6 +8,19 @@ import quilthanging from '../../assets/hangingquilts.jpg';
 // Removed agency/client section; no longer importing text layout components from Printmaking
 import { useLocation } from 'react-router-dom';
 import { canonicalFromLocation } from '../../utils/seo';
+// ===================== SEO/OG/FAVICON ASSETS =====================
+import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
+import favicon16 from '../../assets/og/favicon-16.png';
+import favicon32 from '../../assets/og/favicon-32.png';
+import favicon48 from '../../assets/og/favicon-48.png';
+import favicon64 from '../../assets/og/favicon-64.png';
+import favicon128 from '../../assets/og/favicon-128.png';
+import favicon256 from '../../assets/og/favicon-256.png';
+import favicon512 from '../../assets/og/favicon-512.png';
+import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
+import icon192 from '../../assets/og/website-logoresolutions-192px.png';
+import icon512 from '../../assets/og/website-logoresolutions-512px.png';
+import faviconIco from '../../assets/favicon.ico';
 
 
 /* Writing the first main section in flex, but switching over to grids, with Theme Provider built in for dark-light modes*/
@@ -307,24 +320,24 @@ const About = () => {
       <Seo 
         title="About  Zack MacTavish Art & Design" 
         description="About Zack MacTavish, an artist and product designer based in Philadelphia, PA." 
-        image={require('../../assets/og/website-logoresolutions-1200x630.png')}
+  image={ogImage1200}
         url={canonical}
         keywords={["about", "artist", "product designer", "Philadelphia"]}
         authorName="Zack MacTavish"
         authorAlternateNames={["Zachary MacTavish"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
-          { rel: 'icon', sizes: '16x16', href: require('../../assets/og/favicon-16.png') },
-          { rel: 'icon', sizes: '32x32', href: require('../../assets/og/favicon-32.png') },
-          { rel: 'icon', sizes: '48x48', href: require('../../assets/og/favicon-48.png') },
-          { rel: 'icon', sizes: '64x64', href: require('../../assets/og/favicon-64.png') },
-          { rel: 'icon', sizes: '128x128', href: require('../../assets/og/favicon-128.png') },
-          { rel: 'icon', sizes: '256x256', href: require('../../assets/og/favicon-256.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/favicon-512.png') },
-          { rel: 'apple-touch-icon', sizes: '180x180', href: require('../../assets/og/website-logoresolutions-180px.png') },
-          { rel: 'icon', sizes: '192x192', href: require('../../assets/og/website-logoresolutions-192px.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/website-logoresolutions-512px.png') },
-          { rel: 'icon', href: '/favicon.ico' }
+          { rel: 'icon', sizes: '16x16', href: favicon16 },
+          { rel: 'icon', sizes: '32x32', href: favicon32 },
+          { rel: 'icon', sizes: '48x48', href: favicon48 },
+          { rel: 'icon', sizes: '64x64', href: favicon64 },
+          { rel: 'icon', sizes: '128x128', href: favicon128 },
+          { rel: 'icon', sizes: '256x256', href: favicon256 },
+          { rel: 'icon', sizes: '512x512', href: favicon512 },
+          { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
+          { rel: 'icon', sizes: '192x192', href: icon192 },
+          { rel: 'icon', sizes: '512x512', href: icon512 },
+          { rel: 'icon', href: faviconIco }
         ]}
         jsonLd={{
           "@context": "https://schema.org",

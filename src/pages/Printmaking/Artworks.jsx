@@ -19,6 +19,20 @@ import {
 } from '../COMPOSITION/Composition';
 import { TwoImageGrid, ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 import styled from 'styled-components';
+// ===================== SEO/OG/FAVICON ASSETS =====================
+import ogImage1200 from '/src/assets/og/website-logoresolutions-1200x630.png';
+import ogImage600 from '/src/assets/og/website-logoresolutions-600x315.png';
+import favicon16 from '/src/assets/og/favicon-16.png';
+import favicon32 from '/src/assets/og/favicon-32.png';
+import favicon48 from '/src/assets/og/favicon-48.png';
+import favicon64 from '/src/assets/og/favicon-64.png';
+import favicon128 from '/src/assets/og/favicon-128.png';
+import favicon256 from '/src/assets/og/favicon-256.png';
+import favicon512 from '/src/assets/og/favicon-512.png';
+import appleTouchIcon from '/src/assets/og/website-logoresolutions-180px.png';
+import icon192 from '/src/assets/og/website-logoresolutions-192px.png';
+import icon512 from '/src/assets/og/website-logoresolutions-512px.png';
+import faviconIco from '/src/assets/favicon.ico';
 
 // ===================== PRINTMAKING ASSETS =====================
 import olivia4 from '/src/assets/olivia4.jpg';
@@ -173,9 +187,9 @@ export default function Artworks() {
       <Seo 
         title="Printmaking  Screenprints and Collaborations by Zack MacTavish" 
         description="Screen printing and mixed media works, including collaborations with Olivia Zita Smith and CMYK experiments." 
-        images={[
-          { url: require('../../assets/og/website-logoresolutions-1200x630.png'), width: 1200, height: 630 },
-          { url: require('../../assets/og/website-logoresolutions-600x315.png'), width: 600, height: 315 }
+        openGraphImages={[
+          { url: ogImage1200, width: 1200, height: 630 },
+          { url: ogImage600, width: 600, height: 315 }
         ]}
         url={canonicalFromLocation(useLocation())}
         keywords={["printmaking", "screenprint", "collaboration", "CMYK", "collage"]}
@@ -183,17 +197,17 @@ export default function Artworks() {
         authorAlternateNames={["Zachary MacTavish"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
-          { rel: 'icon', sizes: '16x16', href: require('../../assets/og/favicon-16.png') },
-          { rel: 'icon', sizes: '32x32', href: require('../../assets/og/favicon-32.png') },
-          { rel: 'icon', sizes: '48x48', href: require('../../assets/og/favicon-48.png') },
-          { rel: 'icon', sizes: '64x64', href: require('../../assets/og/favicon-64.png') },
-          { rel: 'icon', sizes: '128x128', href: require('../../assets/og/favicon-128.png') },
-          { rel: 'icon', sizes: '256x256', href: require('../../assets/og/favicon-256.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/favicon-512.png') },
-          { rel: 'apple-touch-icon', sizes: '180x180', href: require('../../assets/og/website-logoresolutions-180px.png') },
-          { rel: 'icon', sizes: '192x192', href: require('../../assets/og/website-logoresolutions-192px.png') },
-          { rel: 'icon', sizes: '512x512', href: require('../../assets/og/website-logoresolutions-512px.png') },
-          { rel: 'icon', href: '/favicon.ico' }
+          { rel: 'icon', sizes: '16x16', href: favicon16 },
+          { rel: 'icon', sizes: '32x32', href: favicon32 },
+          { rel: 'icon', sizes: '48x48', href: favicon48 },
+          { rel: 'icon', sizes: '64x64', href: favicon64 },
+          { rel: 'icon', sizes: '128x128', href: favicon128 },
+          { rel: 'icon', sizes: '256x256', href: favicon256 },
+          { rel: 'icon', sizes: '512x512', href: favicon512 },
+          { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
+          { rel: 'icon', sizes: '192x192', href: icon192 },
+          { rel: 'icon', sizes: '512x512', href: icon512 },
+          { rel: 'icon', href: faviconIco }
         ]}
         jsonLd={{
           "@context": "https://schema.org",
