@@ -514,6 +514,7 @@ export default function Dwelling() {
 
 
           {/* Quilt 7, Quilt 8, Quilt 9 as ImageTextSplit blocks on white */}
+
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
   <ImageTextSplit className="blend-img" imageSrc={quilt7} imageAlt="Quilt 7">
     <ArtHeader>Quilt 7</ArtHeader>
@@ -536,6 +537,15 @@ export default function Dwelling() {
   </ImageTextSplit>
 </div>
 
+          {/* Manistee Street section (added to match pasted code) */}
+          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+            <ImageTextSplit imageSrc={manisteeblock} imageAlt="Manistee Street">
+              <ArtHeader>Manistee Street</ArtHeader>
+              <ArtYear>2022</ArtYear>
+              <ArtDesc>Reduction relief woodblock print.</ArtDesc>
+            </ImageTextSplit>
+          </div>
+
           {/* Grid of small images */}
           <PicturesFlex>
               <PhotoFlexone>
@@ -551,131 +561,6 @@ export default function Dwelling() {
           </PicturesFlex>
 
 
-          {/* Orbital */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={orbital} imageAlt="Orbital">
-              <ArtHeader>ORBITAL</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* Erasure 1 */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={spraywash} imageAlt="Erasure 1">
-              <ArtHeader>ERASURE I</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* Staircases */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={staircases} imageAlt="Staircases">
-              <ArtHeader>STAIRCASES</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Graphite on heavy paper.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* CONEY ISLAND, NY */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={coney} imageAlt="Coney Island, NY">
-              <ArtHeader>CONEY ISLAND, NY</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Film photograph with light leaks.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* BROOKLYN, NY I */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={brooklyn} imageAlt="Brooklyn, NY I">
-              <ArtHeader>BROOKLYN, NY I</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Double exposure film photograph.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* BROOKLYN, NY II */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={brooklyn2} imageAlt="Brooklyn, NY II">
-              <ArtHeader>BROOKLYN, NY II</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Double exposure film photograph.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* RUG I */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={rug} imageAlt="Rug I">
-              <ArtHeader>RUG I</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION III */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={mash1} imageAlt="Composition III">
-              <ArtHeader>COMPOSITION III</ArtHeader>
-              <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION IV */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={mash2} imageAlt="Composition IV">
-              <ArtHeader>COMPOSITION IV</ArtHeader>
-              <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION V */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={mash3} imageAlt="Composition V">
-              <ArtHeader>COMPOSITION V</ArtHeader>
-              <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION VI */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={mash4} imageAlt="Composition VI">
-              <ArtHeader>COMPOSITION VI</ArtHeader>
-              <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION VII */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={mash5} imageAlt="Composition VII">
-              <ArtHeader>COMPOSITION VII</ArtHeader>
-              <ArtYear>2020</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* COMPOSITION I */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={og} imageAlt="Composition I">
-              <ArtHeader>COMPOSITION I</ArtHeader>
-              <ArtYear>2018</ArtYear>
-              <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
-            </ImageTextSplit>
-          </div>
-
-          {/* GRAIN */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={grain} imageAlt="Grain">
-              <ArtHeader>GRAIN</ArtHeader>
-              <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
-            </ImageTextSplit>
-          </div>
 
           <PicturesFlex>
               <PhotoFlexone>
