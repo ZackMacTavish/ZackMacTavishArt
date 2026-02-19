@@ -125,8 +125,8 @@ export default function LandingPage() {
         image={ogImage}
         url={canonicalFromLocation(useLocation())}
         keywords={["home", "portfolio", "art", "design", "printmaking", "photography", "3D"]}
-        authorName="Zack MacTavish"
-        authorAlternateNames={["Zachary MacTavish"]}
+  authorName="Zack MacTavish"
+  authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
           { rel: 'icon', sizes: '16x16', href: favicon16 },
@@ -149,7 +149,7 @@ export default function LandingPage() {
           "author": {
             "@type": "Person",
             "name": "Zack MacTavish",
-            "alternateName": ["Zachary MacTavish"],
+            "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
             "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
           }
         }}

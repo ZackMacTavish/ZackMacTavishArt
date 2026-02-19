@@ -100,8 +100,8 @@ export default function MergedGraffiti() {
         ]}
         url={canonicalFromLocation(useLocation())}
         keywords={["3D", "graffiti", "Rhino", "murals", "Chicago", "Brooklyn", "Denver"]}
-        authorName="Zack MacTavish"
-        authorAlternateNames={["Zachary MacTavish"]}
+  authorName="Zack MacTavish"
+  authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
           { rel: 'icon', sizes: '16x16', href: favicon16 },
@@ -124,7 +124,7 @@ export default function MergedGraffiti() {
           "author": {
             "@type": "Person",
             "name": "Zack MacTavish",
-            "alternateName": ["Zachary MacTavish"],
+            "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
             "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
           }
         }}

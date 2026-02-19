@@ -323,8 +323,8 @@ const About = () => {
   image={ogImage1200}
         url={canonical}
         keywords={["about", "artist", "product designer", "Philadelphia"]}
-        authorName="Zack MacTavish"
-        authorAlternateNames={["Zachary MacTavish"]}
+  authorName="Zack MacTavish"
+  authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
           { rel: 'icon', sizes: '16x16', href: favicon16 },
@@ -343,7 +343,7 @@ const About = () => {
           "@context": "https://schema.org",
           "@type": "Person",
           "name": "Zack MacTavish",
-          "alternateName": ["Zachary MacTavish"],
+          "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
           "url": canonical,
           "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
         }}

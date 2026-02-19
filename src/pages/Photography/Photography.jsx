@@ -73,8 +73,8 @@ export default function Photography() {
   image={ogImage1200}
         url={canonicalFromLocation(useLocation())}
         keywords={["photography", "film", "polaroid", "Hawaii", "Brooklyn", "Portland"]}
-        authorName="Zack MacTavish"
-        authorAlternateNames={["Zachary MacTavish"]}
+  authorName="Zack MacTavish"
+  authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
         sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
         favicons={[
           { rel: 'icon', sizes: '16x16', href: favicon16 },
@@ -97,7 +97,7 @@ export default function Photography() {
           "author": {
             "@type": "Person",
             "name": "Zack MacTavish",
-            "alternateName": ["Zachary MacTavish"],
+            "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
             "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
           }
         }}

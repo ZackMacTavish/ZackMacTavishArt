@@ -411,7 +411,7 @@ export default function Composition() {
   url={canonical}
   keywords={["composition", "painting", "render", "photography"]}
   authorName="Zack MacTavish"
-  authorAlternateNames={["Zachary MacTavish"]}
+  authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
   sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
   favicons={[
     { rel: 'icon', sizes: '16x16', href: favicon16 },
@@ -434,7 +434,7 @@ export default function Composition() {
     "author": {
       "@type": "Person",
       "name": "Zack MacTavish",
-      "alternateName": ["Zachary MacTavish"],
+  "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
       "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
     }
   }}
