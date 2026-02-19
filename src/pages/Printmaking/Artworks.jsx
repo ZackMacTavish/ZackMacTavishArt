@@ -1,6 +1,72 @@
 // src/pages/Artworks.jsx
-import React, { useLayoutEffect } from 'react';
-import { Seo, Grid60 } from '@zackmactavish/foundation'
+import React, { useLayoutEffect, useEffect } from 'react';
+// --- Blend backdrop effect for ImageTextSplit (matches Dwelling) ---
+function useBlendBackdrop() {
+  useEffect(() => {
+    const applyBackdrop = (container) => {
+      if (!container) return;
+      const img = container.querySelector('img');
+      if (!img) return;
+      const host = img.parentElement;
+      host.style.position = 'relative';
+      host.style.isolation = 'isolate';
+      let backdrop = host.querySelector('.blend-backdrop');
+      if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'blend-backdrop';
+        backdrop.style.position = 'absolute';
+        backdrop.style.zIndex = '0';
+        backdrop.style.pointerEvents = 'none';
+        host.insertBefore(backdrop, img);
+      }
+      const updateBackdrop = () => {
+        const left = img.offsetLeft;
+        const top = img.offsetTop;
+        const width = img.clientWidth;
+        const height = img.clientHeight;
+        backdrop.style.left = `${left}px`;
+        backdrop.style.top = `${top}px`;
+        backdrop.style.width = `${width}px`;
+        backdrop.style.height = `${height}px`;
+        backdrop.style.backgroundColor = '#f5f5f5';
+  // Always use a consistent border radius for all blend-img backdrops
+  backdrop.style.borderRadius = '12px';
+        // Remove any box shadow, border, outline, or filter from backdrop, image, and host (container)
+        backdrop.style.setProperty('box-shadow', 'none', 'important');
+        backdrop.style.setProperty('border', 'none', 'important');
+        backdrop.style.setProperty('outline', 'none', 'important');
+        backdrop.style.setProperty('filter', 'none', 'important');
+        img.style.setProperty('box-shadow', 'none', 'important');
+        img.style.setProperty('border', 'none', 'important');
+        img.style.setProperty('outline', 'none', 'important');
+        img.style.setProperty('filter', 'none', 'important');
+        host.style.setProperty('box-shadow', 'none', 'important');
+        host.style.setProperty('border', 'none', 'important');
+        host.style.setProperty('outline', 'none', 'important');
+        host.style.setProperty('filter', 'none', 'important');
+        // Prevent backdrop from overflowing its parent
+        backdrop.style.overflow = 'hidden';
+      };
+      if (img.complete) {
+        updateBackdrop();
+      } else {
+        img.addEventListener('load', updateBackdrop, { once: true });
+      }
+      const ro = new window.ResizeObserver(updateBackdrop);
+      ro.observe(img);
+      img.style.position = 'relative';
+      img.style.zIndex = '1';
+      img.style.mixBlendMode = 'multiply';
+    };
+    document.querySelectorAll('.blend-img').forEach((el) => applyBackdrop(el));
+    const handleResize = () => {
+      document.querySelectorAll('.blend-img').forEach((el) => applyBackdrop(el));
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+}
+import { Seo, Grid60, ImageTextSplit } from '@zackmactavish/foundation'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation } from '../../utils/seo'
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
@@ -178,6 +244,7 @@ export const TextContent = styled.p`
 
 // ===================== COMPONENT =====================
 export default function Artworks() {
+  useBlendBackdrop();
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -351,53 +418,47 @@ export default function Artworks() {
   </TextContainer>
 </FullHeightTextSection>
 
-      {/* Section with 3 photos */}
-      <ArtSectionthreeog>
-        <Orbital src={oliviacollab4} />
-        <ArtText>
+
+
+
+      {/* Painting Feature Section: white background, gray image containers */}
+      <section style={{ background: 'white', width: '100vw', padding: '4vh 0' }}>
+        <ImageTextSplit className="blend-img" imageSrc={oliviacollab4} imageAlt="Olivia Collaboration">
           <ArtHeader>Olivia Collaboration</ArtHeader>
           <ArtYear>2022</ArtYear>
           <ArtDesc>Spraypaint, and relief ink on paper</ArtDesc>
-        </ArtText> 
+        </ImageTextSplit>
 
-        <GridRowTwo src={splash} />
-        <ArtTexttwo>
+        <ImageTextSplit className="blend-img" imageSrc={splash} imageAlt="MILKBONES">
           <ArtHeader>MILKBONES</ArtHeader>
           <ArtYear>2021</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={yellowz} />
-        <ArtTextthree>
+        <ImageTextSplit className="blend-img" imageSrc={yellowz} imageAlt="YELLOW TWEED">
           <ArtHeader>YELLOW TWEED</ArtHeader>
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
 
-      {/* Second set of 3 pieces */}
-      <ArtSectionthreeog>
-        <Orbital src={yellowlily} />
-        <ArtText>
+        <ImageTextSplit className="blend-img" imageSrc={yellowlily} imageAlt="Yellow Lily">
           <ArtHeader>Yellow Lily</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Airbrush & acrylic on yupo paper.</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={airbrush} />
-        <ArtTexttwo>
+        <ImageTextSplit className="blend-img" imageSrc={airbrush} imageAlt="SHAPES">
           <ArtHeader>SHAPES</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={cacti1} />
-        <ArtTextthree>
+        <ImageTextSplit className="blend-img" imageSrc={cacti1} imageAlt="ORANGE CACTI">
           <ArtHeader>ORANGE CACTI</ArtHeader>
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
 <RisoFlex style={{ paddingBottom: "100px" }}>
   <RisoItem Width="55vw" img src={selfie} />

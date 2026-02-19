@@ -302,18 +302,31 @@ export default function Dwelling() {
       }
 
       const updateBackdrop = () => {
-        // Position backdrop to match the image's actual box within the column
-        const left = img.offsetLeft;
-        const top = img.offsetTop;
-        const width = img.clientWidth; // match visible content width
-        const height = img.clientHeight;
-        backdrop.style.left = `${left}px`;
-        backdrop.style.top = `${top}px`;
-        backdrop.style.width = `${width}px`;
-        backdrop.style.height = `${height}px`;
-        backdrop.style.backgroundColor = '#f5f5f5';
-        backdrop.style.borderRadius = '12px';
-        backdrop.style.overflow = 'hidden';
+  // Position backdrop to match the image's actual box within the column
+  const left = img.offsetLeft;
+  const top = img.offsetTop;
+  const width = img.clientWidth; // match visible content width
+  const height = img.clientHeight;
+  backdrop.style.left = `${left}px`;
+  backdrop.style.top = `${top}px`;
+  backdrop.style.width = `${width}px`;
+  backdrop.style.height = `${height}px`;
+  backdrop.style.backgroundColor = '#f5f5f5';
+  backdrop.style.borderRadius = '12px'; // enforce standard radius
+  // Remove any box shadow, border, outline, or filter from backdrop, image, and host (container)
+  backdrop.style.setProperty('box-shadow', 'none', 'important');
+  backdrop.style.setProperty('border', 'none', 'important');
+  backdrop.style.setProperty('outline', 'none', 'important');
+  backdrop.style.setProperty('filter', 'none', 'important');
+  img.style.setProperty('box-shadow', 'none', 'important');
+  img.style.setProperty('border', 'none', 'important');
+  img.style.setProperty('outline', 'none', 'important');
+  img.style.setProperty('filter', 'none', 'important');
+  host.style.setProperty('box-shadow', 'none', 'important');
+  host.style.setProperty('border', 'none', 'important');
+  host.style.setProperty('outline', 'none', 'important');
+  host.style.setProperty('filter', 'none', 'important');
+  backdrop.style.overflow = 'hidden';
       };
 
       // Ensure image dimensions are ready before positioning backdrop
@@ -443,14 +456,14 @@ export default function Dwelling() {
 
             {/* Tuzio family sections using ImageTextSplit with full white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
               <ArtYear>July, 1960</ArtYear>
               <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
             </ImageTextSplit>
           </div>
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
               <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
             </ImageTextSplit>
@@ -467,7 +480,7 @@ export default function Dwelling() {
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 1</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
@@ -481,7 +494,7 @@ export default function Dwelling() {
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's house</ArtDesc>
@@ -491,7 +504,7 @@ export default function Dwelling() {
 
           {/* Quilt 4, Quilt 5, Quilt 6 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 4</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
@@ -505,7 +518,7 @@ export default function Dwelling() {
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
@@ -539,7 +552,7 @@ export default function Dwelling() {
 
           {/* Manistee Street section (added to match pasted code) */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>
               <ArtDesc>Reduction relief woodblock print.</ArtDesc>
