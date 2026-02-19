@@ -425,7 +425,7 @@ export default function Dwelling() {
 
           {/* Open House Front: keep section white; add only top padding */}
           <div style={{ backgroundColor: 'white', width: '100vw', paddingTop: '4vh' }}>
-            <ImageTextSplit id="open-house-front" imageSrc={housefront} imageAlt="Open House Front">
+            <ImageTextSplit id="open-house-front" imageSrc={housefront} imageAlt="Open House Front" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>Open House Front</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -434,7 +434,7 @@ export default function Dwelling() {
 
           {/* Open House Back: image-level multiply blend; section has white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit className="blend-img" imageSrc={houseback} imageAlt="Open House Back">
+            <ImageTextSplit className="blend-img" imageSrc={houseback} imageAlt="Open House Back" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>Open House Back</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -443,14 +443,14 @@ export default function Dwelling() {
 
             {/* Tuzio family sections using ImageTextSplit with full white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio">
+            <ImageTextSplit imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
               <ArtYear>July, 1960</ArtYear>
               <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
             </ImageTextSplit>
           </div>
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi">
+            <ImageTextSplit imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
               <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
             </ImageTextSplit>
@@ -467,21 +467,21 @@ export default function Dwelling() {
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt1} imageAlt="Quilt 1">
+  <ImageTextSplit imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 1</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt2} imageAlt="Quilt 2">
+  <ImageTextSplit className="blend-img" imageSrc={quilt2} imageAlt="Quilt 2" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 2</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>Dorms, Downtown, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt3} imageAlt="Quilt 3">
+  <ImageTextSplit imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's house</ArtDesc>
@@ -491,21 +491,21 @@ export default function Dwelling() {
 
           {/* Quilt 4, Quilt 5, Quilt 6 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt4} imageAlt="Quilt 4">
+  <ImageTextSplit imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 4</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt5} imageAlt="Quilt 5">
+  <ImageTextSplit className="blend-img" imageSrc={quilt5} imageAlt="Quilt 5" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 5</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>House with Richie</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageSrc={quilt6} imageAlt="Quilt 6">
+  <ImageTextSplit imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
@@ -516,21 +516,21 @@ export default function Dwelling() {
           {/* Quilt 7, Quilt 8, Quilt 9 as ImageTextSplit blocks on white */}
 
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt7} imageAlt="Quilt 7">
+  <ImageTextSplit className="blend-img" imageSrc={quilt7} imageAlt="Quilt 7" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 7</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt8} imageAlt="Quilt 8">
+  <ImageTextSplit className="blend-img" imageSrc={quilt8} imageAlt="Quilt 8" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 8</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt9} imageAlt="Quilt 9">
+  <ImageTextSplit className="blend-img" imageSrc={quilt9} imageAlt="Quilt 9" imageAvif={undefined} imageWebp={undefined}>
     <ArtHeader>Quilt 9</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Olympia Ave, Pawtucket, RI</ArtDesc>
@@ -539,7 +539,7 @@ export default function Dwelling() {
 
           {/* Manistee Street section (added to match pasted code) */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={manisteeblock} imageAlt="Manistee Street">
+            <ImageTextSplit imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={undefined} imageWebp={undefined}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>
               <ArtDesc>Reduction relief woodblock print.</ArtDesc>

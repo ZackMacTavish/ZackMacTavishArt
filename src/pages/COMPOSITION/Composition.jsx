@@ -337,6 +337,7 @@ export const ArtHeader = styled.h1`
   font-weight: 700;
   font-size: 2.5rem;
   margin: 0 0 0.5rem 0;
+  color: #222;
 
   @media(max-width: 1750px) { font-size: 1.8rem; }
   @media(max-width: 830px) { font-size: 1.4rem; }
@@ -346,6 +347,7 @@ export const ArtYear = styled.h3`
   font-weight: 500;
   font-size: 2rem;
   margin: 0 0 1rem 0;  // spacing below year
+  color: #222;
 
   @media(max-width: 1750px) { font-size: 1.5rem; }
   @media(max-width: 830px) { font-size: 1.2rem; }
@@ -356,6 +358,7 @@ export const ArtDesc = styled.h2`
   font-size: 1.4rem;
   line-height: 1.2; // tighter line-height for description
   margin: 0;
+  color: #222;
 
   @media(max-width: 1750px) { font-size: 1rem; }
   @media(max-width: 830px) { font-size: 0.9rem; }
