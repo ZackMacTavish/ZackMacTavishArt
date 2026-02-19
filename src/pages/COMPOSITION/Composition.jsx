@@ -478,6 +478,19 @@ export default function Composition() {
       Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
     </SplitTextComp>
   </ImageTextSplit>
+  {/* Embedded flipbook iframe section */}
+    <div style={{ width: '100vw', background: '#f5f5f5', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '4vh 0' }}>
+      <iframe
+        width="1200px"
+        height="900px"
+        src="https://mixam.com/shares/60d165ccbf9efd41ff33dad2/embed"
+        allowFullScreen={true}
+        allowTransparency={true}
+        frameBorder="0"
+        style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08)', borderRadius: '8px', background: 'white' }}
+        title="Composition Art Book Flip Through"
+      />
+    </div>
 </div>
 
 
