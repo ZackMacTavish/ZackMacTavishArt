@@ -1,3 +1,9 @@
+import favicon16 from '../../assets/og/website-logoresolutions-16px.png';
+import favicon32 from '../../assets/og/website-logoresolutions-32px.png';
+import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
+import icon192 from '../../assets/og/website-logoresolutions-192px.png';
+import icon256 from '../../assets/og/favicon-clean-256.png';
+import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
 import { Seo, Grid60, ImageTextSplit } from '@zackmactavish/foundation'
 import { useLocation } from 'react-router-dom'
@@ -35,16 +41,7 @@ import mattos from '../../assets/Mattos.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
 import ogImage from '../../assets/og/website-logoresolutions-1200x630.png';
-import favicon16 from '../../assets/og/favicon-16.png';
-import favicon32 from '../../assets/og/favicon-32.png';
-import favicon48 from '../../assets/og/favicon-48.png';
-import favicon64 from '../../assets/og/favicon-64.png';
-import favicon128 from '../../assets/og/favicon-128.png';
-import favicon256 from '../../assets/og/favicon-256.png';
-import favicon512 from '../../assets/og/favicon-512.png';
-import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
-import icon192 from '../../assets/og/website-logoresolutions-192px.png';
-import icon512 from '../../assets/og/website-logoresolutions-512px.png';
+// Removed duplicate favicon imports
 
 const LanderSection = styled.div`
   display: flex;
@@ -424,7 +421,13 @@ export default function Composition() {
     { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
     { rel: 'icon', sizes: '192x192', href: icon192 },
     { rel: 'icon', sizes: '512x512', href: icon512 },
-    { rel: 'icon', href: '/favicon.ico' }
+  { rel: 'icon', type: 'image/png', sizes: '16x16', href: favicon16 },
+  { rel: 'icon', type: 'image/png', sizes: '32x32', href: favicon32 },
+  { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
+  { rel: 'icon', type: 'image/png', sizes: '192x192', href: icon192 },
+  { rel: 'icon', type: 'image/png', sizes: '256x256', href: icon256 },
+  { rel: 'icon', type: 'image/png', sizes: '512x512', href: icon512 },
+  { rel: 'icon', href: '/favicon.ico' }
   ]}
   jsonLd={{
     "@context": "https://schema.org",
