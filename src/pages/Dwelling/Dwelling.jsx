@@ -556,14 +556,14 @@ export default function Dwelling() {
           {/* Grid of small images */}
           <PicturesFlex>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={ep} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={westwood} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={manistee2} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={ep} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={westwood} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={manistee2} />
               </PhotoFlexone>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={albany} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={maynard} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={armistice3} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={albany} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={maynard} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={armistice3} />
               </PhotoFlexone>
           </PicturesFlex>
 
@@ -571,14 +571,14 @@ export default function Dwelling() {
 
           <PicturesFlex>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={olympia} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={manistee1} />
-                <RisoItem style={{padding:"2vw"}} Width='20vw' img src={pawtucket} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={olympia} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={manistee1} />
+                <RisoItem style={{padding:"2vw"}} $Width='20vw' src={pawtucket} />
               </PhotoFlexone>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={armistice1} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={rosewood} />
-                  <RisoItem style={{padding:"2vw"}} Width='20vw' img src={taylor} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={armistice1} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={rosewood} />
+                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={taylor} />
               </PhotoFlexone>
           </PicturesFlex>
 

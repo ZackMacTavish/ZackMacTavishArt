@@ -116,7 +116,7 @@ const ArrowWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   animation: ${bounce} 1.5s infinite ease-in-out;
-  opacity: ${(props) => (props.visible ? 0.8 : 0)};
+  opacity: ${(props) => (props.$visible ? 0.8 : 0)};
   transition: opacity 0.6s ease;
   pointer-events: none;
 `;
@@ -350,7 +350,7 @@ const About = () => {
           </SplitText>
         </ImageTextSplit>
         {!hiddenForever && (
-          <ArrowWrapper visible={showArrow}>
+          <ArrowWrapper $visible={showArrow}>
             <Arrow />
           </ArrowWrapper>
         )}

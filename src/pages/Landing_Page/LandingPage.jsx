@@ -148,7 +148,7 @@ export default function LandingPage() {
           }
         }}
       />
-      <LandingImage src={landingimage} alt="Landing" isMobile={isMobile} />
+  <LandingImage src={landingimage} alt="Landing" $isMobile={isMobile} />
 
       {/* Only show spotlight text on desktop and after mouse moves */}
       {!isMobile && mousePos && (

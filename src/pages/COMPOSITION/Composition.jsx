@@ -413,11 +413,11 @@ export default function Composition() {
   favicons={[
     { rel: 'icon', sizes: '16x16', href: favicon16 },
     { rel: 'icon', sizes: '32x32', href: favicon32 },
-    { rel: 'icon', sizes: '48x48', href: favicon48 },
-    { rel: 'icon', sizes: '64x64', href: favicon64 },
-    { rel: 'icon', sizes: '128x128', href: favicon128 },
-    { rel: 'icon', sizes: '256x256', href: favicon256 },
-    { rel: 'icon', sizes: '512x512', href: favicon512 },
+  // { rel: 'icon', sizes: '48x48', href: favicon48 }, // Removed: favicon48 does not exist
+  // { rel: 'icon', sizes: '64x64', href: favicon64 }, // Removed: favicon64 does not exist
+  // { rel: 'icon', sizes: '128x128', href: favicon128 }, // Removed: favicon128 does not exist
+  { rel: 'icon', sizes: '256x256', href: icon256 },
+  { rel: 'icon', sizes: '512x512', href: icon512 },
     { rel: 'apple-touch-icon', sizes: '180x180', href: appleTouchIcon },
     { rel: 'icon', sizes: '192x192', href: icon192 },
     { rel: 'icon', sizes: '512x512', href: icon512 },
@@ -488,7 +488,7 @@ export default function Composition() {
         height="900px"
         src="https://mixam.com/shares/60d165ccbf9efd41ff33dad2/embed"
         allowFullScreen={true}
-        allowTransparency={true}
+  // allowTransparency removed: not a valid React DOM attribute
         frameBorder="0"
         style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08)', borderRadius: '8px', background: 'white' }}
         title="Composition Art Book Flip Through"

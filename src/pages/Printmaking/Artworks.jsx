@@ -366,7 +366,7 @@ export default function Artworks() {
  </div>
 
             <RisoFlex>
-              <RisoItem Width="60vw" img src={oliviacollab3} />
+              <RisoItem $Width="60vw" src={oliviacollab3} />
             </RisoFlex>
 
              <div style={{ backgroundColor: 'white', width: '100vw' }}>
@@ -453,7 +453,7 @@ export default function Artworks() {
       </section>
 
 <RisoFlex style={{ paddingBottom: "100px" }}>
-  <RisoItem Width="55vw" img src={selfie} />
+  <RisoItem $Width="55vw" src={selfie} />
 </RisoFlex>
 
 
@@ -480,7 +480,7 @@ export default function Artworks() {
 </FullHeightTextSection>
                {/*} <RisoFlex >
    
-           <RisoItem Width='55vw' img src={bike} />
+           <RisoItem $Width='55vw' src={bike} />
    
            </RisoFlex> */}
    
@@ -496,7 +496,7 @@ export default function Artworks() {
                
                    <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread1} />
+  <RisoItem $Width='60vw' src={spread1} />
    
    </RisoFlex>
    
@@ -517,7 +517,7 @@ export default function Artworks() {
    
    <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread2} />
+  <RisoItem $Width='60vw' src={spread2} />
    
    </RisoFlex>
    
@@ -535,7 +535,7 @@ export default function Artworks() {
    
                <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread3} />
+  <RisoItem $Width='60vw' src={spread3} />
    
    </RisoFlex>
    
@@ -553,7 +553,7 @@ export default function Artworks() {
                                 
                    <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread4} />
+  <RisoItem $Width='60vw' src={spread4} />
    
    </RisoFlex>
    
@@ -571,7 +571,7 @@ export default function Artworks() {
       
                    <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread5} />
+  <RisoItem $Width='60vw' src={spread5} />
    
    </RisoFlex>
    
@@ -589,7 +589,7 @@ export default function Artworks() {
    
                    <RisoFlex >
    
-   <RisoItem Width='60vw' img src={spread6} />
+  <RisoItem $Width='60vw' src={spread6} />
    
    </RisoFlex>
    {/* Section with 3 photos */}

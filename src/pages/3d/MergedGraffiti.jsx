@@ -50,7 +50,7 @@ import eu from '../../assets/EU.jpg';
 
 // --- Styled Components ---
 export const RisoItem = styled.img`
-  width: ${(props) => props.Width};
+   width: ${(props) => props.$Width || 'auto'};
   max-width: 1000px;
   height: auto;
   @media (max-width: 1000px) { width: 90vw; padding-top: 3vh; }
@@ -211,7 +211,7 @@ export default function MergedGraffiti() {
         </ArtTextthree>
       </ArtSectionthreeog>
 
-      <NewSection Backgroundcolor="white" Backgroundheight="125vh">
+  <NewSection $Backgroundcolor="white" $Backgroundheight="125vh">
         <FiftyWidth>
           <BeesStyle src={Bees} />
         </FiftyWidth>
@@ -245,7 +245,8 @@ export default function MergedGraffiti() {
       </ArtSectionthreeog>
 
       <RisoFlex>
-        <RisoItem Width="60vw" src={riso} />
+  <RisoItem $Width="60vw" src={riso} />
+          <RisoItem $Width="60vw" src={riso} />
       </RisoFlex>
 
       <ArtSectionthreeog>
@@ -272,7 +273,8 @@ export default function MergedGraffiti() {
       </ArtSectionthreeog>
 
       {/* <RisoFlex>
-        <RisoItem Width="80vw" src={Lines} />
+  <RisoItem $Width="80vw" src={Lines} />
+    <RisoItem $Width="80vw" src={Lines} />
       </RisoFlex> */}
 
       <ArtSectionthreeog>
@@ -300,7 +302,8 @@ export default function MergedGraffiti() {
 
       {/*
 <RisoFlex>
-  <RisoItem Width="80vw" src={stylesmash} />
+  <RisoItem $Width="80vw" src={stylesmash} />
+    <RisoItem $Width="80vw" src={stylesmash} />
 </RisoFlex>
 */}
     </div>
