@@ -344,9 +344,11 @@ const About = () => {
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
         <ImageTextSplit className="tight-split" imageSrc={me} imageAlt="Portrait of Zack MacTavish">
           <SplitText style={{ color: '#5d5d5d' }}>
-            Hi, I’m Zack MacTavish, an artist and product designer based in Philadelphia, PA.
-            For the past three years, I’ve been with Microsoft’s Shopping Team, shaping user
-            experiences for digital products.
+       Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
+       history through painting, textile, collage, and print. Having moved over twenty times across 
+       six states, his practice is rooted in how displacement and movement shape identity over time. 
+       His first solo show, Composition, used the composition notebook as a metaphor for 
+       self-reflection across environments and personal growth.
           </SplitText>
         </ImageTextSplit>
         {!hiddenForever && (
@@ -361,10 +363,10 @@ const About = () => {
       <div style={{ width: '100vw', padding: '8vh 0' }}>
         <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageAlt="Quilt hanging">
           <SplitQuiltText style={{ color: 'white' }}>
-            Outside of work, I live with my partner Olivia, who is also an artist.
-            In my own creative time, I focus on making quilts that combine photography,
-            textile techniques, and mixed media, exploring the intersection of art,
-            design, and storytelling.
+            His current work shifts focus from transition to permanence: the homes, families, 
+            and communities that endure across a life in motion. Working in quilting, embroidery, 
+            collage, painting, and an artist book, MacTavish archives personal and familial histories 
+            through fiber and stitch, treating the domestic and inherited as subjects worthy of preservation.
           </SplitQuiltText>
         </ImageTextSplit>
       </div>
