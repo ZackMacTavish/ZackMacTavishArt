@@ -3,6 +3,7 @@ import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import styled from "styled-components";
+import blackTurtleneck from "../../assets/BlackTurtleneck-popart-01.jpg";
 
 // Container
 const ThreeWrapper = styled.div`
@@ -32,7 +33,7 @@ const Wave = () => {
 
   // Load texture
   const [texture] = useLoader(THREE.TextureLoader, [
-    "https://i.postimg.cc/CL8DLVQP/Black-Turtleneck-popart-01.jpg",
+    blackTurtleneck,
   ]);
 
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
