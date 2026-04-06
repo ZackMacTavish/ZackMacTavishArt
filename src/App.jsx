@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
+import { Agentation } from "agentation";
 
 // Themes
 import { GlobalStyles, lightTheme, darkTheme, CustomCursor, tokens } from '@zackmactavish/foundation'
@@ -64,6 +65,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
+      {process.env.NODE_ENV === "development" && <Agentation />}
     </div>
   </ThemeProvider>
   );
