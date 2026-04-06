@@ -38,7 +38,7 @@ const IntroDiv = styled.div`
   z-index: 10;
 
   ${props =>
-    props.animateOut &&
+    props.$animateOut &&
     css`
       animation: ${wipeOutVertical} 0.35s ease-in-out forwards;
     `}
@@ -122,7 +122,7 @@ export default function IntroAnimation() {
     <>
       <LandingPage />
       {showIntro && (
-        <IntroDiv animateOut={animateOut}>
+        <IntroDiv $animateOut={animateOut}>
           <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />
           {showText && <IntroText>{text}</IntroText>}
         </IntroDiv>
