@@ -242,10 +242,10 @@ const GridHeaderContainer = styled.div`
   grid-row-start: 2;
   grid-row-end: 4;
   align-self: center;
-  justify-self: center;
+  justify-self: start;
   z-index: 200;
   gap: 0.3rem;
-  width: 100%;
+  width: fit-content;
   padding-left: 0;
   padding: 1.5rem 2rem;
   background: rgba(0, 0, 0, 0.3);
