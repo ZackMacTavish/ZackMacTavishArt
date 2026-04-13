@@ -38,8 +38,10 @@ function App() {
   const GS = GlobalStyles || GlobalStyles
   const Cursor = CustomCursor || Customcursor
 
+  const lightOverrides = { ...lightTheme, backgroundColor: '#3F455C' }
+
   return (
-    <ThemeProvider theme={theme === "light" ? { ...lightTheme, tokens } : { ...darkTheme, tokens }}>
+    <ThemeProvider theme={theme === "light" ? { ...lightOverrides, tokens } : { ...darkTheme, tokens }}>
       <GS />
       <div className="App">
         <Router>

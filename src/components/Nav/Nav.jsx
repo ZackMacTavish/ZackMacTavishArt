@@ -191,7 +191,7 @@ const NavLinks = styled.ul`
 `;
 
 const NavLabel = styled.span`
-  color: #a6d1ca;
+  color: #D7E1F2;
   font-weight: 800;
   font-size: 1.2rem;
   text-decoration: none;
@@ -215,7 +215,7 @@ const ListItem = styled.li`
 `;
 
 const NavLink = styled(Link)`
-  color: #a6d1ca;
+  color: #D7E1F2;
   font-weight: 800;
   font-size: 1.2rem;
   text-decoration: none;
@@ -249,7 +249,7 @@ const DropdownMenu = styled(Link)`
   transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background-color: rgba(166, 209, 202, 0.4);
+    background-color: #3F455C;
     color: white;
   }
 `;
