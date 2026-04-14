@@ -233,6 +233,11 @@ const GridThemes = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
   height: 100vh;
   width: 100vw;
+
+  @media (max-width: 450px) {
+    grid-template-rows: auto 1fr;
+    height: auto;
+  }
 `;
 
 const GridHeaderContainer = styled.div`
@@ -257,6 +262,8 @@ const GridHeaderContainer = styled.div`
     padding: 1.2rem 1.5rem;
   }
   @media (max-width: 800px) {
+    grid-column-start: 1;
+    grid-column-end: -1;
     padding: 1.2rem 1rem 1.2rem 1.5rem;
     width: fit-content;
     margin-left: 2vw;
@@ -389,7 +396,19 @@ const About = () => {
         }
         @media (max-width: 900px) {
           .tight-split {
-            width: 92vw;
+            width: 100vw;
+            max-width: 100vw;
+            padding: 0;
+            margin: 0;
+            gap: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+          .tight-split img {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
           }
         }
       `}</style>
@@ -440,7 +459,7 @@ const About = () => {
       {/* ---------- Module 2 removed per request ---------- */}
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
-      <div style={{ width: '100vw', padding: '8vh 0' }}>
+      <div style={{ width: '100vw', padding: '0' }}>
         <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageAlt="Quilt hanging">
           <SplitQuiltText style={{ color: 'white' }}>
             His current work shifts focus from transition to permanence: the homes, families, 
@@ -463,7 +482,7 @@ const About = () => {
             {isDesktop ? (
               <Scene />
             ) : (
-              <img style={{ width: '90vw' }} src={imagereplace} alt="fallback" />
+              <img style={{ width: '100vw', height: '70vh', objectFit: 'cover' }} src={imagereplace} alt="fallback" />
             )}
           </GridImage>
         </GridThemes>
