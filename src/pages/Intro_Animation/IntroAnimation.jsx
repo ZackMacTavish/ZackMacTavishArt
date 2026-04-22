@@ -1,132 +1,134 @@
-import React, { useEffect, Suspense, useRef, useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, OrbitControls, useGLTF } from '@react-three/drei';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import LandingPage from '../Landing_Page/LandingPage';
 
-// Slide-up + blur fade-in for text
-const slideUpBlur = keyframes`
-  0% { 
-    opacity: 0; 
-    transform: translateY(250px); 
-    filter: blur(15px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0); 
-    filter: blur(0); 
-  }
-`;
-
-// Main vertical windshield wipe
-const wipeOutVertical = keyframes`
-  0% { transform: translateY(0%); }
-  100% { transform: translateY(100%); }
-`;
-
-const IntroDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: #3F455C;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  z-index: 10;
-
-  ${props =>
-    props.$animateOut &&
-    css`
-      animation: ${wipeOutVertical} 0.35s ease-in-out forwards;
-    `}
-`;
-
-const IntroText = styled.h1`
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  color: white;
-  animation: ${slideUpBlur} 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-  text-align: center;
-  z-index: 20;
-`;
-
-function FlowerModel({ onLoaded, ...props }) {
-  const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/scene.glb`);
-  const ref = useRef();
-
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.y += 0.0015;
-      ref.current.rotation.x += 0.0008;
-    }
-  });
-
-  useEffect(() => {
-    if (ref.current && onLoaded) onLoaded();
-  }, [ref, onLoaded]);
-
-  return <primitive ref={ref} object={scene} {...props} />;
-}
-
-function FloatingFlower({ onModelLoaded }) {
-  return (
-    <Canvas
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-      }}
-      camera={{ position: [0, 0, 2.5], fov: 50 }}
-    >
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <Suspense fallback={null}>
-        <Float floatIntensity={0.1} rotationIntensity={0.05}>
-          <FlowerModel scale={8} position={[0, 0, 0]} onLoaded={onModelLoaded} />
-        </Float>
-      </Suspense>
-      <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
-    </Canvas>
-  );
-}
+const NAME = "ZACHARY MACTAVISH.";
 
 export default function IntroAnimation() {
-  const text = "Hi, I'm Zack MacTavish";
-  const [showText, setShowText] = useState(false);
-  const [animateOut, setAnimateOut] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
-  const [modelLoaded, setModelLoaded] = useState(false);
+  const overlayRef = useRef(null);
+  const counterRef = useRef(null);
+  const letterRefs = useRef([]);
 
   useEffect(() => {
-    if (!modelLoaded) return;
+    document.body.style.overflow = 'hidden';
 
-    const textTimer = setTimeout(() => setShowText(true), 1000);
-    const wipeTimer = setTimeout(() => setAnimateOut(true), 3800);
-    const hideTimer = setTimeout(() => setShowIntro(false), 4200);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        document.body.style.overflow = '';
+        if (overlayRef.current) overlayRef.current.style.display = 'none';
+      },
+    });
+
+    // Reveal overlay
+    tl.set(overlayRef.current, { autoAlpha: 1 });
+
+    // Initialize letters off-screen below their mask
+    tl.set(letterRefs.current, { yPercent: 110, autoAlpha: 0 });
+
+    // Counter 0 → 100
+    const counterObj = { value: 0 };
+    tl.to(counterObj, {
+      value: 100,
+      duration: 2.5,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        if (counterRef.current) {
+          const padded = String(Math.round(counterObj.value)).padStart(3, '0');
+          counterRef.current.textContent = `${padded}%`;
+        }
+      },
+    });
+
+    // Letters stagger up, overlapping counter animation
+    tl.to(
+      letterRefs.current,
+      {
+        yPercent: 0,
+        autoAlpha: 1,
+        stagger: 0.04,
+        duration: 0.8,
+        ease: 'power3.out',
+      },
+      '-=2'
+    );
+
+    // Clip overlay upward to dismiss
+    tl.to(overlayRef.current, {
+      clipPath: 'inset(0% 0% 100% 0%)',
+      duration: 0.8,
+      ease: 'power4.inOut',
+    });
 
     return () => {
-      clearTimeout(textTimer);
-      clearTimeout(wipeTimer);
-      clearTimeout(hideTimer);
+      tl.kill();
+      document.body.style.overflow = '';
     };
-  }, [modelLoaded]);
+  }, []);
 
   return (
     <>
       <LandingPage />
-      {showIntro && (
-        <IntroDiv $animateOut={animateOut}>
-          <FloatingFlower onModelLoaded={() => setModelLoaded(true)} />
-          {showText && <IntroText>{text}</IntroText>}
-        </IntroDiv>
-      )}
+      <div
+        ref={overlayRef}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          backgroundColor: '#0a0a0a',
+          visibility: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          clipPath: 'inset(0% 0% 0% 0%)',
+        }}
+      >
+        {/* Large name heading */}
+        <h1
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: 'min(7.5vw, 110px)',
+            color: 'white',
+            textTransform: 'uppercase',
+            letterSpacing: '0.02em',
+            whiteSpace: 'nowrap',
+            margin: 0,
+            lineHeight: 1,
+          }}
+        >
+          {NAME.split('').map((char, i) => (
+            /* outer span is the overflow:hidden mask */
+            <span
+              key={i}
+              style={{ display: 'inline-block', overflow: 'hidden', lineHeight: 1.1 }}
+            >
+              {/* inner span is what GSAP animates */}
+              <span
+                ref={el => { letterRefs.current[i] = el; }}
+                style={{ display: 'inline-block' }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            </span>
+          ))}
+        </h1>
+
+        {/* Counter */}
+        <div
+          ref={counterRef}
+          style={{
+            position: 'absolute',
+            bottom: '2rem',
+            right: '2.5rem',
+            fontFamily: 'monospace',
+            fontSize: '1.1rem',
+            color: 'rgba(255,255,255,0.7)',
+            letterSpacing: '0.05em',
+          }}
+        >
+          000%
+        </div>
+      </div>
     </>
   );
 }
