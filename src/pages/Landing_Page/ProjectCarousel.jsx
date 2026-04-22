@@ -283,7 +283,7 @@ export default function ProjectCarousel() {
                   flex: 1,
                   overflow: 'hidden',
                   borderRadius: '6px',
-                  backgroundColor: i === 0 ? 'white' : 'transparent',
+                  backgroundColor: project.path === '/composition' ? 'white' : 'transparent',
                 }}
               >
                 <img

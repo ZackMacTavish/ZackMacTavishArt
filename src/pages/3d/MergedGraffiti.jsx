@@ -78,6 +78,7 @@ const FiftyWidth = styled.div`
   width: 50vw;
   display: flex;
   justify-content: center;
+  background-color: white;
 `;
 
 export default function MergedGraffiti() {
@@ -215,7 +216,7 @@ export default function MergedGraffiti() {
         <FiftyWidth>
           <BeesStyle src={Bees} />
         </FiftyWidth>
-        <ParagraphFour style={{ color: '#5d5d5d' }}>
+        <ParagraphFour style={{ color: '#ffffff' }}>
         This illustration of B’s in different styles was created for a self-published book about the art of graffiti writing.
         </ParagraphFour>
       </NewSection>
