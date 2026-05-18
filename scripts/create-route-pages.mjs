@@ -9,15 +9,15 @@ const indexPath = path.join(distDir, 'index.html');
 const ROUTE_METADATA = {
   '/': {
     title: 'Zack MacTavish Art & Design',
-    description: 'Portfolio home showcasing art, design, printmaking, photography, and 3D works by Zack MacTavish.',
+    description: 'Portfolio home showcasing painting, printmaking, photography, collage, design, and 3D works by Zack MacTavish.',
   },
   '/about': {
     title: 'About | Zack MacTavish Art & Design',
-    description: 'About Zack MacTavish, an artist and product designer based in Philadelphia, PA.',
+    description: 'About Zack MacTavish, a Philadelphia-based artist and product designer working across fine art, design, and visual storytelling.',
   },
   '/3d': {
     title: '3D & Graffiti | Zack MacTavish Art & Design',
-    description: 'Graffiti roots, Rhino 3D renders, and murals across Chicago, Brooklyn, Denver, and more.',
+    description: 'Graffiti roots, Rhino 3D renders, murals, and large-scale visual experiments spanning Chicago, Brooklyn, Denver, and beyond.',
   },
   '/composition': {
     title: 'Composition | Zack MacTavish Art & Design',
@@ -29,7 +29,7 @@ const ROUTE_METADATA = {
   },
   '/photography': {
     title: 'Photography | Zack MacTavish Art & Design',
-    description: 'A selection of film photographs and polaroids from Hawaii, New York, Portland, and more.',
+    description: 'A selection of film photographs and polaroids from Hawaii, New York, Portland, and other places observed through travel and daily life.',
   },
   '/printmaking': {
     title: 'Printmaking | Zack MacTavish Art & Design',
