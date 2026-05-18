@@ -2,49 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zackmactavish.com/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/composition/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/about</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/dwelling/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/3d</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/about/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/composition</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/printmaking/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/dwelling</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/photography/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/photography</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://zackmactavish.com/painting/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://zackmactavish.com/3d/</loc>
-    <lastmod>2026-03-30T23:29:46.743Z</lastmod>
+    <loc>https://zackmactavish.com/printmaking</loc>
+    <lastmod>2026-05-18T20:27:46.173Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

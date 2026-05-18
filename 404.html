@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Zack MacTavish Art & Design</title>
+    <script>
+      (function () {
+        var locationData = window.location;
+        var redirectPath = (locationData.pathname + locationData.search + locationData.hash).replace(/&/g, '~and~');
+        var origin = locationData.protocol + '//' + locationData.hostname + (locationData.port ? ':' + locationData.port : '');
+        locationData.replace(origin + '/?/' + redirectPath.slice(1));
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
