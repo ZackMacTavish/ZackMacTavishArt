@@ -260,7 +260,11 @@ const DropdownDivider = styled.div`
   margin: 0.25rem 0;
 `;
 
-export default function Nav() {
+export default function Nav({ hidden = false }) {
+  if (hidden) {
+    return null;
+  }
+
   return (
     <Navdiv>
       <Link to="/" style={{ cursor: 'none' }}>

@@ -19,7 +19,7 @@ import quilthangingWebp from '../../assets/optimized/hangingquilts.webp';
 import quilthangingAvif from '../../assets/optimized/hangingquilts.avif';
 // Removed agency/client section; no longer importing text layout components from Printmaking
 import { useLocation } from 'react-router-dom';
-import { canonicalFromLocation } from '../../utils/seo';
+import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo';
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 
 const AUTHOR_SAME_AS = [
@@ -454,9 +454,10 @@ const About = () => {
           "sameAs": AUTHOR_SAME_AS
         }}
       />
+      <h1 style={visuallyHiddenHeadingStyle}>About Zack MacTavish</h1>
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageAvif={meAvif} imageAlt="Portrait of Zack MacTavish">
+        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageAvif={meAvif} imageAlt="Portrait of Zack MacTavish" imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
           <SplitText style={{ color: '#5d5d5d' }}>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
        history through painting, textile, collage, and print. Having moved over twenty times across 
@@ -475,7 +476,7 @@ const About = () => {
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
       <div style={{ width: '100vw', padding: '0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Quilt hanging">
+        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Installed quilt from the Dwelling series">
           <SplitQuiltText style={{ color: 'white' }}>
             His current work shifts focus from transition to permanence: the homes, families, 
             and communities that endure across a life in motion. Working in quilting, embroidery, 

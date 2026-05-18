@@ -10,6 +10,5 @@ export const projects = {
   about: { url: "https://zackmactavish.com/about" },
   printmaking: { url: "https://zackmactavish.com/printmaking" },
   photography: { url: "https://zackmactavish.com/photography" },
-  painting: { url: "https://zackmactavish.com/painting" },
   "3d": { url: "https://zackmactavish.com/3d" }
 };

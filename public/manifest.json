@@ -1,6 +1,7 @@
 {
   "short_name": "Zack MacTavish",
   "name": "Zack MacTavish Art & Design",
+  "description": "Portfolio of Zack MacTavish featuring painting, printmaking, photography, collage, textiles, and 3D work.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -11,14 +12,10 @@
       "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
- "start_url": "/2025Portfolio/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

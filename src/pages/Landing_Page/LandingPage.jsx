@@ -4,13 +4,14 @@ import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
 import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
-import React, { useLayoutEffect } from 'react';
-import { Seo } from '@zackmactavish/foundation';
+import React, { Suspense, lazy, useLayoutEffect } from 'react';
+import { Seo } from '../../foundation/adapter';
 import { Link, useLocation } from 'react-router-dom';
 import { canonicalFromLocation } from '../../utils/seo';
 import Socials from '../../Components/Social Bar/Socials';
 import ogImage from '../../assets/og/website-logoresolutions-1200x630.png';
-import ProjectCarousel from './ProjectCarousel';
+
+const ProjectCarousel = lazy(() => import('./ProjectCarousel'));
 
 const AUTHOR_SAME_AS = [
   'https://dribbble.com/Zmactavish',
@@ -20,7 +21,7 @@ const AUTHOR_SAME_AS = [
   'https://medium.com/@zmactavish',
 ];
 
-export default function LandingPage() {
+export default function LandingPage({ showCarousel = true }) {
   useLayoutEffect(() => {
     const previousScrollRestoration = window.history.scrollRestoration;
     window.history.scrollRestoration = 'manual';
@@ -159,8 +160,11 @@ export default function LandingPage() {
       <div style={{ position: 'absolute', top: '1.5rem', right: '2rem', zIndex: 5 }}>
         <Socials />
       </div>
-
-      <ProjectCarousel />
+      {showCarousel ? (
+        <Suspense fallback={null}>
+          <ProjectCarousel />
+        </Suspense>
+      ) : null}
     </main>
   );
 }

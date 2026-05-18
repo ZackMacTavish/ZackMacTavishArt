@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable } from 'gsap/Draggable';
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 import imgComposition from '../../assets/Mash5.png';
+import imgCompositionWebp from '../../assets/optimized/Mash5.webp';
+import imgCompositionAvif from '../../assets/optimized/Mash5.avif';
 import imgDwelling from '../../assets/House—Mash.jpg';
+import imgDwellingWebp from '../../assets/optimized/House—Mash.webp';
+import imgDwellingAvif from '../../assets/optimized/House—Mash.avif';
 import imgPrintmaking from '../../assets/CapeHouse.jpg';
+import imgPrintmakingWebp from '../../assets/optimized/CapeHouse.webp';
+import imgPrintmakingAvif from '../../assets/optimized/CapeHouse.avif';
 import imgGraffiti from '../../assets/RIPSENSE.jpg';
 import imgGraffitiWebp from '../../assets/optimized/RIPSENSE.webp';
 import imgGraffitiAvif from '../../assets/optimized/RIPSENSE.avif';
@@ -14,7 +17,38 @@ import imgPhotography from '../../assets/BirdyBrooklyn.jpg';
 import imgPhotographyWebp from '../../assets/optimized/BirdyBrooklyn.webp';
 import imgPhotographyAvif from '../../assets/optimized/BirdyBrooklyn.avif';
 
-gsap.registerPlugin(ScrollTrigger, Draggable);
+let gsapCorePromise;
+let gsapPluginsPromise;
+
+async function loadGsap({ includePlugins = false } = {}) {
+  if (!gsapCorePromise) {
+    gsapCorePromise = import('gsap').then((module) => module.default);
+  }
+
+  const gsap = await gsapCorePromise;
+
+  if (!includePlugins) {
+    return { gsap };
+  }
+
+  if (!gsapPluginsPromise) {
+    gsapPluginsPromise = Promise.all([
+      import('gsap/ScrollTrigger'),
+      import('gsap/Draggable'),
+    ]).then(([scrollTriggerModule, draggableModule]) => {
+      gsap.registerPlugin(scrollTriggerModule.ScrollTrigger, draggableModule.Draggable);
+
+      return {
+        ScrollTrigger: scrollTriggerModule.ScrollTrigger,
+        Draggable: draggableModule.Draggable,
+      };
+    });
+  }
+
+  const plugins = await gsapPluginsPromise;
+
+  return { gsap, ...plugins };
+}
 
 const MOBILE_STACK_BREAKPOINT = 980;
 
@@ -25,6 +59,8 @@ const PROJECTS = [
     description: 'Drawings, paintings, quilts, hand embroidery, photography',
     date: '2016-2022',
     image: imgDwelling,
+    imageWebp: imgDwellingWebp,
+    imageAvif: imgDwellingAvif,
     path: '/dwelling',
   },
   {
@@ -33,6 +69,8 @@ const PROJECTS = [
     description: 'Digital, paintings, photography',
     date: '2022-2027',
     image: imgComposition,
+    imageWebp: imgCompositionWebp,
+    imageAvif: imgCompositionAvif,
     path: '/composition',
   },
   {
@@ -41,6 +79,8 @@ const PROJECTS = [
     description: 'Prints on paper',
     date: '',
     image: imgPrintmaking,
+    imageWebp: imgPrintmakingWebp,
+    imageAvif: imgPrintmakingAvif,
     path: '/printmaking',
   },
   {
@@ -72,6 +112,7 @@ export default function ProjectCarousel() {
   const [useVerticalStack, setUseVerticalStack] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth < MOBILE_STACK_BREAKPOINT : false
   );
+  const gsapRef = useRef(null);
   const sectionRef = useRef(null);
   const rowRef = useRef(null);
   const counterCurRef = useRef(null);
@@ -96,205 +137,223 @@ export default function ProjectCarousel() {
   }, []);
 
   useEffect(() => {
+    let isCancelled = false;
+    let teardown = () => {};
+
     const section = sectionRef.current;
     const row = rowRef.current;
     const marquee = marqueeRef.current;
-    const marqueeTween = marquee
-      ? gsap.to(marquee, {
-          xPercent: -50,
-          duration: 15,
-          ease: 'none',
-          repeat: -1,
-        })
-      : null;
+    const setupCarousel = async () => {
+      const { gsap, ScrollTrigger, Draggable } = await loadGsap({ includePlugins: !useVerticalStack });
 
-    if (useVerticalStack || !section || !row) {
-      currentIdxRef.current = 0;
-      setShowInteractionCue(false);
-
-      return () => {
-        marqueeTween?.kill();
-      };
-    }
-
-    let snapPositions = [0];
-    let startSnap = 0;
-    let scrollDist = 0;
-    const setRowX = gsap.quickSetter(row, 'x', 'px');
-    const dismissInteractionCue = () => {
-      setShowInteractionCue(false);
-    };
-
-    const getSnapPositions = () => {
-      const cards = cardRefs.current.filter(Boolean);
-      if (!cards.length) return [0];
-
-      const leadInset = section.offsetWidth >= 1400
-        ? Math.min(section.offsetWidth * 0.22, 380)
-        : Math.min(section.offsetWidth * 0.18, 240);
-
-      return cards.map((card) => {
-        const centeredLeft = (section.offsetWidth - card.offsetWidth) / 2 + leadInset;
-        return Math.max(0, card.offsetLeft - centeredLeft);
-      });
-    };
-
-    const refreshMetrics = () => {
-      snapPositions = getSnapPositions();
-      startSnap = snapPositions[0] || 0;
-      scrollDist = (snapPositions[snapPositions.length - 1] || 0) - startSnap;
-    };
-
-    const getStartSnap = () => {
-      return startSnap;
-    };
-
-    const getScrollDist = () => {
-      return scrollDist;
-    };
-
-    const getNearestIdx = (position) => {
-      let nearestIdx = 0;
-      let nearestDelta = Number.POSITIVE_INFINITY;
-
-      snapPositions.forEach((snap, idx) => {
-        const delta = Math.abs(position - snap);
-        if (delta < nearestDelta) {
-          nearestDelta = delta;
-          nearestIdx = idx;
-        }
-      });
-
-      return nearestIdx;
-    };
-
-    const syncScrollToRowPosition = (rowX) => {
-      if (!stRef.current) return;
-
-      const startSnap = getStartSnap();
-      const dist = getScrollDist();
-      if (dist <= 0) return;
-
-      const clampedPosition = Math.min(startSnap + dist, Math.max(startSnap, Math.abs(rowX)));
-      const progress = (clampedPosition - startSnap) / dist;
-      const scrollTarget = stRef.current.start + progress * (stRef.current.end - stRef.current.start);
-      stRef.current.scroll(scrollTarget);
-    };
-
-    const updateCounter = (newIdx) => {
-      if (newIdx === currentIdxRef.current) return;
-      const el = counterCurRef.current;
-      if (!el) return;
-      gsap.to(el, {
-        yPercent: -100,
-        duration: 0.18,
-        ease: 'power2.in',
-        onComplete: () => {
-          el.textContent = String(newIdx + 1).padStart(2, '0');
-          gsap.fromTo(el, { yPercent: 100 }, { yPercent: 0, duration: 0.18, ease: 'power2.out' });
-        },
-      });
-      currentIdxRef.current = newIdx;
-    };
-
-    refreshMetrics();
-    setRowX(-getStartSnap());
-
-    // ── ScrollTrigger horizontal pin ──────────────────────────────────────
-    stRef.current = ScrollTrigger.create({
-      trigger: section,
-      pin: true,
-      scrub: 1.2,
-      anticipatePin: 1,
-      fastScrollEnd: true,
-      invalidateOnRefresh: true,
-      start: 'top top',
-      end: () => {
-        refreshMetrics();
-        return `+=${getScrollDist()}`;
-      },
-      onUpdate: (self) => {
-        const startSnap = getStartSnap();
-        const dist = getScrollDist();
-        const currentPosition = startSnap + self.progress * dist;
-        setRowX(-currentPosition);
-        if (self.progress > 0.01) dismissInteractionCue();
-
-        updateCounter(getNearestIdx(currentPosition));
-      },
-    });
-
-    const handleResize = () => {
-      refreshMetrics();
-      ScrollTrigger.refresh();
-    };
-
-    const handleWheel = (event) => {
-      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
-        if (Math.abs(event.deltaY) > 0) dismissInteractionCue();
+      if (isCancelled) {
         return;
       }
 
-      if (!stRef.current?.isActive) return;
+      gsapRef.current = gsap;
 
-      event.preventDefault();
-      dismissInteractionCue();
-      window.scrollBy({ top: event.deltaX, behavior: 'auto' });
+      const marqueeTween = marquee
+        ? gsap.to(marquee, {
+            xPercent: -50,
+            duration: 15,
+            ease: 'none',
+            repeat: -1,
+          })
+        : null;
+
+      if (useVerticalStack || !section || !row) {
+        currentIdxRef.current = 0;
+        setShowInteractionCue(false);
+
+        teardown = () => {
+          marqueeTween?.kill();
+        };
+
+        return;
+      }
+
+      let snapPositions = [0];
+      let startSnap = 0;
+      let scrollDist = 0;
+      const setRowX = gsap.quickSetter(row, 'x', 'px');
+      const dismissInteractionCue = () => {
+        setShowInteractionCue(false);
+      };
+
+      const getSnapPositions = () => {
+        const cards = cardRefs.current.filter(Boolean);
+        if (!cards.length) return [0];
+
+        const leadInset = section.offsetWidth >= 1400
+          ? Math.min(section.offsetWidth * 0.22, 380)
+          : Math.min(section.offsetWidth * 0.18, 240);
+
+        return cards.map((card) => {
+          const centeredLeft = (section.offsetWidth - card.offsetWidth) / 2 + leadInset;
+          return Math.max(0, card.offsetLeft - centeredLeft);
+        });
+      };
+
+      const refreshMetrics = () => {
+        snapPositions = getSnapPositions();
+        startSnap = snapPositions[0] || 0;
+        scrollDist = (snapPositions[snapPositions.length - 1] || 0) - startSnap;
+      };
+
+      const getStartSnap = () => startSnap;
+      const getScrollDist = () => scrollDist;
+
+      const getNearestIdx = (position) => {
+        let nearestIdx = 0;
+        let nearestDelta = Number.POSITIVE_INFINITY;
+
+        snapPositions.forEach((snap, idx) => {
+          const delta = Math.abs(position - snap);
+          if (delta < nearestDelta) {
+            nearestDelta = delta;
+            nearestIdx = idx;
+          }
+        });
+
+        return nearestIdx;
+      };
+
+      const syncScrollToRowPosition = (rowX) => {
+        if (!stRef.current) return;
+
+        const currentStartSnap = getStartSnap();
+        const dist = getScrollDist();
+        if (dist <= 0) return;
+
+        const clampedPosition = Math.min(currentStartSnap + dist, Math.max(currentStartSnap, Math.abs(rowX)));
+        const progress = (clampedPosition - currentStartSnap) / dist;
+        const scrollTarget = stRef.current.start + progress * (stRef.current.end - stRef.current.start);
+        stRef.current.scroll(scrollTarget);
+      };
+
+      const updateCounter = (newIdx) => {
+        if (newIdx === currentIdxRef.current) return;
+        const el = counterCurRef.current;
+        if (!el) return;
+        gsap.to(el, {
+          yPercent: -100,
+          duration: 0.18,
+          ease: 'power2.in',
+          onComplete: () => {
+            el.textContent = String(newIdx + 1).padStart(2, '0');
+            gsap.fromTo(el, { yPercent: 100 }, { yPercent: 0, duration: 0.18, ease: 'power2.out' });
+          },
+        });
+        currentIdxRef.current = newIdx;
+      };
+
+      refreshMetrics();
+      setRowX(-getStartSnap());
+
+      stRef.current = ScrollTrigger.create({
+        trigger: section,
+        pin: true,
+        scrub: 1.2,
+        anticipatePin: 1,
+        fastScrollEnd: true,
+        invalidateOnRefresh: true,
+        start: 'top top',
+        end: () => {
+          refreshMetrics();
+          return `+=${getScrollDist()}`;
+        },
+        onUpdate: (self) => {
+          const currentStartSnap = getStartSnap();
+          const dist = getScrollDist();
+          const currentPosition = currentStartSnap + self.progress * dist;
+          setRowX(-currentPosition);
+          if (self.progress > 0.01) dismissInteractionCue();
+
+          updateCounter(getNearestIdx(currentPosition));
+        },
+      });
+
+      const handleResize = () => {
+        refreshMetrics();
+        ScrollTrigger.refresh();
+      };
+
+      const handleWheel = (event) => {
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+          if (Math.abs(event.deltaY) > 0) dismissInteractionCue();
+          return;
+        }
+
+        if (!stRef.current?.isActive) return;
+
+        event.preventDefault();
+        dismissInteractionCue();
+        window.scrollBy({ top: event.deltaX, behavior: 'auto' });
+      };
+
+      window.addEventListener('resize', handleResize);
+      section.addEventListener('wheel', handleWheel, { passive: false });
+
+      const [drag] = Draggable.create(row, {
+        type: 'x',
+        trigger: section,
+        onDragStart() {
+          draggedRef.current = false;
+          dismissInteractionCue();
+        },
+        onDrag() {
+          draggedRef.current = true;
+          const currentStartSnap = getStartSnap();
+          const dist = getScrollDist();
+          const clampedX = Math.min(-currentStartSnap, Math.max(-(currentStartSnap + dist), this.x));
+          setRowX(clampedX);
+          syncScrollToRowPosition(clampedX);
+          updateCounter(getNearestIdx(Math.abs(clampedX)));
+        },
+        onDragEnd() {
+          const currentStartSnap = getStartSnap();
+          const dist = getScrollDist();
+          const clampedX = Math.min(-currentStartSnap, Math.max(-(currentStartSnap + dist), this.x));
+          setRowX(clampedX);
+          syncScrollToRowPosition(clampedX);
+          updateCounter(getNearestIdx(Math.abs(clampedX)));
+        },
+      });
+
+      teardown = () => {
+        window.removeEventListener('resize', handleResize);
+        section.removeEventListener('wheel', handleWheel);
+        stRef.current?.kill();
+        drag?.kill();
+        marqueeTween?.kill();
+      };
     };
 
-    window.addEventListener('resize', handleResize);
-    section.addEventListener('wheel', handleWheel, { passive: false });
-
-    // ── Draggable scrubber (no InertiaPlugin required) ────────────────────
-    const [drag] = Draggable.create(row, {
-      type: 'x',
-      trigger: section,
-      onDragStart() {
-        draggedRef.current = false;
-        dismissInteractionCue();
-      },
-      onDrag() {
-        draggedRef.current = true;
-        const startSnap = getStartSnap();
-        const dist = getScrollDist();
-        const clampedX = Math.min(-startSnap, Math.max(-(startSnap + dist), this.x));
-        setRowX(clampedX);
-        syncScrollToRowPosition(clampedX);
-        updateCounter(getNearestIdx(Math.abs(clampedX)));
-      },
-      onDragEnd() {
-        const startSnap = getStartSnap();
-        const dist = getScrollDist();
-        const clampedX = Math.min(-startSnap, Math.max(-(startSnap + dist), this.x));
-        setRowX(clampedX);
-        syncScrollToRowPosition(clampedX);
-        updateCounter(getNearestIdx(Math.abs(clampedX)));
-      },
-    });
+    setupCarousel();
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      section.removeEventListener('wheel', handleWheel);
-      stRef.current?.kill();
-      drag?.kill();
-      marqueeTween?.kill();
+      isCancelled = true;
+      teardown();
     };
   }, [useVerticalStack]);
 
   // ── Card parallax handlers ─────────────────────────────────────────────
   const handleMouseEnter = (i) => {
-    gsap.to(imgRefs.current[i], { scale: 1.05, duration: 0.4, ease: 'power2.out' });
+    if (!gsapRef.current || !imgRefs.current[i]) return;
+    gsapRef.current.to(imgRefs.current[i], { scale: 1.05, duration: 0.4, ease: 'power2.out' });
   };
 
   const handleMouseMove = (e, i) => {
+    if (!gsapRef.current || !imgRefs.current[i]) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    gsap.to(imgRefs.current[i], { x: -x * 18, y: -y * 18, duration: 0.4, ease: 'power2.out' });
+    gsapRef.current.to(imgRefs.current[i], { x: -x * 18, y: -y * 18, duration: 0.4, ease: 'power2.out' });
   };
 
   const handleMouseLeave = (i) => {
-    gsap.to(imgRefs.current[i], { scale: 1, x: 0, y: 0, duration: 0.4, ease: 'power2.out' });
+    if (!gsapRef.current || !imgRefs.current[i]) return;
+    gsapRef.current.to(imgRefs.current[i], { scale: 1, x: 0, y: 0, duration: 0.4, ease: 'power2.out' });
   };
 
   const renderCard = (project, i, stacked = false) => (
@@ -332,6 +391,9 @@ export default function ProjectCarousel() {
             webpSrc={project.imageWebp}
             avifSrc={project.imageAvif}
             alt={project.title}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding={i === 0 ? 'sync' : 'async'}
+            fetchPriority={i === 0 ? 'high' : undefined}
             imgStyle={{
               width: '100%',
               height: '100%',

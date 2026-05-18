@@ -22,7 +22,7 @@ import grain from '../../assets/Grain.jpg';
 import React, { useLayoutEffect, useEffect } from 'react';
 import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
-import { canonicalFromLocation } from '../../utils/seo'
+import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 
 const AUTHOR_SAME_AS = [
@@ -445,7 +445,7 @@ export default function Dwelling() {
 
   useLayoutEffect(() => {
       window.scrollTo(0, 0)
-  });
+  }, []);
 
   // No DOM manipulation for ImageTextSplit; styles are handled via scoped CSS below to keep the white section intact
 
@@ -578,6 +578,7 @@ export default function Dwelling() {
               }
             }}
           />
+          <h1 style={visuallyHiddenHeadingStyle}>Dwelling by Zack MacTavish</h1>
           <style>{`
             /* Keep the measured section white */
             .blend-img { background-color: white !important; }
@@ -595,8 +596,8 @@ export default function Dwelling() {
           {/* Top housemash images horizontally */}
          <div style={{ backgroundColor: 'white', width: '100vw' }}>
            <TwoImageGrid className="large">
-               <ResponsiveImage src={housemash} webpSrc={housemashWebp} avifSrc={housemashAvif} alt="House Mash 1" />
-               <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} avifSrc={housemash2Avif} alt="House Mash 2" />
+               <ResponsiveImage src={housemash} webpSrc={housemashWebp} avifSrc={housemashAvif} alt="Layered house collage from the Dwelling series" loading="eager" decoding="sync" fetchPriority="high" />
+               <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} avifSrc={housemash2Avif} alt="Layered house collage with stitched details from the Dwelling series" loading="eager" decoding="async" />
            </TwoImageGrid>
          </div>
 
@@ -604,9 +605,9 @@ export default function Dwelling() {
      <FullHeightTextSection>
   <TextContainer>
     <TextContent>
-      Dwelling is a series composed of houses I’ve lived in throughout my life, aiming to evoke memories, 
-      nostalgia, and past experiences. I have created 21 quilts, a series of collages, and one large 
-      mixed-media painting with embroidery, learning to sew in the process.
+      Dwelling is a series based on the houses I’ve lived in throughout my life, using those spaces to evoke memory, 
+      nostalgia, and lived experience. The body of work includes 21 quilts, a series of collages, and one large 
+      mixed-media painting with embroidery, all made while I was learning to sew.
       <br /><br />
       The collage-like compositions bring together multiple stories into a single piece.
     </TextContent>
@@ -615,7 +616,7 @@ export default function Dwelling() {
 
           {/* Open House Front: keep section white; add only top padding */}
           <div style={{ backgroundColor: 'white', width: '100vw', paddingTop: '4vh' }}>
-            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={housefront} imageAlt="Open House Front" imageAvif={housefrontAvif} imageWebp={housefrontWebp}>
+            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={housefront} imageAlt="Open House Front mixed-media painting with embroidery" imageAvif={housefrontAvif} imageWebp={housefrontWebp}>
               <ArtHeader>Open House Front</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -624,7 +625,7 @@ export default function Dwelling() {
 
           {/* Open House Back: image-level multiply blend; section has white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={houseback} imageAlt="Open House Back" imageAvif={housebackAvif} imageWebp={housebackWebp}>
+            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={houseback} imageAlt="Open House Back mixed-media painting with embroidery" imageAvif={housebackAvif} imageWebp={housebackWebp}>
               <ArtHeader>Open House Back</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -651,27 +652,27 @@ export default function Dwelling() {
           {/* DWELLING MASH I Section (formerly DWELLING MASH II) */}
 
 <TwoImageGrid>
-  <ResponsiveImage src={house1} webpSrc={house1Webp} avifSrc={house1Avif} alt="House 1" imgStyle={{ transform: "scale(0.9)" }} />
-  <ResponsiveImage src={house2} webpSrc={house2Webp} avifSrc={house2Avif} alt="House 2" imgStyle={{ transform: "scale(0.9)" }} />
+  <ResponsiveImage src={house1} webpSrc={house1Webp} avifSrc={house1Avif} alt="Dwelling collage of a house exterior" imgStyle={{ transform: "scale(0.9)" }} />
+  <ResponsiveImage src={house2} webpSrc={house2Webp} avifSrc={house2Avif} alt="Dwelling collage of a layered house exterior" imgStyle={{ transform: "scale(0.9)" }} />
 </TwoImageGrid>
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={quilt1Avif} imageWebp={quilt1Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt1} imageAlt="Quilt artwork of my apartment in Logan Square, Chicago" imageAvif={quilt1Avif} imageWebp={quilt1Webp}>
     <ArtHeader>Quilt 1</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt2} imageAlt="Quilt 2" imageAvif={quilt2Avif} imageWebp={quilt2Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt2} imageAlt="Quilt artwork of the dorms in downtown Chicago" imageAvif={quilt2Avif} imageWebp={quilt2Webp}>
     <ArtHeader>Quilt 2</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>Dorms, Downtown, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={quilt3Avif} imageWebp={quilt3Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt3} imageAlt="Quilt artwork of my grandma's house" imageAvif={quilt3Avif} imageWebp={quilt3Webp}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's house</ArtDesc>
@@ -681,21 +682,21 @@ export default function Dwelling() {
 
           {/* Quilt 4, Quilt 5, Quilt 6 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={quilt4Avif} imageWebp={quilt4Webp}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt artwork of East Providence, Rhode Island" imageAvif={quilt4Avif} imageWebp={quilt4Webp}>
     <ArtHeader>Quilt 4</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt5} imageAlt="Quilt 5" imageAvif={quilt5Avif} imageWebp={quilt5Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt5} imageAlt="Quilt artwork of the house with Richie" imageAvif={quilt5Avif} imageWebp={quilt5Webp}>
     <ArtHeader>Quilt 5</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>House with Richie</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={quilt6Avif} imageWebp={quilt6Webp}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt artwork of my grandma's first house" imageAvif={quilt6Avif} imageWebp={quilt6Webp}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
@@ -706,21 +707,21 @@ export default function Dwelling() {
           {/* Quilt 7, Quilt 8, Quilt 9 as ImageTextSplit blocks on white */}
 
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt7} imageAlt="Quilt 7" imageAvif={quilt7Avif} imageWebp={quilt7Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt7} imageAlt="Quilt artwork of Armistice Boulevard in Pawtucket, Rhode Island" imageAvif={quilt7Avif} imageWebp={quilt7Webp}>
     <ArtHeader>Quilt 7</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt8} imageAlt="Quilt 8" imageAvif={quilt8Avif} imageWebp={quilt8Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt8} imageAlt="Quilt artwork of the Bruzzi house in Pawtucket, Rhode Island" imageAvif={quilt8Avif} imageWebp={quilt8Webp}>
     <ArtHeader>Quilt 8</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt9} imageAlt="Quilt 9" imageAvif={quilt9Avif} imageWebp={quilt9Webp}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt9} imageAlt="Quilt artwork of Olympia Avenue in Pawtucket, Rhode Island" imageAvif={quilt9Avif} imageWebp={quilt9Webp}>
     <ArtHeader>Quilt 9</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Olympia Ave, Pawtucket, RI</ArtDesc>
@@ -729,7 +730,7 @@ export default function Dwelling() {
 
           {/* Manistee Street section (added to match pasted code) */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={manisteeblockAvif} imageWebp={manisteeblockWebp}>
+            <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Reduction relief woodblock print of Manistee Street" imageAvif={manisteeblockAvif} imageWebp={manisteeblockWebp}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>
               <ArtDesc>Reduction relief woodblock print.</ArtDesc>
@@ -768,9 +769,9 @@ export default function Dwelling() {
           {/* Final DWELLING MASH section */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
             <ThreeImageGrid className="large roomy">
-              <ResponsiveImage src={house3} webpSrc={house3Webp} avifSrc={house3Avif} alt="House 3" />
-              <ResponsiveImage src={house7} webpSrc={house7Webp} avifSrc={house7Avif} alt="House 7" />
-              <ResponsiveImage src={house4} webpSrc={house4Webp} avifSrc={house4Avif} alt="House 4" />
+              <ResponsiveImage src={house3} webpSrc={house3Webp} avifSrc={house3Avif} alt="Dwelling collage of a neighborhood house" />
+              <ResponsiveImage src={house7} webpSrc={house7Webp} avifSrc={house7Avif} alt="Dwelling collage of a residential streetscape" />
+              <ResponsiveImage src={house4} webpSrc={house4Webp} avifSrc={house4Avif} alt="Dwelling collage of a house with layered architectural details" />
             </ThreeImageGrid>
           </div>
       </div>

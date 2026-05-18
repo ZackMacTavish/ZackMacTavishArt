@@ -1,17 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 // This script imports your metadata and writes a sitemap.xml to the dist/ folder.
 // Run after `vite build` (e.g. via a postbuild npm script).
 
-const ROUTE_PATHS = [
-  '/',
-  '/about',
-  '/3d',
-  '/composition',
-  '/dwelling',
-  '/photography',
-  '/printmaking'
+export const ROUTES = [
+  { path: '/', changefreq: 'weekly', priority: '1.0' },
+  { path: '/about', changefreq: 'monthly', priority: '0.8' },
+  { path: '/3d', changefreq: 'monthly', priority: '0.8' },
+  { path: '/composition', changefreq: 'monthly', priority: '0.8' },
+  { path: '/dwelling', changefreq: 'monthly', priority: '0.8' },
+  { path: '/photography', changefreq: 'monthly', priority: '0.8' },
+  { path: '/printmaking', changefreq: 'monthly', priority: '0.8' }
 ];
 
 const cwd = process.cwd();
@@ -34,15 +35,19 @@ function routeToUrl(siteUrl, routePath) {
 }
 
 function buildUrlSet(site) {
-  return ROUTE_PATHS.map((routePath) => routeToUrl(site.url, routePath));
+  return ROUTES.map(({ path: routePath, changefreq, priority }) => ({
+    loc: routeToUrl(site.url, routePath),
+    changefreq,
+    priority,
+  }));
 }
 
 function sitemapXml(urls) {
   const now = new Date().toISOString();
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
     .map(
-      (u) =>
-        `  <url>\n    <loc>${u}</loc>\n    <lastmod>${now}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`
+      ({ loc, changefreq, priority }) =>
+        `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${now}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`
     )
     .join('\n')}\n</urlset>`;
 }
@@ -67,4 +72,8 @@ async function run() {
   }
 }
 
-run();
+const isDirectRun = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (isDirectRun) {
+  run();
+}

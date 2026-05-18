@@ -1,7 +1,19 @@
 import React from 'react';
 
 const ResponsiveImage = React.forwardRef(function ResponsiveImage(
-  { className, src, webpSrc, avifSrc, alt, style, imgStyle, ...imgProps },
+  {
+    className,
+    src,
+    webpSrc,
+    avifSrc,
+    alt,
+    style,
+    imgStyle,
+    loading = 'lazy',
+    decoding = 'async',
+    fetchPriority,
+    ...imgProps
+  },
   ref
 ) {
   return (
@@ -12,6 +24,9 @@ const ResponsiveImage = React.forwardRef(function ResponsiveImage(
         ref={ref}
         src={src}
         alt={alt}
+        loading={loading}
+        decoding={decoding}
+        fetchPriority={fetchPriority}
         style={{
           width: '100%',
           height: '100%',

@@ -7,7 +7,7 @@ import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
 import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
-import { canonicalFromLocation } from '../../utils/seo'
+import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 
 const AUTHOR_SAME_AS = [
@@ -154,6 +154,69 @@ const FeatureRender = styled.img`
   @media (max-width: 850px) {
     width: 90vw;
   }
+`;
+
+const BlogCardLink = styled.a`
+  width: min(88vw, 72ch);
+  margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+`;
+
+const BlogCardImage = styled.img`
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
+  display: block;
+
+  @media (max-width: 900px) {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+`;
+
+const BlogCardCopy = styled.div`
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+`;
+
+const BlogTitle = styled.h2`
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.18rem, 1.45vw, 1.45rem);
+  line-height: 1.12;
+  color: #181818;
+`;
+
+const BlogDescription = styled.p`
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #4f4f4f;
+`;
+
+const BlogCta = styled.span`
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #111;
 `;
 
 export const Orbital = styled.img`
@@ -459,17 +522,17 @@ export const ArtDesc = styled.h2`
 const SplitTextComp = styled.div`
   font-family: 'Space Grotesk', sans-serif;
   color: #5d5d5d;
-  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  font-size: clamp(1.08rem, 1.35vw, 1.35rem);
   line-height: 1.6;
 
   @media (max-width: 1400px) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   @media (max-width: 1000px) {
-    font-size: 1.2rem;
+    font-size: 1.08rem;
   }
   @media (max-width: 450px) {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
 `;
 
@@ -478,7 +541,7 @@ export default function Composition() {
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0)
-    });
+  }, []);
 
     const canonical = canonicalFromLocation(useLocation());
 
@@ -497,7 +560,7 @@ export default function Composition() {
 `}</style>
 <Seo 
   title="Composition | Zack MacTavish Art & Design" 
-  description="Composition uses the familiar design of composition notebooks as a metaphor for self-reflection, with paintings, renders, and photographs." 
+  description="Composition is Zack MacTavish's first solo show, using the composition notebook as a metaphor for self-reflection through paintings, photographs, collages, rugs, and a self-published book made from 2019 to 2021." 
   image={ogImage}
   url={canonical}
   keywords={["composition", "painting", "render", "photography"]}
@@ -537,21 +600,30 @@ export default function Composition() {
   }}
 />
 
+<h1 style={visuallyHiddenHeadingStyle}>Composition by Zack MacTavish</h1>
+
 {/*COMPOSITION NOTEBOOK Part 2 Landing */}
   <LanderSection>
-            <FullCover as={ResponsiveImage} src={fullcover} webpSrc={fullcoverWebp} avifSrc={fullcoverAvif} alt="Composition notebook cover" />
+            <FullCover as={ResponsiveImage} src={fullcover} webpSrc={fullcoverWebp} avifSrc={fullcoverAvif} alt="Composition notebook cover" loading="eager" decoding="sync" fetchPriority="high" />
         </LanderSection>
 
 {/*RENDER 1 FULL SCREEN */}
-<FullHeightTextSection>
-  <TextContainer>
-    <TextContent>
-       Composition uses the familiar design of composition notebooks as a metaphor for self-reflection. 
-       Over several years, I created 22 physical paintings as a way to process the experience of moving from New York to Portland. 
-       What began as a visual journal of shifting environments became less about the cities themselves and more about the act of recording change. 
-       While most of the work shown here is presented as digital representations of the paintings, the series marked a turning point—leading me toward my next body of work, which shifts focus from place to the houses and people that surround me.
+<FullHeightTextSection style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
+  <TextContainer style={{ width: 'min(88vw, 72ch)', padding: 0, alignItems: 'stretch' }}>
+     <TextContent style={{ maxWidth: '100%' }}>
+       Composition was my first solo art show and uses the composition notebook as a metaphor for self-reflection across the places I have lived. The series grew out of moving more than 21 times through Rhode Island, Massachusetts, Illinois, New York, Oregon, and Pennsylvania, and became a way to document how environment, memory, and personal growth accumulate over time. Made between 2019 and 2021, the show brought together paintings, a graphite drawing, hand-tufted rugs, photographs, physical and digital collages, and a self-published book.
     </TextContent>
   </TextContainer>
+  <BlogCardLink href="https://medium.com/@zmactavish/my-first-solo-art-show-de7ac72b054f" target="_blank" rel="noreferrer">
+    <BlogCardImage as={ResponsiveImage} src={artbook} webpSrc={artbookWebp} avifSrc={artbookAvif} alt="Composition art book and blog post preview" />
+    <BlogCardCopy>
+      <BlogTitle>Read more about Composition</BlogTitle>
+      <BlogDescription>
+        A short essay on the show, the series, and how it led into my current body of work.
+      </BlogDescription>
+      <BlogCta>Read on Medium</BlogCta>
+    </BlogCardCopy>
+  </BlogCardLink>
 </FullHeightTextSection>
         
 <CenteredRenderSection>
@@ -563,9 +635,9 @@ export default function Composition() {
 {/* ---------- Art Book + Text Section ---------- */}
 {/* ---------- Art Book + Text Section ---------- */}
 <div style={{ backgroundColor: '#f5f5f5', width: '100vw', padding: '8vh 0' }}>
-  <ImageTextSplit className="tight-split" imageSrc={artbook} imageWebp={artbookWebp} imageAvif={artbookAvif} imageAlt="Art book">
+  <ImageTextSplit className="tight-split" imageSrc={artbook} imageWebp={artbookWebp} imageAvif={artbookAvif} imageAlt="Composition artist book">
     <SplitTextComp>
-      Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
+      I self-published a limited edition book for Composition. All 30 copies sold during the run of the series, and the book extended the exhibition's interest in journaling, documentation, and building an archive around the work.
     </SplitTextComp>
   </ImageTextSplit>
   {/* Embedded flipbook iframe section */}
@@ -574,6 +646,7 @@ export default function Composition() {
         width="1200px"
         height="900px"
         src="https://mixam.com/shares/60d165ccbf9efd41ff33dad2/embed"
+        loading="lazy"
         allowFullScreen={true}
   // allowTransparency removed: not a valid React DOM attribute
         frameBorder="0"
@@ -588,10 +661,9 @@ export default function Composition() {
 
           {/* Orbital */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageMode="framed" imageSrc={orbital} imageWebp={orbitalWebp} imageAvif={orbitalAvif} imageAlt="Orbital">
+            <ImageTextSplit imageMode="framed" imageSrc={orbital} imageWebp={orbitalWebp} imageAvif={orbitalAvif} imageAlt="ORBITAL mixed-media work from Composition">
               <ArtHeader>ORBITAL</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -600,7 +672,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={spraywash} imageWebp={spraywashWebp} imageAvif={spraywashAvif} imageAlt="Erasure 1">
               <ArtHeader>ERASURE I</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -617,7 +688,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={staircases} imageWebp={staircasesWebp} imageAvif={staircasesAvif} imageAlt="Staircases">
               <ArtHeader>STAIRCASES</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Graphite on heavy paper.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -629,7 +699,6 @@ export default function Composition() {
                     <TwinsText>
                         <ArtHeader>COMPOSITION X</ArtHeader>
                         <ArtYear>2021</ArtYear>
-                        <ArtDesc>Acrylic on wood panel.</ArtDesc>
 
                     </TwinsText>
                     </ArtSectiontwins>
@@ -657,7 +726,6 @@ export default function Composition() {
             <ImageTextSplit imageSrc={coney} imageWebp={coneyWebp} imageAvif={coneyAvif} imageAlt="Coney Island, NY">
               <ArtHeader>CONEY ISLAND, NY</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Film photograph with light leaks.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -666,7 +734,6 @@ export default function Composition() {
             <ImageTextSplit imageSrc={brooklyn} imageWebp={brooklynWebp} imageAvif={brooklynAvif} imageAlt="Brooklyn, NY I">
               <ArtHeader>BROOKLYN, NY I</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Double exposure film photograph.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -675,7 +742,6 @@ export default function Composition() {
             <ImageTextSplit imageSrc={brooklyn2} imageWebp={brooklyn2Webp} imageAvif={brooklyn2Avif} imageAlt="Brooklyn, NY II">
               <ArtHeader>BROOKLYN, NY II</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Double exposure film photograph.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -690,7 +756,6 @@ export default function Composition() {
             <ImageTextSplit imageSrc={rug} imageWebp={rugWebp} imageAvif={rugAvif} imageAlt="Rug I">
               <ArtHeader>RUG I</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -699,7 +764,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={mash1} imageWebp={mash1Webp} imageAvif={mash1Avif} imageAlt="Composition III">
               <ArtHeader>COMPOSITION III</ArtHeader>
               <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -708,7 +772,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={mash2} imageWebp={mash2Webp} imageAvif={mash2Avif} imageAlt="Composition IV">
               <ArtHeader>COMPOSITION IV</ArtHeader>
               <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -723,7 +786,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={mash3} imageWebp={mash3Webp} imageAvif={mash3Avif} imageAlt="Composition V">
               <ArtHeader>COMPOSITION V</ArtHeader>
               <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -732,7 +794,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={mash4} imageWebp={mash4Webp} imageAvif={mash4Avif} imageAlt="Composition VI">
               <ArtHeader>COMPOSITION VI</ArtHeader>
               <ArtYear>2019</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -741,7 +802,6 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={mash5} imageWebp={mash5Webp} imageAvif={mash5Avif} imageAlt="Composition VII">
               <ArtHeader>COMPOSITION VII</ArtHeader>
               <ArtYear>2020</ArtYear>
-              <ArtDesc>Digital collage (study for a painting).</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -756,16 +816,14 @@ export default function Composition() {
             <ImageTextSplit imageMode="framed" imageSrc={og} imageWebp={ogWebp} imageAvif={ogAvif} imageAlt="Composition I">
               <ArtHeader>COMPOSITION I</ArtHeader>
               <ArtYear>2018</ArtYear>
-              <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
             </ImageTextSplit>
           </div>
 
           {/* GRAIN */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageMode="framed" imageSrc={grain} imageWebp={grainWebp} imageAvif={grainAvif} imageAlt="Grain">
+            <ImageTextSplit imageMode="framed" imageSrc={grain} imageWebp={grainWebp} imageAvif={grainAvif} imageAlt="GRAIN mixed-media work from Composition">
               <ArtHeader>GRAIN</ArtHeader>
               <ArtYear>2021</ArtYear>
-              <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
             </ImageTextSplit>
           </div>
 
@@ -777,9 +835,16 @@ export default function Composition() {
   <TwinsText>
     <ArtHeader>EPHEMERAL I & II</ArtHeader>
     <ArtYear>2021</ArtYear>
-    <ArtDesc>Acrylic & spray paint on wood panels.</ArtDesc>
   </TwinsText>
 </ArtSectiontwins>
+
+<FullHeightTextSection>
+  <TextContainer>
+    <TextContent>
+      Over the course of Composition, I started to understand that the work was pointing me beyond transition itself and toward the more permanent fixtures that shape a life: the homes I have lived in, the people around me, and the hidden histories carried by those spaces. That realization became the foundation for my current body of work, which turns more fully toward quilting, embroidery, collage, painting, and bookmaking as forms of archive. What Composition began to explore through notebooks, photographs, and fragments of place has expanded into a longer investigation of family, memory, identity, and preservation.
+    </TextContent>
+  </TextContainer>
+</FullHeightTextSection>
 
 
 

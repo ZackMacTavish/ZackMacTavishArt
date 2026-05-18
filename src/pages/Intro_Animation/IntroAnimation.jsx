@@ -1,77 +1,88 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import LandingPage from '../Landing_Page/LandingPage';
 
 const NAME = "ZACHARY MACTAVISH.";
 
-export default function IntroAnimation() {
+export default function IntroAnimation({ onIntroReady }) {
+  const [showCarousel, setShowCarousel] = useState(false);
   const overlayRef = useRef(null);
   const counterRef = useRef(null);
   const letterRefs = useRef([]);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    onIntroReady?.();
+  }, [onIntroReady]);
 
   useEffect(() => {
+    let isCancelled = false;
+    let timeline = null;
+    const carouselTimer = window.setTimeout(() => {
+      setShowCarousel(true);
+    }, 900);
+
     document.body.style.overflow = 'hidden';
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        document.body.style.overflow = '';
-        if (overlayRef.current) overlayRef.current.style.display = 'none';
-      },
-    });
+    import('gsap').then((module) => {
+      if (isCancelled) {
+        return;
+      }
 
-    // Reveal overlay
-    tl.set(overlayRef.current, { autoAlpha: 1 });
+      const gsap = module.default;
 
-    // Initialize letters off-screen below their mask
-    tl.set(letterRefs.current, { yPercent: 110, autoAlpha: 0 });
+      timeline = gsap.timeline({
+        onComplete: () => {
+          document.body.style.overflow = '';
+          if (overlayRef.current) overlayRef.current.style.display = 'none';
+        },
+      });
 
-    // Counter 0 → 100
-    const counterObj = { value: 0 };
-    tl.to(counterObj, {
-      value: 100,
-      duration: 2.5,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        if (counterRef.current) {
-          const padded = String(Math.round(counterObj.value)).padStart(3, '0');
-          counterRef.current.textContent = `${padded}%`;
-        }
-      },
-    });
+      timeline.set(counterRef.current, { autoAlpha: 1 });
+      timeline.set(letterRefs.current, { yPercent: 110, autoAlpha: 0 });
 
-    // Letters stagger up, overlapping counter animation
-    tl.to(
-      letterRefs.current,
-      {
-        yPercent: 0,
-        autoAlpha: 1,
-        stagger: 0.04,
+      const counterObj = { value: 0 };
+      timeline.to(counterObj, {
+        value: 100,
+        duration: 2.5,
+        ease: 'power2.inOut',
+        onUpdate: () => {
+          if (counterRef.current) {
+            const padded = String(Math.round(counterObj.value)).padStart(3, '0');
+            counterRef.current.textContent = `${padded}%`;
+          }
+        },
+      });
+
+      timeline.to(
+        letterRefs.current,
+        {
+          yPercent: 0,
+          autoAlpha: 1,
+          stagger: 0.04,
+          duration: 0.8,
+          ease: 'power3.out',
+        },
+        '-=2'
+      );
+
+      timeline.to(overlayRef.current, {
+        clipPath: 'inset(0% 0% 100% 0%)',
         duration: 0.8,
-        ease: 'power3.out',
-      },
-      '-=2'
-    );
-
-    // Clip overlay upward to dismiss
-    tl.to(overlayRef.current, {
-      clipPath: 'inset(0% 0% 100% 0%)',
-      duration: 0.8,
-      ease: 'power4.inOut',
+        ease: 'power4.inOut',
+      });
     });
 
     return () => {
-      tl.kill();
+      isCancelled = true;
+      window.clearTimeout(carouselTimer);
+      timeline?.kill();
       document.body.style.overflow = '';
     };
   }, []);
 
   return (
     <>
-      <LandingPage />
+      <LandingPage showCarousel={showCarousel} />
       <div
         ref={overlayRef}
         aria-hidden="true"
@@ -80,7 +91,8 @@ export default function IntroAnimation() {
           inset: 0,
           zIndex: 9999,
           backgroundColor: '#0a0a0a',
-          visibility: 'hidden',
+          visibility: 'visible',
+          opacity: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -110,7 +122,7 @@ export default function IntroAnimation() {
               {/* inner span is what GSAP animates */}
               <span
                 ref={el => { letterRefs.current[i] = el; }}
-                style={{ display: 'inline-block' }}
+                style={{ display: 'inline-block', opacity: 0, visibility: 'hidden' }}
               >
                 {char === ' ' ? '\u00A0' : char}
               </span>
@@ -129,6 +141,7 @@ export default function IntroAnimation() {
             fontSize: '1.1rem',
             color: 'rgba(255,255,255,0.7)',
             letterSpacing: '0.05em',
+            opacity: 0,
           }}
         >
           000%

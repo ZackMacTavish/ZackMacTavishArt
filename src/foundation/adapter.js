@@ -6,20 +6,20 @@ import styled from 'styled-components'
 import SEOFallback from '../components/SEO/SEO.jsx'
 
 // Export a common SEO component
-export const Seo = Foundation['Seo'] || Foundation['SEO'] || Foundation['Meta'] || SEOFallback
+export const Seo = Foundation.Seo || SEOFallback
 
 // Themes: prefer foundation tokens if present
-export const lightThemeFromFoundation = Foundation['lightTheme'] || Foundation['LightTheme'] || null
-export const darkThemeFromFoundation = Foundation['darkTheme'] || Foundation['DarkTheme'] || null
-export const GlobalStylesFromFoundation = Foundation['GlobalStyles'] || Foundation['globalStyles'] || null
+export const lightThemeFromFoundation = Foundation.lightTheme || null
+export const darkThemeFromFoundation = Foundation.darkTheme || null
+export const GlobalStylesFromFoundation = Foundation.GlobalStyles || null
 
 // Optional custom cursor from foundation
-export const CustomCursorFromFoundation = Foundation['CustomCursor'] || Foundation['Cursor'] || null
+export const CustomCursorFromFoundation = Foundation.CustomCursor || null
 
 // Helper to read site defaults if provided by foundation
-export const siteDefaults = Foundation['siteDefaults'] || {}
+export const siteDefaults = {}
 
-export const Grid60 = Foundation['Grid60'] || Foundation['Grid'] || null
+export const Grid60 = Foundation.Grid60 || null
 
 const SplitRoot = styled.div`
 	width: min(${props => props.$width || '88vw'}, 1180px);
@@ -147,6 +147,9 @@ export function ImageTextSplit({
 	imageAvif,
 	imageWebp,
 	imageAlt,
+	imageLoading,
+	imageDecoding,
+	imageFetchPriority,
 	children,
 	width,
 	imageMaxHeight,
@@ -168,7 +171,13 @@ export function ImageTextSplit({
 				null,
 				imageAvif ? React.createElement('source', { srcSet: imageAvif, type: 'image/avif' }) : null,
 				imageWebp ? React.createElement('source', { srcSet: imageWebp, type: 'image/webp' }) : null,
-				React.createElement('img', { src: imageSrc, alt: imageAlt })
+				React.createElement('img', {
+					src: imageSrc,
+					alt: imageAlt,
+					loading: imageLoading,
+					decoding: imageDecoding,
+					fetchPriority: imageFetchPriority,
+				})
 			)
 		),
 		React.createElement(SplitText, { $textSize: textSize, $textColor: textColor }, children)

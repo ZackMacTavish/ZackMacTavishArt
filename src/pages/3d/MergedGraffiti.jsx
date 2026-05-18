@@ -7,7 +7,7 @@ import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
 import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
-import { canonicalFromLocation } from '../../utils/seo'
+import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 
 const AUTHOR_SAME_AS = [
@@ -25,7 +25,6 @@ import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
-import ogImage600 from '../../assets/og/website-logoresolutions-600x315.png';
 // Removed PNG favicon imports
 import { NewSection } from '../About/About';
 
@@ -151,10 +150,7 @@ export default function MergedGraffiti() {
       <Seo 
         title="3D & Graffiti | Zack MacTavish Art & Design" 
         description="Graffiti roots, Rhino 3D renders, and murals across Chicago, Brooklyn, Denver, and more." 
-        images={[
-          { url: ogImage1200, width: 1200, height: 630 },
-          { url: ogImage600, width: 600, height: 315 }
-        ]}
+        image={ogImage1200}
         url={canonicalFromLocation(useLocation())}
         keywords={["3D", "graffiti", "Rhino", "murals", "Chicago", "Brooklyn", "Denver"]}
   authorName="Zack MacTavish"
@@ -182,8 +178,9 @@ export default function MergedGraffiti() {
           }
         }}
       />
+      <h1 style={visuallyHiddenHeadingStyle}>3D and Graffiti by Zack MacTavish</h1>
       {/* --- ThreeD Section --- */}
-      <FullBg as={ResponsiveImage} src={fiftytwo} webpSrc={fiftytwoWebp} avifSrc={fiftytwoAvif} alt="Rhino render 52" />
+      <FullBg as={ResponsiveImage} src={fiftytwo} webpSrc={fiftytwoWebp} avifSrc={fiftytwoAvif} alt="Rhino render 52" loading="eager" decoding="sync" fetchPriority="high" />
  <FullBg
   as={ResponsiveImage}
   src={fiftysix}
@@ -202,7 +199,7 @@ export default function MergedGraffiti() {
      <FullHeightTextSection>
   <TextContainer>
     <TextContent>
-    My artistic roots began in graffiti, exploring letters and their distortions. This practice led me to painting, typography, and other forms of visual expression. In college, I expanded into Rhino 3D, creating architectural lettering and 3D printed structures. I continue to explore new forms and visuals in 3D.
+    My artistic roots began in graffiti, where I became interested in letterforms, distortion, and the structure of an image. That practice led me into painting, typography, and eventually Rhino 3D, where I began building architectural lettering, digital forms, and objects for 3D printing. This work continues that technical side of my practice while staying connected to the visual language that first drew me to making art.
     </TextContent>
   </TextContainer>
 </FullHeightTextSection>
