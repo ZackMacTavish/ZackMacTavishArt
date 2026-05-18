@@ -263,7 +263,7 @@ const DropdownDivider = styled.div`
 export default function Nav() {
   return (
     <Navdiv>
-      <Link to="/home" style={{ cursor: 'none' }}>
+      <Link to="/" style={{ cursor: 'none' }}>
         <Logo src={logo} />
       </Link>
 
@@ -272,11 +272,11 @@ export default function Nav() {
           <ListItem>
             <NavLabel>Art</NavLabel>
             <Dropdown>
-              <DropdownMenu to="/Dwelling">Dwelling</DropdownMenu>
-              <DropdownMenu to="/Composition">Composition</DropdownMenu>
+              <DropdownMenu to="/dwelling">Dwelling</DropdownMenu>
+              <DropdownMenu to="/composition">Composition</DropdownMenu>
               <DropdownDivider />
-              <DropdownMenu to="/Printmaking">Printmaking</DropdownMenu>
-              <DropdownMenu to="/Photography">Photography</DropdownMenu>
+              <DropdownMenu to="/printmaking">Printmaking</DropdownMenu>
+              <DropdownMenu to="/photography">Photography</DropdownMenu>
               <DropdownMenu to="/3d">3D + Graffiti</DropdownMenu>
             </Dropdown>
           </ListItem>

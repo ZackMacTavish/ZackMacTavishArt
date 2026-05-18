@@ -5,13 +5,21 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, Grid60 } from '@zackmactavish/foundation'
+import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation } from '../../utils/seo'
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
+
+const AUTHOR_SAME_AS = [
+  'https://dribbble.com/Zmactavish',
+  'https://www.instagram.com/zackmichaelmactavish',
+  'https://www.linkedin.com/in/zacharymactavish/',
+  'https://github.com/ZackMacTavish',
+  'https://medium.com/@zmactavish',
+];
 import styled from 'styled-components';
 import { 
-  ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, 
-  FullBg, GridRowThree, GridRowTwo, Orbital, ParagraphFour 
+  ArtDesc, ArtHeader, ArtYear, FullBg, ParagraphFour 
 } from '../COMPOSITION/Composition';
 import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
@@ -23,30 +31,76 @@ import { NewSection } from '../About/About';
 
 // --- ThreeD Assets ---
 import fiftytwo from '../../assets/52.jpg';
+import fiftytwoWebp from '../../assets/optimized/52.webp';
+import fiftytwoAvif from '../../assets/optimized/52.avif';
 import fiftysix from '../../assets/56.jpg';
+import fiftysixWebp from '../../assets/optimized/56.webp';
+import fiftysixAvif from '../../assets/optimized/56.avif';
 import one from '../../assets/1.2.jpg';
+import oneWebp from '../../assets/optimized/1.2.webp';
+import oneAvif from '../../assets/optimized/1.2.avif';
 import six from '../../assets/6.jpg';
+import sixWebp from '../../assets/optimized/6.webp';
+import sixAvif from '../../assets/optimized/6.avif';
 import thirteen from '../../assets/13.jpg';
+import thirteenWebp from '../../assets/optimized/13.webp';
+import thirteenAvif from '../../assets/optimized/13.avif';
 
 // --- Graffiti Assets ---
 import artbash1 from '../../assets/Artbashmash.jpg';
+import artbash1Webp from '../../assets/optimized/Artbashmash.webp';
+import artbash1Avif from '../../assets/optimized/Artbashmash.avif';
 import artbash2 from '../../assets/Artbashmash2.jpg';
+import artbash2Webp from '../../assets/optimized/Artbashmash2.webp';
+import artbash2Avif from '../../assets/optimized/Artbashmash2.avif';
 import artbash3 from '../../assets/Artbashmash3.jpg';
+import artbash3Webp from '../../assets/optimized/Artbashmash3.webp';
+import artbash3Avif from '../../assets/optimized/Artbashmash3.avif';
 import sense from '../../assets/RIPSENSE.jpg';
+import senseWebp from '../../assets/optimized/RIPSENSE.webp';
+import senseAvif from '../../assets/optimized/RIPSENSE.avif';
 import bfa from '../../assets/BFA.jpg';
+import bfaWebp from '../../assets/optimized/BFA.webp';
+import bfaAvif from '../../assets/optimized/BFA.avif';
 import reuzes from '../../assets/Reuzes.jpg';
+import reuzesWebp from '../../assets/optimized/Reuzes.webp';
+import reuzesAvif from '../../assets/optimized/Reuzes.avif';
 import denver from '../../assets/Denver.jpg';
+import denverWebp from '../../assets/optimized/Denver.webp';
+import denverAvif from '../../assets/optimized/Denver.avif';
 import Bees from '../../assets/Whiteline.jpg';
+import BeesWebp from '../../assets/optimized/Whiteline.webp';
+import BeesAvif from '../../assets/optimized/Whiteline.avif';
 import mucha from '../../assets/Mucha.jpg';
+import muchaWebp from '../../assets/optimized/Mucha.webp';
+import muchaAvif from '../../assets/optimized/Mucha.avif';
 import crawford from '../../assets/Crawford.jpg';
+import crawfordWebp from '../../assets/optimized/Crawford.webp';
+import crawfordAvif from '../../assets/optimized/Crawford.avif';
 import paintlouis from '../../assets/Paintlouis.jpg';
+import paintlouisWebp from '../../assets/optimized/Paintlouis.webp';
+import paintlouisAvif from '../../assets/optimized/Paintlouis.avif';
 import riso from '../../assets/riso3.jpg';
+import risoWebp from '../../assets/optimized/riso3.webp';
+import risoAvif from '../../assets/optimized/riso3.avif';
 import sushix from '../../assets/SushiX.jpg';
+import sushixWebp from '../../assets/optimized/SushiX.webp';
+import sushixAvif from '../../assets/optimized/SushiX.avif';
 import rogerrabbit from '../../assets/rogerrabbit.jpg';
+import rogerrabbitWebp from '../../assets/optimized/rogerrabbit.webp';
+import rogerrabbitAvif from '../../assets/optimized/rogerrabbit.avif';
 import summer from '../../assets/summer16.jpg';
+import summerWebp from '../../assets/optimized/summer16.webp';
+import summerAvif from '../../assets/optimized/summer16.avif';
 import sushixtwo from '../../assets/SushiX2.jpg';
+import sushixtwoWebp from '../../assets/optimized/SushiX2.webp';
+import sushixtwoAvif from '../../assets/optimized/SushiX2.avif';
 import enova from '../../assets/Enova.jpg';
+import enovaWebp from '../../assets/optimized/Enova.webp';
+import enovaAvif from '../../assets/optimized/Enova.avif';
 import eu from '../../assets/EU.jpg';
+import euWebp from '../../assets/optimized/EU.webp';
+import euAvif from '../../assets/optimized/EU.avif';
 
 // --- Styled Components ---
 export const RisoItem = styled.img`
@@ -81,6 +135,12 @@ const FiftyWidth = styled.div`
   background-color: white;
 `;
 
+const splitSectionStyle = {
+  backgroundColor: 'white',
+  width: '100vw',
+  padding: '5vh 0',
+};
+
 export default function MergedGraffiti() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -89,7 +149,7 @@ export default function MergedGraffiti() {
   return (
     <div>
       <Seo 
-        title="3D & Graffiti  Rhino Renders and Murals by Zack MacTavish" 
+        title="3D & Graffiti | Zack MacTavish Art & Design" 
         description="Graffiti roots, Rhino 3D renders, and murals across Chicago, Brooklyn, Denver, and more." 
         images={[
           { url: ogImage1200, width: 1200, height: 630 },
@@ -99,7 +159,7 @@ export default function MergedGraffiti() {
         keywords={["3D", "graffiti", "Rhino", "murals", "Chicago", "Brooklyn", "Denver"]}
   authorName="Zack MacTavish"
   authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
-        sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+          sameAs={AUTHOR_SAME_AS}
         favicons={[
           { rel: 'icon', type: 'image/png', sizes: '16x16', href: favicon16 },
           { rel: 'icon', type: 'image/png', sizes: '32x32', href: favicon32 },
@@ -118,14 +178,18 @@ export default function MergedGraffiti() {
             "@type": "Person",
             "name": "Zack MacTavish",
             "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
-            "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+            "sameAs": AUTHOR_SAME_AS
           }
         }}
       />
       {/* --- ThreeD Section --- */}
-      <FullBg src={fiftytwo} />
+      <FullBg as={ResponsiveImage} src={fiftytwo} webpSrc={fiftytwoWebp} avifSrc={fiftytwoAvif} alt="Rhino render 52" />
  <FullBg
+  as={ResponsiveImage}
   src={fiftysix}
+  webpSrc={fiftysixWebp}
+  avifSrc={fiftysixAvif}
+  alt="Rhino render 56"
   style={{
     width: "100vw",
     minHeight: "100vh",   // ensures no strip, but allows bigger
@@ -143,43 +207,42 @@ export default function MergedGraffiti() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <ArtSectionthreeog>
-        <Orbital src={one} />
-        <ArtText>
+      <section style={splitSectionStyle}>
+        <ImageTextSplit imageSrc={one} imageWebp={oneWebp} imageAvif={oneAvif} imageAlt="No. 1 Rhino render">
           <ArtHeader>No. 1</ArtHeader>
           <ArtYear>2017</ArtYear>
           <ArtDesc>Render made in Rhino, and Keyshot.</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={six} />
-        <ArtTexttwo>
+        <ImageTextSplit imageSrc={six} imageWebp={sixWebp} imageAvif={sixAvif} imageAlt="No. 6 Rhino render">
           <ArtHeader>No. 6</ArtHeader>
           <ArtYear>2017</ArtYear>
           <ArtDesc>Render made in Rhino, and Keyshot.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={thirteen} />
-        <ArtTextthree>
+        <ImageTextSplit imageSrc={thirteen} imageWebp={thirteenWebp} imageAvif={thirteenAvif} imageAlt="No. 13 Rhino render">
           <ArtHeader>No. 13</ArtHeader>
           <ArtYear>2017</ArtYear>
           <ArtDesc>Render made in Rhino, and Keyshot.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
       {/* --- Graffiti Section --- */}
       <div style={{ backgroundColor: '#191919', width: '100%', display: 'block', padding: '8vh 0' }}>
-        <Grid60>
-          <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
-            <img src={artbash1} alt="Screen Print 2" />
-            <img src={artbash2} alt="Screen Print 2.1" />
-            <img src={artbash3} alt="Screen Print 1" />
-          </ThreeImageGrid>
-        </Grid60>
+        <ThreeImageGrid className="rounded-corners" style={{ backgroundColor: '#191919' }}>
+          <ResponsiveImage src={artbash1} webpSrc={artbash1Webp} avifSrc={artbash1Avif} alt="Art Bash graffiti collage 1" />
+          <ResponsiveImage src={artbash2} webpSrc={artbash2Webp} avifSrc={artbash2Avif} alt="Art Bash graffiti collage 2" />
+          <ResponsiveImage src={artbash3} webpSrc={artbash3Webp} avifSrc={artbash3Avif} alt="Art Bash graffiti collage 3" />
+        </ThreeImageGrid>
       </div>
 
 
 <FullBg
+  as={ResponsiveImage}
   src={sense}
+  webpSrc={senseWebp}
+  avifSrc={senseAvif}
+  alt="RIP SENSE mural"
   style={{
     width: "100%",           // safer than 100vw
     objectFit: "cover",
@@ -189,32 +252,29 @@ export default function MergedGraffiti() {
 />
    
 
-      <ArtSectionthreeog>
-        <Orbital src={bfa} />
-        <ArtText>
+      <section style={splitSectionStyle}>
+        <ImageTextSplit imageSrc={bfa} imageWebp={bfaWebp} imageAvif={bfaAvif} imageAlt="BFA Exhibition mural">
           <ArtHeader>BFA Exhibition < br/>(Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on brick veneer.</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={reuzes} />
-        <ArtTexttwo>
+        <ImageTextSplit imageSrc={reuzes} imageWebp={reuzesWebp} imageAvif={reuzesAvif} imageAlt="Lowbrow graffiti mural">
           <ArtHeader>LOWBROW (Brooklyn, NY)</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={denver} />
-        <ArtTextthree>
+        <ImageTextSplit imageSrc={denver} imageWebp={denverWebp} imageAvif={denverAvif} imageAlt="Rhino Denver mural">
           <ArtHeader>RHINO (Denver, CO)</ArtHeader>
           <ArtYear>2019</ArtYear>
           <ArtDesc>Spray paint on cinderblock.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
   <NewSection $Backgroundcolor="white" $Backgroundheight="125vh">
         <FiftyWidth>
-          <BeesStyle src={Bees} />
+          <BeesStyle as={ResponsiveImage} src={Bees} webpSrc={BeesWebp} avifSrc={BeesAvif} alt="Graffiti lettering study" />
         </FiftyWidth>
         <ParagraphFour style={{ color: '#ffffff' }}>
         This illustration of B’s in different styles was created for a self-published book about the art of graffiti writing.
@@ -222,84 +282,75 @@ export default function MergedGraffiti() {
       </NewSection>
 
       {/* Continue with remaining Graffiti sections */}
-      <ArtSectionthreeog>
-        <Orbital src={mucha} />
-        <ArtText>
+      <section style={splitSectionStyle}>
+        <ImageTextSplit imageSrc={mucha} imageWebp={muchaWebp} imageAvif={muchaAvif} imageAlt="Orange Line graffiti piece">
           <ArtHeader>ORANGE LINE (Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cinderblock.</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={crawford} />
-        <ArtTexttwo>
+        <ImageTextSplit imageSrc={crawford} imageWebp={crawfordWebp} imageAvif={crawfordAvif} imageAlt="Crawford graffiti mural">
           <ArtHeader>CRAWFORD (Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={paintlouis} />
-        <ArtTextthree>
+        <ImageTextSplit imageSrc={paintlouis} imageWebp={paintlouisWebp} imageAvif={paintlouisAvif} imageAlt="Paint Louis graffiti mural">
           <ArtHeader>PAINT LOUIS (St. Louis, MO)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
-      <RisoFlex>
-  <RisoItem $Width="60vw" src={riso} />
-          <RisoItem $Width="60vw" src={riso} />
+        <RisoFlex>
+      <RisoItem as={ResponsiveImage} $Width="60vw" src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread" />
+          <RisoItem as={ResponsiveImage} $Width="60vw" src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread duplicate" />
       </RisoFlex>
 
-      <ArtSectionthreeog>
-        <Orbital src={sushix} />
-        <ArtText>
+      <section style={splitSectionStyle}>
+        <ImageTextSplit imageSrc={sushix} imageWebp={sushixWebp} imageAvif={sushixAvif} imageAlt="Sushi X graffiti piece">
           <ArtHeader>Sushi X</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on brick.</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={rogerrabbit} />
-        <ArtTexttwo>
+        <ImageTextSplit imageSrc={rogerrabbit} imageWebp={rogerrabbitWebp} imageAvif={rogerrabbitAvif} imageAlt="Roger Rabbit graffiti piece">
           <ArtHeader>Crawford</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={summer} />
-        <ArtTextthree>
+        <ImageTextSplit imageSrc={summer} imageWebp={summerWebp} imageAvif={summerAvif} imageAlt="Summer 2016 graffiti piece">
           <ArtHeader>Crawford</ArtHeader>
           <ArtYear>2019</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
       {/* <RisoFlex>
   <RisoItem $Width="80vw" src={Lines} />
     <RisoItem $Width="80vw" src={Lines} />
       </RisoFlex> */}
 
-      <ArtSectionthreeog>
-        <Orbital src={sushixtwo} />
-        <ArtText>
+      <section style={splitSectionStyle}>
+        <ImageTextSplit imageSrc={sushixtwo} imageWebp={sushixtwoWebp} imageAvif={sushixtwoAvif} imageAlt="Sushi X collaboration graffiti piece">
           <ArtHeader>Sushi X</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on brick. <br />(Collaboration with 'Leks')</ArtDesc>
-        </ArtText>
+        </ImageTextSplit>
 
-        <GridRowTwo src={enova} />
-        <ArtTexttwo>
+        <ImageTextSplit imageSrc={enova} imageWebp={enovaWebp} imageAvif={enovaAvif} imageAlt="Enova International Inc graffiti piece">
           <ArtHeader>ENOVA INTERNATIONAL INC.</ArtHeader>
           <ArtYear>2015</ArtYear>
           <ArtDesc>Spray paint on wood.</ArtDesc>
-        </ArtTexttwo>
+        </ImageTextSplit>
 
-        <GridRowThree src={eu} />
-        <ArtTextthree>
+        <ImageTextSplit imageSrc={eu} imageWebp={euWebp} imageAvif={euAvif} imageAlt="Yarrow's graffiti piece">
           <ArtHeader>YARROW'S (Providence, RI)</ArtHeader>
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cinderblock.</ArtDesc>
-        </ArtTextthree>
-      </ArtSectionthreeog>
+        </ImageTextSplit>
+      </section>
 
       {/*
 <RisoFlex>

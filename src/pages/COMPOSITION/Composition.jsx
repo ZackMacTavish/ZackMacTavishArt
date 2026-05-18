@@ -5,9 +5,18 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, Grid60, ImageTextSplit } from '@zackmactavish/foundation'
+import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation } from '../../utils/seo'
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
+
+const AUTHOR_SAME_AS = [
+  'https://dribbble.com/Zmactavish',
+  'https://www.instagram.com/zackmichaelmactavish',
+  'https://www.linkedin.com/in/zacharymactavish/',
+  'https://github.com/ZackMacTavish',
+  'https://medium.com/@zmactavish',
+];
 import styled from 'styled-components';
 
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
@@ -15,31 +24,83 @@ import { FullHeightTextSection, TextContainer, TextContent } from '../Printmakin
 
 // Assets
 import fullcover from '../../assets/Composition-BackCover-Pt.2-01.jpg';
+import fullcoverWebp from '../../assets/optimized/Composition-BackCover-Pt.2-01.webp';
+import fullcoverAvif from '../../assets/optimized/Composition-BackCover-Pt.2-01.avif';
 import renderone from '../../assets/Render1.png';
+import renderoneWebp from '../../assets/optimized/Render1.webp';
+import renderoneAvif from '../../assets/optimized/Render1.avif';
 import artbook from '../../assets/Artbook.png';
+import artbookWebp from '../../assets/optimized/Artbook.webp';
+import artbookAvif from '../../assets/optimized/Artbook.avif';
 import orbital from '../../assets/Orbital.jpg';
+import orbitalWebp from '../../assets/optimized/Orbital.webp';
+import orbitalAvif from '../../assets/optimized/Orbital.avif';
 import spraywash from '../../assets/Spraypaintwash.png';
+import spraywashWebp from '../../assets/optimized/Spraypaintwash.webp';
+import spraywashAvif from '../../assets/optimized/Spraypaintwash.avif';
 import rendertwo from '../../assets/Render2.png';
+import rendertwoWebp from '../../assets/optimized/Render2.webp';
+import rendertwoAvif from '../../assets/optimized/Render2.avif';
 import twin1 from '../../assets/Twin1.jpeg';
+import twin1Webp from '../../assets/optimized/Twin1.webp';
+import twin1Avif from '../../assets/optimized/Twin1.avif';
 import twin2 from '../../assets/Twin2.jpeg';
+import twin2Webp from '../../assets/optimized/Twin2.webp';
+import twin2Avif from '../../assets/optimized/Twin2.avif';
 import staircases from '../../assets/Staircases.jpg';
+import staircasesWebp from '../../assets/optimized/Staircases.webp';
+import staircasesAvif from '../../assets/optimized/Staircases.avif';
 import heartwhite from '../../assets/heartwhite.jpeg';
+import heartwhiteWebp from '../../assets/optimized/heartwhite.webp';
+import heartwhiteAvif from '../../assets/optimized/heartwhite.avif';
 import heartblack from '../../assets/heartblack.jpg';
+import heartblackWebp from '../../assets/optimized/heartblack.webp';
+import heartblackAvif from '../../assets/optimized/heartblack.avif';
 import birds from '../../assets/Birds.jpg';
+import birdsWebp from '../../assets/optimized/Birds.webp';
+import birdsAvif from '../../assets/optimized/Birds.avif';
 import brooklyn from '../../assets/Brooklyn.jpg';
+import brooklynWebp from '../../assets/optimized/Brooklyn.webp';
+import brooklynAvif from '../../assets/optimized/Brooklyn.avif';
 import coney from '../../assets/Coney.jpg';
+import coneyWebp from '../../assets/optimized/Coney.webp';
+import coneyAvif from '../../assets/optimized/Coney.avif';
 import brooklyn2 from '../../assets/Brooklyn2.jpg';
+import brooklyn2Webp from '../../assets/optimized/Brooklyn2.webp';
+import brooklyn2Avif from '../../assets/optimized/Brooklyn2.avif';
 import render4 from '../../assets/Render4.png';
+import render4Webp from '../../assets/optimized/Render4.webp';
+import render4Avif from '../../assets/optimized/Render4.avif';
 import rug from '../../assets/Rug.jpg';
+import rugWebp from '../../assets/optimized/Rug.webp';
+import rugAvif from '../../assets/optimized/Rug.avif';
 import mash1 from '../../assets/Mash1.png';
+import mash1Webp from '../../assets/optimized/Mash1.webp';
+import mash1Avif from '../../assets/optimized/Mash1.avif';
 import mash2 from '../../assets/Mash2.png';
+import mash2Webp from '../../assets/optimized/Mash2.webp';
+import mash2Avif from '../../assets/optimized/Mash2.avif';
 import render5 from '../../assets/Render5.png';
+import render5Webp from '../../assets/optimized/Render5.webp';
+import render5Avif from '../../assets/optimized/Render5.avif';
 import mash3 from '../../assets/Mash3.png';
+import mash3Webp from '../../assets/optimized/Mash3.webp';
+import mash3Avif from '../../assets/optimized/Mash3.avif';
 import mash4 from '../../assets/Mash4.png';
+import mash4Webp from '../../assets/optimized/Mash4.webp';
+import mash4Avif from '../../assets/optimized/Mash4.avif';
 import mash5 from '../../assets/Mash5.png';
+import mash5Webp from '../../assets/optimized/Mash5.webp';
+import mash5Avif from '../../assets/optimized/Mash5.avif';
 import mattos from '../../assets/Mattos.png';
+import mattosWebp from '../../assets/optimized/Mattos.webp';
+import mattosAvif from '../../assets/optimized/Mattos.avif';
 import og from '../../assets/No.3.png';
+import ogWebp from '../../assets/optimized/No.3.webp';
+import ogAvif from '../../assets/optimized/No.3.avif';
 import grain from '../../assets/Grain.jpg';
+import grainWebp from '../../assets/optimized/Grain.webp';
+import grainAvif from '../../assets/optimized/Grain.avif';
 import ogImage from '../../assets/og/website-logoresolutions-1200x630.png';
 // Removed duplicate favicon imports
 
@@ -64,7 +125,7 @@ const LanderSection = styled.div`
 
 const FullCover = styled.img`
   background-color: ${props => props.theme.backgroundTwo};
-  width: 60vw;
+  width: 54vw;
   max-width: 90vw; /* prevents overflow on small screens */
   height: auto;
 
@@ -73,16 +134,38 @@ const FullCover = styled.img`
   }
 `;
 
+const CenteredRenderSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  background-color: ${props => props.theme.backgroundTwo};
+  padding: 4vh 0;
+`;
+
+const FeatureRender = styled.img`
+  width: min(74vw, 1180px);
+  max-width: 92vw;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+
+  @media (max-width: 850px) {
+    width: 90vw;
+  }
+`;
+
 export const Orbital = styled.img`
   grid-row-start: 1;
-  grid-column-start: 2;
-  width: 100%;
-  max-width: 600px;
+  grid-column-start: 1;
+  width: min(100%, 460px);
+  max-width: 460px;
   height: auto;
-  justify-self: start;
+  justify-self: end;
 
-  @media (max-width: 1290px){ max-width: 500px; }
-  @media (max-width: 1115px){ max-width: 400px; }
+  @media (max-width: 1290px){ max-width: 420px; }
+  @media (max-width: 1115px){ max-width: 360px; }
 
   @media (max-width: 830px){
     grid-column-start: 1;
@@ -120,14 +203,14 @@ align-self: flex-end;
 
 export const TwinTwo = styled.img`
   grid-row-start: 1;
-  grid-column-start: 3;
-  width: 100%;
-  max-width: 600px;
+  grid-column-start: 2;
+  width: min(100%, 460px);
+  max-width: 460px;
   height: auto;
   justify-self: start;
 
-  @media (max-width: 1290px){ max-width: 500px; }
-  @media (max-width: 1115px){ max-width: 400px; }
+  @media (max-width: 1290px){ max-width: 420px; }
+  @media (max-width: 1115px){ max-width: 360px; }
 
   @media (max-width: 830px){
     grid-column-start: 1;
@@ -141,14 +224,14 @@ export const TwinTwo = styled.img`
 
 export const TwinsText = styled.div`
   grid-row-start: 2;
-  grid-column-start: 2 / span 2;
+  grid-column: 1 / span 2;
   justify-self: start;
   color: ${(props) => props.theme.fontColor};
-  padding-top: 2rem;
-  padding-left: 15vw; /* desktop padding so text isn’t stuck to the edge */
+  padding-top: 1.5rem;
   line-height: 1.3;
   font-family: 'Space Grotesk', sans-serif;
-  width: 40vw;
+  width: min(42rem, 100%);
+  text-align: left;
 
   @media (max-width: 830px){
     grid-column-start: auto;
@@ -215,11 +298,22 @@ background-color:${props => props.theme.backgroundTwo};
 /* Custom Grid for Ephemeral Twins - moving single row to 2 rows of content */
 export const ArtSectiontwins = styled.div`
   display: grid;
-  grid-template-columns: 10vw 1fr 1fr 10vw;
+  grid-template-columns: repeat(2, minmax(280px, 460px));
   grid-template-rows: auto auto;
-  column-gap: 2vw;
-  padding: 5vh 0;
+  width: 100vw;
+  box-sizing: border-box;
+  padding-left: max(6vw, calc((100vw - 1180px) / 2));
+  padding-right: max(6vw, calc((100vw - 1180px) / 2));
+  justify-content: start;
+  column-gap: clamp(18px, 2vw, 28px);
+  padding-top: 5vh;
+  padding-bottom: 5vh;
   background-color: ${props => props.theme.backgroundTwo};
+
+  @media (max-width: 1320px) {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
 
   @media (max-width: 830px){
     grid-template-columns: 100%;
@@ -392,7 +486,7 @@ export default function Composition() {
 <style>{`
   /* Match About page split spacing and width */
   .tight-split {
-    gap: 12px !important;
+    gap: 28px !important;
     width: 80vw;
     max-width: 1400px;
     margin: 0 auto;
@@ -402,14 +496,14 @@ export default function Composition() {
   }
 `}</style>
 <Seo 
-  title="Composition  Art Series by Zack MacTavish" 
+  title="Composition | Zack MacTavish Art & Design" 
   description="Composition uses the familiar design of composition notebooks as a metaphor for self-reflection, with paintings, renders, and photographs." 
   image={ogImage}
   url={canonical}
   keywords={["composition", "painting", "render", "photography"]}
   authorName="Zack MacTavish"
   authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
-  sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+  sameAs={AUTHOR_SAME_AS}
   favicons={[
     { rel: 'icon', sizes: '16x16', href: favicon16 },
     { rel: 'icon', sizes: '32x32', href: favicon32 },
@@ -438,14 +532,14 @@ export default function Composition() {
       "@type": "Person",
       "name": "Zack MacTavish",
   "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
-      "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+      "sameAs": AUTHOR_SAME_AS
     }
   }}
 />
 
 {/*COMPOSITION NOTEBOOK Part 2 Landing */}
   <LanderSection>
-            <FullCover src={fullcover} />
+            <FullCover as={ResponsiveImage} src={fullcover} webpSrc={fullcoverWebp} avifSrc={fullcoverAvif} alt="Composition notebook cover" />
         </LanderSection>
 
 {/*RENDER 1 FULL SCREEN */}
@@ -460,23 +554,16 @@ export default function Composition() {
   </TextContainer>
 </FullHeightTextSection>
         
-<img
-  src={renderone}
-  style={{
-    width: '100vw',       // fill the width
-    height: '100vh',      // fill the viewport height
-    objectFit: 'cover',   // crop/zoom in instead of stretching
-    objectPosition: 'center', // crop from bottom; keep top visible
-    display: 'block'
-  }}
-/>
+<CenteredRenderSection>
+  <FeatureRender as={ResponsiveImage} src={renderone} webpSrc={renderoneWebp} avifSrc={renderoneAvif} alt="Composition render one" />
+</CenteredRenderSection>
 
 
 {/*Art Book + Text */}
 {/* ---------- Art Book + Text Section ---------- */}
 {/* ---------- Art Book + Text Section ---------- */}
 <div style={{ backgroundColor: '#f5f5f5', width: '100vw', padding: '8vh 0' }}>
-  <ImageTextSplit className="tight-split" imageSrc={artbook} imageAlt="Art book">
+  <ImageTextSplit className="tight-split" imageSrc={artbook} imageWebp={artbookWebp} imageAvif={artbookAvif} imageAlt="Art book">
     <SplitTextComp>
       Composition was my first solo art exhibition. I released a limited edition of 30 copies of a 46-page art book for the show.
     </SplitTextComp>
@@ -501,7 +588,7 @@ export default function Composition() {
 
           {/* Orbital */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={orbital} imageAlt="Orbital">
+            <ImageTextSplit imageMode="framed" imageSrc={orbital} imageWebp={orbitalWebp} imageAvif={orbitalAvif} imageAlt="Orbital">
               <ArtHeader>ORBITAL</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic & spray paint on woodpanel.</ArtDesc>
@@ -510,7 +597,7 @@ export default function Composition() {
 
           {/* Erasure 1 */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={spraywash} imageAlt="Erasure 1">
+            <ImageTextSplit imageMode="framed" imageSrc={spraywash} imageWebp={spraywashWebp} imageAvif={spraywashAvif} imageAlt="Erasure 1">
               <ArtHeader>ERASURE I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic, spray paint, & spray paint remover on woodpanel.</ArtDesc>
@@ -518,23 +605,16 @@ export default function Composition() {
           </div>
 
 {/*RENDER 2 FULL SCREEN */}
-                    <img
-  src={rendertwo}
-  style={{
-    width: '100vw',       // full width
-    height: '100vh',      // full viewport height
-    objectFit: 'cover',   // crop/zoom
-    objectPosition: 'bottom',// keep top visible, crop bottom
-    display: 'block'
-  }}
-/>
+<CenteredRenderSection>
+  <FeatureRender as={ResponsiveImage} src={rendertwo} webpSrc={rendertwoWebp} avifSrc={rendertwoAvif} alt="Composition render 2" />
+</CenteredRenderSection>
 
 
 
 
           {/* Staircases */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={staircases} imageAlt="Staircases">
+            <ImageTextSplit imageMode="framed" imageSrc={staircases} imageWebp={staircasesWebp} imageAvif={staircasesAvif} imageAlt="Staircases">
               <ArtHeader>STAIRCASES</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Graphite on heavy paper.</ArtDesc>
@@ -543,8 +623,8 @@ export default function Composition() {
 
                     {/*EPHEMERAL I & II SECTION */}
                     <ArtSectiontwins>
-                    <Orbital src={heartwhite} />
-                    <TwinTwo src={heartblack} />
+                    <Orbital as={ResponsiveImage} src={heartwhite} webpSrc={heartwhiteWebp} avifSrc={heartwhiteAvif} alt="Composition X detail white" />
+                    <TwinTwo as={ResponsiveImage} src={heartblack} webpSrc={heartblackWebp} avifSrc={heartblackAvif} alt="Composition X detail black" />
 
                     <TwinsText>
                         <ArtHeader>COMPOSITION X</ArtHeader>
@@ -555,8 +635,11 @@ export default function Composition() {
                     </ArtSectiontwins>
 
                     {/*BIRDS FULL SCREEN */}
-                  <img
+                  <ResponsiveImage
   src={birds}
+  webpSrc={birdsWebp}
+  avifSrc={birdsAvif}
+  alt="Birds composition"
   style={{
     width: '100vw',         // full width
     height: '100vh',        // full viewport height
@@ -571,7 +654,7 @@ export default function Composition() {
 
           {/* CONEY ISLAND, NY */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={coney} imageAlt="Coney Island, NY">
+            <ImageTextSplit imageSrc={coney} imageWebp={coneyWebp} imageAvif={coneyAvif} imageAlt="Coney Island, NY">
               <ArtHeader>CONEY ISLAND, NY</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Film photograph with light leaks.</ArtDesc>
@@ -580,7 +663,7 @@ export default function Composition() {
 
           {/* BROOKLYN, NY I */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={brooklyn} imageAlt="Brooklyn, NY I">
+            <ImageTextSplit imageSrc={brooklyn} imageWebp={brooklynWebp} imageAvif={brooklynAvif} imageAlt="Brooklyn, NY I">
               <ArtHeader>BROOKLYN, NY I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Double exposure film photograph.</ArtDesc>
@@ -589,7 +672,7 @@ export default function Composition() {
 
           {/* BROOKLYN, NY II */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={brooklyn2} imageAlt="Brooklyn, NY II">
+            <ImageTextSplit imageSrc={brooklyn2} imageWebp={brooklyn2Webp} imageAvif={brooklyn2Avif} imageAlt="Brooklyn, NY II">
               <ArtHeader>BROOKLYN, NY II</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Double exposure film photograph.</ArtDesc>
@@ -597,21 +680,14 @@ export default function Composition() {
           </div>
 
                                {/*Render4 FULL SCREEN */}
-                 <img
-  src={render4}
-  style={{
-    width: '100vw',          // full width
-    height: '100vh',         // full viewport height
-    objectFit: 'cover',      // crop/zoom without stretching
-    objectPosition: 'top',   // align to top
-    display: 'block'
-  }}
-/>
+<CenteredRenderSection>
+  <FeatureRender as={ResponsiveImage} src={render4} webpSrc={render4Webp} avifSrc={render4Avif} alt="Composition render 4" />
+</CenteredRenderSection>
 
 
           {/* RUG I */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={rug} imageAlt="Rug I">
+            <ImageTextSplit imageSrc={rug} imageWebp={rugWebp} imageAvif={rugAvif} imageAlt="Rug I">
               <ArtHeader>RUG I</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>100% Wool & Monks cloth.</ArtDesc>
@@ -620,7 +696,7 @@ export default function Composition() {
 
           {/* COMPOSITION III */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={mash1} imageAlt="Composition III">
+            <ImageTextSplit imageMode="framed" imageSrc={mash1} imageWebp={mash1Webp} imageAvif={mash1Avif} imageAlt="Composition III">
               <ArtHeader>COMPOSITION III</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -629,7 +705,7 @@ export default function Composition() {
 
           {/* COMPOSITION IV */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={mash2} imageAlt="Composition IV">
+            <ImageTextSplit imageMode="framed" imageSrc={mash2} imageWebp={mash2Webp} imageAvif={mash2Avif} imageAlt="Composition IV">
               <ArtHeader>COMPOSITION IV</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -637,21 +713,14 @@ export default function Composition() {
           </div>
 
                                 {/*Render5 FULL SCREEN */}
-                   <img
-  src={render5}
-  style={{
-    width: '100vw',          // full width
-    height: '100vh',         // full viewport height
-    objectFit: 'cover',      // crop/zoom without stretching
-    objectPosition: 'top',   // align to top
-    display: 'block'
-  }}
-/>
+<CenteredRenderSection>
+  <FeatureRender as={ResponsiveImage} src={render5} webpSrc={render5Webp} avifSrc={render5Avif} alt="Composition render 5" />
+</CenteredRenderSection>
 
 
           {/* COMPOSITION V */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={mash3} imageAlt="Composition V">
+            <ImageTextSplit imageMode="framed" imageSrc={mash3} imageWebp={mash3Webp} imageAvif={mash3Avif} imageAlt="Composition V">
               <ArtHeader>COMPOSITION V</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -660,7 +729,7 @@ export default function Composition() {
 
           {/* COMPOSITION VI */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={mash4} imageAlt="Composition VI">
+            <ImageTextSplit imageMode="framed" imageSrc={mash4} imageWebp={mash4Webp} imageAvif={mash4Avif} imageAlt="Composition VI">
               <ArtHeader>COMPOSITION VI</ArtHeader>
               <ArtYear>2019</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -669,7 +738,7 @@ export default function Composition() {
 
           {/* COMPOSITION VII */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={mash5} imageAlt="Composition VII">
+            <ImageTextSplit imageMode="framed" imageSrc={mash5} imageWebp={mash5Webp} imageAvif={mash5Avif} imageAlt="Composition VII">
               <ArtHeader>COMPOSITION VII</ArtHeader>
               <ArtYear>2020</ArtYear>
               <ArtDesc>Digital collage (study for a painting).</ArtDesc>
@@ -677,21 +746,14 @@ export default function Composition() {
           </div>
 
                                   {/*MATTOS FULL SCREEN */}
-                                  <img
-  src={mattos}
-  style={{
-    width: '100vw',          // full width
-    height: '100vh',         // full viewport height
-    objectFit: 'cover',      // crop/zoom without stretching
-    objectPosition: 'center',// center the image
-    display: 'block'
-  }}
-/>
+<CenteredRenderSection>
+  <FeatureRender as={ResponsiveImage} src={mattos} webpSrc={mattosWebp} avifSrc={mattosAvif} alt="Mattos collage" />
+</CenteredRenderSection>
 
 
           {/* COMPOSITION I */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit imageSrc={og} imageAlt="Composition I">
+            <ImageTextSplit imageMode="framed" imageSrc={og} imageWebp={ogWebp} imageAvif={ogAvif} imageAlt="Composition I">
               <ArtHeader>COMPOSITION I</ArtHeader>
               <ArtYear>2018</ArtYear>
               <ArtDesc>Digital collage (study for a screenprint).</ArtDesc>
@@ -700,7 +762,7 @@ export default function Composition() {
 
           {/* GRAIN */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit imageSrc={grain} imageAlt="Grain">
+            <ImageTextSplit imageMode="framed" imageSrc={grain} imageWebp={grainWebp} imageAvif={grainAvif} imageAlt="Grain">
               <ArtHeader>GRAIN</ArtHeader>
               <ArtYear>2021</ArtYear>
               <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
@@ -709,8 +771,8 @@ export default function Composition() {
 
                             {/*EPHEMERAL I & II SECTION */}
 <ArtSectiontwins>
-  <Orbital src={twin1} />
-  <TwinTwo src={twin2} />
+  <Orbital as={ResponsiveImage} src={twin1} webpSrc={twin1Webp} avifSrc={twin1Avif} alt="Ephemeral I" />
+  <TwinTwo as={ResponsiveImage} src={twin2} webpSrc={twin2Webp} avifSrc={twin2Avif} alt="Ephemeral II" />
 
   <TwinsText>
     <ArtHeader>EPHEMERAL I & II</ArtHeader>

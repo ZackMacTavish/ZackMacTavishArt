@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import LandingPage from '../Landing_Page/LandingPage';
 
@@ -8,6 +8,10 @@ export default function IntroAnimation() {
   const overlayRef = useRef(null);
   const counterRef = useRef(null);
   const letterRefs = useRef([]);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -70,6 +74,7 @@ export default function IntroAnimation() {
       <LandingPage />
       <div
         ref={overlayRef}
+        aria-hidden="true"
         style={{
           position: 'fixed',
           inset: 0,
@@ -83,7 +88,7 @@ export default function IntroAnimation() {
         }}
       >
         {/* Large name heading */}
-        <h1
+        <div
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontWeight: 700,
@@ -111,7 +116,7 @@ export default function IntroAnimation() {
               </span>
             </span>
           ))}
-        </h1>
+        </div>
 
         {/* Counter */}
         <div

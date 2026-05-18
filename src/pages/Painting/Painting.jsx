@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react';
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import { TextSection } from '../Dwelling/Dwelling';
 import {
@@ -19,8 +20,12 @@ import airbrush from '/src/assets/airbrush.jpg';
 import sarge from '/src/assets/Sarge2.jpg';
 import plastictoy from '/src/assets/PlasticToyCrop4.png';
 import yellowlily from '/src/assets/YellowLily.jpg';
+import yellowlilyWebp from '/src/assets/optimized/YellowLily.webp';
+import yellowlilyAvif from '/src/assets/optimized/YellowLily.avif';
 import lighthouse from '/src/assets/Lighthouse.jpeg';
 import cacti1 from '/src/assets/E-png.png';
+import cacti1Webp from '/src/assets/optimized/E-png.webp';
+import cacti1Avif from '/src/assets/optimized/E-png.avif';
 import splash from '/src/assets/splashpanel.png';
 import yellowz from '/src/assets/Yellow-Z.png';
 import selfie from '/src/assets/SelfPortrait.jpg';
@@ -74,7 +79,7 @@ export default function Painting() {
 
       {/* Second set of 3 pieces */}
       <ArtSectionthreeog>
-        <Orbital src={yellowlily} />
+        <Orbital as={ResponsiveImage} src={yellowlily} webpSrc={yellowlilyWebp} avifSrc={yellowlilyAvif} alt="Yellow Lily" />
         <ArtText>
           <ArtHeader>Yellow Lily</ArtHeader>
           <ArtYear>2020</ArtYear>
@@ -88,7 +93,7 @@ export default function Painting() {
           <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
         </ArtTexttwo>
 
-        <GridRowThree src={cacti1} />
+        <GridRowThree as={ResponsiveImage} src={cacti1} webpSrc={cacti1Webp} avifSrc={cacti1Avif} alt="Orange Cacti" />
         <ArtTextthree>
           <ArtHeader>ORANGE CACTI</ArtHeader>
           <ArtYear>2015-21</ArtYear>

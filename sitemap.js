@@ -4,6 +4,16 @@ import path from 'path';
 // This script imports your metadata and writes a sitemap.xml to the dist/ folder.
 // Run after `vite build` (e.g. via a postbuild npm script).
 
+const ROUTE_PATHS = [
+  '/',
+  '/about',
+  '/3d',
+  '/composition',
+  '/dwelling',
+  '/photography',
+  '/printmaking'
+];
+
 const cwd = process.cwd();
 const metadataPath = path.join(cwd, 'src', 'data', 'metadata.js');
 
@@ -17,20 +27,14 @@ async function loadMetadata() {
   return { site, projects };
 }
 
-function buildUrlSet(site, projects) {
-  const urls = new Set();
-  if (site && site.url) urls.add(site.url.replace(/\/$/, ''));
+function routeToUrl(siteUrl, routePath) {
+  const baseUrl = siteUrl.replace(/\/$/, '');
+  if (routePath === '/') return `${baseUrl}/`;
+  return `${baseUrl}${routePath}`;
+}
 
-  if (projects) {
-    Object.values(projects).forEach((p) => {
-      if (p && p.url) urls.add(p.url.replace(/\/$/, ''));
-    });
-  }
-
-  // Add common pages if not present
-  urls.add(`${site.url.replace(/\/$/, '')}/about`);
-
-  return Array.from(urls).map((u) => `${u}/`); // ensure trailing slash
+function buildUrlSet(site) {
+  return ROUTE_PATHS.map((routePath) => routeToUrl(site.url, routePath));
 }
 
 function sitemapXml(urls) {
@@ -45,12 +49,12 @@ function sitemapXml(urls) {
 
 async function run() {
   try {
-    const { site, projects } = await loadMetadata();
+    const { site } = await loadMetadata();
     if (!site || !site.url) {
       console.error('site.url not found in metadata.js. Aborting sitemap generation.');
       process.exit(1);
     }
-    const urls = buildUrlSet(site, projects);
+    const urls = buildUrlSet(site);
     const xml = sitemapXml(urls);
     const outDir = path.join(cwd, 'dist');
     if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });

@@ -5,15 +5,30 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect, useEffect, useState } from 'react';
-import { Seo, ImageTextSplit } from '@zackmactavish/foundation'
+import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import styled, { keyframes } from 'styled-components';
 import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
+import meWebp from '../../assets/optimized/Me.webp';
+import meAvif from '../../assets/optimized/Me.avif';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
+import imagereplaceWebp from '../../assets/optimized/BlackTurtleneck-popart-01.webp';
+import imagereplaceAvif from '../../assets/optimized/BlackTurtleneck-popart-01.avif';
 import quilthanging from '../../assets/hangingquilts.jpg';
+import quilthangingWebp from '../../assets/optimized/hangingquilts.webp';
+import quilthangingAvif from '../../assets/optimized/hangingquilts.avif';
 // Removed agency/client section; no longer importing text layout components from Printmaking
 import { useLocation } from 'react-router-dom';
 import { canonicalFromLocation } from '../../utils/seo';
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
+
+const AUTHOR_SAME_AS = [
+  'https://dribbble.com/Zmactavish',
+  'https://www.instagram.com/zackmichaelmactavish',
+  'https://www.linkedin.com/in/zacharymactavish/',
+  'https://github.com/ZackMacTavish',
+  'https://medium.com/@zmactavish',
+];
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
 // import faviconIco from '../../assets/favicon.ico';
@@ -413,14 +428,14 @@ const About = () => {
         }
       `}</style>
       <Seo 
-        title="About  Zack MacTavish Art & Design" 
+        title="About | Zack MacTavish Art & Design" 
         description="About Zack MacTavish, an artist and product designer based in Philadelphia, PA." 
   image={ogImage1200}
         url={canonical}
         keywords={["about", "artist", "product designer", "Philadelphia"]}
   authorName="Zack MacTavish"
   authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
-        sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+        sameAs={AUTHOR_SAME_AS}
         favicons={[
           { rel: 'icon', type: 'image/png', sizes: '16x16', href: favicon16 },
           { rel: 'icon', type: 'image/png', sizes: '32x32', href: favicon32 },
@@ -436,12 +451,12 @@ const About = () => {
           "name": "Zack MacTavish",
           "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
           "url": canonical,
-          "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+          "sameAs": AUTHOR_SAME_AS
         }}
       />
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={me} imageAlt="Portrait of Zack MacTavish">
+        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageAvif={meAvif} imageAlt="Portrait of Zack MacTavish">
           <SplitText style={{ color: '#5d5d5d' }}>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
        history through painting, textile, collage, and print. Having moved over twenty times across 
@@ -460,7 +475,7 @@ const About = () => {
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
       <div style={{ width: '100vw', padding: '0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageAlt="Quilt hanging">
+        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Quilt hanging">
           <SplitQuiltText style={{ color: 'white' }}>
             His current work shifts focus from transition to permanence: the homes, families, 
             and communities that endure across a life in motion. Working in quilting, embroidery, 
@@ -482,7 +497,7 @@ const About = () => {
             {isDesktop ? (
               <Scene />
             ) : (
-              <img style={{ width: '100vw', height: '70vh', objectFit: 'cover' }} src={imagereplace} alt="fallback" />
+              <ResponsiveImage style={{ width: '100vw', height: '70vh', objectFit: 'cover' }} imgStyle={{ width: '100vw', height: '70vh', objectFit: 'cover' }} src={imagereplace} webpSrc={imagereplaceWebp} avifSrc={imagereplaceAvif} alt="Pop-art portrait" />
             )}
           </GridImage>
         </GridThemes>

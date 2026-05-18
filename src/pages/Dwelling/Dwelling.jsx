@@ -20,9 +20,18 @@ import mash5 from '../../assets/Mash5.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
 import React, { useLayoutEffect, useEffect } from 'react';
-import { Seo, ImageTextSplit } from '@zackmactavish/foundation'
+import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation } from '../../utils/seo'
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
+
+const AUTHOR_SAME_AS = [
+  'https://dribbble.com/Zmactavish',
+  'https://www.instagram.com/zackmichaelmactavish',
+  'https://www.linkedin.com/in/zacharymactavish/',
+  'https://github.com/ZackMacTavish',
+  'https://medium.com/@zmactavish',
+];
 import styled from 'styled-components';
 import { RisoItem } from '../3d/MergedGraffiti';
 import { ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, GridRowThree, GridRowTwo, Orbital, ArtSectionThreeone } from '../COMPOSITION/Composition';
@@ -31,40 +40,106 @@ import { TextContainer, TextContent, FullHeightTextSection } from '../Printmakin
 
 // Assets
 import housemash from '../../assets/House—Mash.jpg';
+import housemashWebp from '../../assets/optimized/House—Mash.webp';
+import housemashAvif from '../../assets/optimized/House—Mash.avif';
 import housefront from '../../assets/Housequiltfront.jpg';
+import housefrontWebp from '../../assets/optimized/Housequiltfront.webp';
+import housefrontAvif from '../../assets/optimized/Housequiltfront.avif';
 import houseback from '../../assets/Housequiltback.jpg';
+import housebackWebp from '../../assets/optimized/Housequiltback.webp';
+import housebackAvif from '../../assets/optimized/Housequiltback.avif';
 import house1 from '../../assets/house5.jpg';
+import house1Webp from '../../assets/optimized/house5.webp';
+import house1Avif from '../../assets/optimized/house5.avif';
 import house2 from '../../assets/house6.jpg';
+import house2Webp from '../../assets/optimized/house6.webp';
+import house2Avif from '../../assets/optimized/house6.avif';
 import ep from '../../assets/EP.jpg';
+import epWebp from '../../assets/optimized/EP.webp';
+import epAvif from '../../assets/optimized/EP.avif';
 import westwood from '../../assets/westwood.jpg';
+import westwoodWebp from '../../assets/optimized/westwood.webp';
+import westwoodAvif from '../../assets/optimized/westwood.avif';
 import manistee2 from '../../assets/manistee2.jpg';
+import manistee2Webp from '../../assets/optimized/manistee2.webp';
+import manistee2Avif from '../../assets/optimized/manistee2.avif';
 import albany from '../../assets/albany.jpg';
+import albanyWebp from '../../assets/optimized/albany.webp';
+import albanyAvif from '../../assets/optimized/albany.avif';
 import maynard from '../../assets/maynard.jpg';
+import maynardWebp from '../../assets/optimized/maynard.webp';
+import maynardAvif from '../../assets/optimized/maynard.avif';
 import armistice3 from '../../assets/armistice3.jpg';
+import armistice3Webp from '../../assets/optimized/armistice3.webp';
+import armistice3Avif from '../../assets/optimized/armistice3.avif';
 import house5 from '../../assets/house1.jpg';
 import house6 from '../../assets/house2.jpg';
 import house3 from '../../assets/house3.jpg';
+import house3Webp from '../../assets/optimized/house3.webp';
+import house3Avif from '../../assets/optimized/house3.avif';
 import house4 from '../../assets/house4.jpg';
+import house4Webp from '../../assets/optimized/house4.webp';
+import house4Avif from '../../assets/optimized/house4.avif';
 import olympia from '../../assets/Olympia.jpg';
+import olympiaWebp from '../../assets/optimized/Olympia.webp';
+import olympiaAvif from '../../assets/optimized/Olympia.avif';
 import manistee1 from '../../assets/manistee1.jpg';
+import manistee1Webp from '../../assets/optimized/manistee1.webp';
+import manistee1Avif from '../../assets/optimized/manistee1.avif';
 import pawtucket from '../../assets/Pawtucket.jpg';
+import pawtucketWebp from '../../assets/optimized/Pawtucket.webp';
+import pawtucketAvif from '../../assets/optimized/Pawtucket.avif';
 import armistice1 from '../../assets/Armistice1.jpg';
+import armistice1Webp from '../../assets/optimized/Armistice1.webp';
+import armistice1Avif from '../../assets/optimized/Armistice1.avif';
 import rosewood from '../../assets/rosewood.jpg';
+import rosewoodWebp from '../../assets/optimized/rosewood.webp';
+import rosewoodAvif from '../../assets/optimized/rosewood.avif';
 import taylor from '../../assets/taylor.jpg';
+import taylorWebp from '../../assets/optimized/taylor.webp';
+import taylorAvif from '../../assets/optimized/taylor.avif';
 import house7 from '../../assets/house7.jpg';
+import house7Webp from '../../assets/optimized/house7.webp';
+import house7Avif from '../../assets/optimized/house7.avif';
 import housemash2 from '../../assets/housemash2.jpg';
+import housemash2Webp from '../../assets/optimized/housemash2.webp';
+import housemash2Avif from '../../assets/optimized/housemash2.avif';
 import manisteeblock from '../../assets/Manisteeblock.jpg';
+import manisteeblockWebp from '../../assets/optimized/Manisteeblock.webp';
+import manisteeblockAvif from '../../assets/optimized/Manisteeblock.avif';
 import quilt1 from "../../assets/quilt1.jpg";
+import quilt1Webp from '../../assets/optimized/quilt1.webp';
+import quilt1Avif from '../../assets/optimized/quilt1.avif';
 import quilt2 from "../../assets/quilt2.jpg";
+import quilt2Webp from '../../assets/optimized/quilt2.webp';
+import quilt2Avif from '../../assets/optimized/quilt2.avif';
 import quilt3 from "../../assets/quilt3.jpg";
+import quilt3Webp from '../../assets/optimized/quilt3.webp';
+import quilt3Avif from '../../assets/optimized/quilt3.avif';
 import quilt4 from "../../assets/quilt4.jpg";
+import quilt4Webp from '../../assets/optimized/quilt4.webp';
+import quilt4Avif from '../../assets/optimized/quilt4.avif';
 import quilt5 from "../../assets/quilt5.jpg";
+import quilt5Webp from '../../assets/optimized/quilt5.webp';
+import quilt5Avif from '../../assets/optimized/quilt5.avif';
 import quilt6 from "../../assets/quilt6.jpg";
+import quilt6Webp from '../../assets/optimized/quilt6.webp';
+import quilt6Avif from '../../assets/optimized/quilt6.avif';
 import quilt7 from "../../assets/quilt7.jpg";
+import quilt7Webp from '../../assets/optimized/quilt7.webp';
+import quilt7Avif from '../../assets/optimized/quilt7.avif';
 import quilt8 from "../../assets/quilt8.jpg";
+import quilt8Webp from '../../assets/optimized/quilt8.webp';
+import quilt8Avif from '../../assets/optimized/quilt8.avif';
 import quilt9 from "../../assets/quilt9.jpg";
+import quilt9Webp from '../../assets/optimized/quilt9.webp';
+import quilt9Avif from '../../assets/optimized/quilt9.avif';
 import grandparents from "../../assets/JanetDavidDominicMarie.JPG"
+import grandparentsWebp from '../../assets/optimized/JanetDavidDominicMarie.webp';
+import grandparentsAvif from '../../assets/optimized/JanetDavidDominicMarie.avif';
 import greatgrandparents from "../../assets/JanetDavidGrandpaNana.JPG"
+import greatgrandparentsWebp from '../../assets/optimized/JanetDavidGrandpaNana.webp';
+import greatgrandparentsAvif from '../../assets/optimized/JanetDavidGrandpaNana.avif';
 
 // Styled Components
 export const TextSection = styled.h1`
@@ -128,13 +203,35 @@ export const ThreeImageGrid = styled.div`
   height: auto;
   box-sizing: border-box; /* ensure padding doesn't affect centering calculations */
 
-  img {
-    flex: 1 1 28%;
-    max-width: 28%;
+  & > img,
+  & > picture {
+    flex: 1 1 26%;
+    max-width: 26%;
     min-width: 200px;
     height: auto;
-    max-height: 70vh;       /* slightly smaller vertical size */
+    max-height: 64vh;
     object-fit: contain;    /* preserves aspect ratio */
+  }
+
+  & picture {
+    display: block;
+  }
+
+  & picture img {
+    width: 100%;
+    height: auto;
+    max-height: inherit;
+    object-fit: contain;
+  }
+
+  &.rounded-corners > picture {
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  &.rounded-corners > picture img,
+  &.rounded-corners > img {
+    border-radius: 18px;
   }
 
   /* blend variant: multiply the images against the section background */
@@ -154,7 +251,18 @@ export const ThreeImageGrid = styled.div`
     gap: 16px; /* even tighter gap to allow ~15% larger images while keeping equal spacing */
   }
 
-  &.large img {
+  &.roomy {
+    gap: 32px;
+  }
+
+  &.large.roomy > img,
+  &.large.roomy > picture {
+    flex: 0 0 calc((100% - 64px) / 3);
+    max-width: calc((100% - 64px) / 3);
+  }
+
+  &.large > img,
+  &.large > picture {
     /* each image takes one third minus total gaps (2 * 16px) */
     flex: 0 0 calc((100% - 32px) / 3);
     max-width: calc((100% - 32px) / 3);
@@ -170,13 +278,45 @@ export const ThreeImageGrid = styled.div`
     align-self: center;
   }
 
+  &.portrait-large {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    width: min(94vw, 1500px);
+    max-width: 1500px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  &.portrait-large > img,
+  &.portrait-large > picture {
+    flex: 0 1 auto;
+    width: fit-content;
+    max-width: min(30vw, 460px);
+    min-width: 0;
+    max-height: 85vh;
+  }
+
+  &.portrait-large picture img,
+  &.portrait-large > img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 85vh;
+    margin: 0 auto;
+  }
+
   @media (max-width: 900px) {
     flex-direction: column;
     gap: 32px;
     padding: 60px 20px;
     align-items: center;    /* center stacked images horizontally */
 
-    img {
+    & > img,
+    & > picture {
       flex: 1 1 auto;
       max-width: 90%;       /* slightly narrower on mobile */
       max-height: 60vh;     /* smaller vertical size for mobile */
@@ -185,6 +325,19 @@ export const ThreeImageGrid = styled.div`
     &.large {
       width: min(92vw, 100%);
       justify-self: center;
+    }
+
+    &.portrait-large {
+      flex-direction: column;
+      width: min(92vw, 100%);
+      gap: 32px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    &.portrait-large img,
+    &.portrait-large picture {
+      max-width: 100%;
     }
   }
 `;
@@ -201,7 +354,8 @@ export const TwoImageGrid = styled.div`
   height: auto;
   box-sizing: border-box;
 
-  img {
+  & > img,
+  & > picture {
     flex: 1 1 45%;
     max-width: 45%;
     min-width: 180px;
@@ -210,10 +364,26 @@ export const TwoImageGrid = styled.div`
     object-fit: contain;
   }
 
+  & picture {
+    display: block;
+  }
+
   /* size variant for larger images */
-  &.large img {
-    flex: 1 1 48%;
-    max-width: 48%;
+  &.large > img,
+  &.large > picture {
+    width: 100%;
+    max-width: none;
+    max-height: 82vh;
+  }
+
+  &.large {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    width: min(94vw, 1760px);
+    margin: 0 auto;
+    padding-left: clamp(24px, 3vw, 48px);
+    padding-right: clamp(24px, 3vw, 48px);
   }
 
   /* force two images to stay on a single row (desktop) */
@@ -225,7 +395,8 @@ export const TwoImageGrid = styled.div`
     justify-self: center; /* center when parent is display:grid (e.g., Grid60) */
     align-self: center;
   }
-  &.one-row img {
+  &.one-row > img,
+  &.one-row > picture {
     flex: 0 0 calc((100% - 40px) / 2); /* gap is 40px */
     max-width: calc((100% - 40px) / 2);
   }
@@ -236,10 +407,22 @@ export const TwoImageGrid = styled.div`
     padding: 40px 20px;
     align-items: center;
 
-    img {
+    & > img,
+    & > picture {
       flex: 1 1 auto;
       max-width: 90%;      /* slightly narrower on mobile */
       max-height: 60vh;    /* smaller vertical size for mobile */
+    }
+
+    &.large {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: min(92vw, 100%);
+    }
+
+    &.large > img,
+    &.large > picture {
+      max-width: 100%;
     }
 
     /* on mobile, allow wrapping/stacking */
@@ -365,14 +548,14 @@ export default function Dwelling() {
   return (
       <div>
           <Seo 
-            title="Dwelling  Quilts, Collages, and Mixed Media by Zack MacTavish" 
+            title="Dwelling | Zack MacTavish Art & Design" 
             description="Dwelling is a series of quilts, collages, and mixed media works exploring houses, memories, and storytelling." 
             image={ogImage}
             url={canonical}
             keywords={["dwelling", "quilts", "collages", "mixed media", "houses", "memories"]}
             authorName="Zack MacTavish"
             authorAlternateNames={["Zachary MacTavish"]}
-            sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+            sameAs={AUTHOR_SAME_AS}
             favicons={[
                 { rel: 'icon', type: 'image/png', sizes: '16x16', href: favicon16 },
                 { rel: 'icon', type: 'image/png', sizes: '32x32', href: favicon32 },
@@ -391,7 +574,7 @@ export default function Dwelling() {
                 "@type": "Person",
                 "name": "Zack MacTavish",
                 "alternateName": ["Zachary MacTavish"],
-                "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+                "sameAs": AUTHOR_SAME_AS
               }
             }}
           />
@@ -412,8 +595,8 @@ export default function Dwelling() {
           {/* Top housemash images horizontally */}
          <div style={{ backgroundColor: 'white', width: '100vw' }}>
            <TwoImageGrid className="large">
-             <img src={housemash} alt="House Mash 1" />
-             <img src={housemash2} alt="House Mash 2" />
+               <ResponsiveImage src={housemash} webpSrc={housemashWebp} avifSrc={housemashAvif} alt="House Mash 1" />
+               <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} avifSrc={housemash2Avif} alt="House Mash 2" />
            </TwoImageGrid>
          </div>
 
@@ -432,7 +615,7 @@ export default function Dwelling() {
 
           {/* Open House Front: keep section white; add only top padding */}
           <div style={{ backgroundColor: 'white', width: '100vw', paddingTop: '4vh' }}>
-            <ImageTextSplit id="open-house-front" imageSrc={housefront} imageAlt="Open House Front" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={housefront} imageAlt="Open House Front" imageAvif={housefrontAvif} imageWebp={housefrontWebp}>
               <ArtHeader>Open House Front</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -441,7 +624,7 @@ export default function Dwelling() {
 
           {/* Open House Back: image-level multiply blend; section has white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit className="blend-img" imageSrc={houseback} imageAlt="Open House Back" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={houseback} imageAlt="Open House Back" imageAvif={housebackAvif} imageWebp={housebackWebp}>
               <ArtHeader>Open House Back</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
@@ -450,14 +633,14 @@ export default function Dwelling() {
 
             {/* Tuzio family sections using ImageTextSplit with full white background */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit className="blend-img" imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={greatgrandparentsAvif} imageWebp={greatgrandparentsWebp}>
               <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
               <ArtYear>July, 1960</ArtYear>
               <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
             </ImageTextSplit>
           </div>
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ImageTextSplit className="blend-img" imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={grandparentsAvif} imageWebp={grandparentsWebp}>
               <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
               <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
             </ImageTextSplit>
@@ -468,27 +651,27 @@ export default function Dwelling() {
           {/* DWELLING MASH I Section (formerly DWELLING MASH II) */}
 
 <TwoImageGrid>
-  <img src={house1} alt="House 1" style={{ transform: "scale(0.9)" }} />
-  <img src={house2} alt="House 2" style={{ transform: "scale(0.9)" }} />
+  <ResponsiveImage src={house1} webpSrc={house1Webp} avifSrc={house1Avif} alt="House 1" imgStyle={{ transform: "scale(0.9)" }} />
+  <ResponsiveImage src={house2} webpSrc={house2Webp} avifSrc={house2Avif} alt="House 2" imgStyle={{ transform: "scale(0.9)" }} />
 </TwoImageGrid>
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt1} imageAlt="Quilt 1" imageAvif={quilt1Avif} imageWebp={quilt1Webp}>
     <ArtHeader>Quilt 1</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt2} imageAlt="Quilt 2" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt2} imageAlt="Quilt 2" imageAvif={quilt2Avif} imageWebp={quilt2Webp}>
     <ArtHeader>Quilt 2</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>Dorms, Downtown, Chicago</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt3} imageAlt="Quilt 3" imageAvif={quilt3Avif} imageWebp={quilt3Webp}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's house</ArtDesc>
@@ -498,21 +681,21 @@ export default function Dwelling() {
 
           {/* Quilt 4, Quilt 5, Quilt 6 as ImageTextSplit blocks on white */}
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt 4" imageAvif={quilt4Avif} imageWebp={quilt4Webp}>
     <ArtHeader>Quilt 4</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt5} imageAlt="Quilt 5" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt5} imageAlt="Quilt 5" imageAvif={quilt5Avif} imageWebp={quilt5Webp}>
     <ArtHeader>Quilt 5</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>House with Richie</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt 6" imageAvif={quilt6Avif} imageWebp={quilt6Webp}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
@@ -523,21 +706,21 @@ export default function Dwelling() {
           {/* Quilt 7, Quilt 8, Quilt 9 as ImageTextSplit blocks on white */}
 
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt7} imageAlt="Quilt 7" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt7} imageAlt="Quilt 7" imageAvif={quilt7Avif} imageWebp={quilt7Webp}>
     <ArtHeader>Quilt 7</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt8} imageAlt="Quilt 8" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt8} imageAlt="Quilt 8" imageAvif={quilt8Avif} imageWebp={quilt8Webp}>
     <ArtHeader>Quilt 8</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
 </div>
 <div style={{ backgroundColor: 'white', width: '100vw' }}>
-  <ImageTextSplit className="blend-img" imageSrc={quilt9} imageAlt="Quilt 9" imageAvif={undefined} imageWebp={undefined}>
+  <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt9} imageAlt="Quilt 9" imageAvif={quilt9Avif} imageWebp={quilt9Webp}>
     <ArtHeader>Quilt 9</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Olympia Ave, Pawtucket, RI</ArtDesc>
@@ -546,7 +729,7 @@ export default function Dwelling() {
 
           {/* Manistee Street section (added to match pasted code) */}
           <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
-            <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={undefined} imageWebp={undefined}>
+            <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Manistee Street" imageAvif={manisteeblockAvif} imageWebp={manisteeblockWebp}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>
               <ArtDesc>Reduction relief woodblock print.</ArtDesc>
@@ -556,14 +739,14 @@ export default function Dwelling() {
           {/* Grid of small images */}
           <PicturesFlex>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={ep} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={westwood} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={manistee2} />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={ep} webpSrc={epWebp} avifSrc={epAvif} alt="EP house print" />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={westwood} webpSrc={westwoodWebp} avifSrc={westwoodAvif} alt="Westwood house print" />
+                <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={manistee2} webpSrc={manistee2Webp} avifSrc={manistee2Avif} alt="Manistee house print" />
               </PhotoFlexone>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={albany} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={maynard} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={armistice3} />
+                <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={albany} webpSrc={albanyWebp} avifSrc={albanyAvif} alt="Albany house print" />
+                <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={maynard} webpSrc={maynardWebp} avifSrc={maynardAvif} alt="Maynard house print" />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={armistice3} webpSrc={armistice3Webp} avifSrc={armistice3Avif} alt="Armistice 3 house print" />
               </PhotoFlexone>
           </PicturesFlex>
 
@@ -571,23 +754,23 @@ export default function Dwelling() {
 
           <PicturesFlex>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={olympia} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={manistee1} />
-                <RisoItem style={{padding:"2vw"}} $Width='20vw' src={pawtucket} />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={olympia} webpSrc={olympiaWebp} avifSrc={olympiaAvif} alt="Olympia house print" />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={manistee1} webpSrc={manistee1Webp} avifSrc={manistee1Avif} alt="Manistee 1 house print" />
+                <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={pawtucket} webpSrc={pawtucketWebp} avifSrc={pawtucketAvif} alt="Pawtucket house print" />
               </PhotoFlexone>
               <PhotoFlexone>
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={armistice1} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={rosewood} />
-                  <RisoItem style={{padding:"2vw"}} $Width='20vw' src={taylor} />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={armistice1} webpSrc={armistice1Webp} avifSrc={armistice1Avif} alt="Armistice 1 house print" />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={rosewood} webpSrc={rosewoodWebp} avifSrc={rosewoodAvif} alt="Rosewood house print" />
+                  <RisoItem as={ResponsiveImage} style={{padding:"2vw"}} $Width='20vw' src={taylor} webpSrc={taylorWebp} avifSrc={taylorAvif} alt="Taylor house print" />
               </PhotoFlexone>
           </PicturesFlex>
 
           {/* Final DWELLING MASH section */}
           <div style={{ backgroundColor: 'white', width: '100vw' }}>
-            <ThreeImageGrid className="large">
-              <img src={house3} alt="House 3" />
-              <img src={house7} alt="House 7" />
-              <img src={house4} alt="House 4" />
+            <ThreeImageGrid className="large roomy">
+              <ResponsiveImage src={house3} webpSrc={house3Webp} avifSrc={house3Avif} alt="House 3" />
+              <ResponsiveImage src={house7} webpSrc={house7Webp} avifSrc={house7Avif} alt="House 7" />
+              <ResponsiveImage src={house4} webpSrc={house4Webp} avifSrc={house4Avif} alt="House 4" />
             </ThreeImageGrid>
           </div>
       </div>

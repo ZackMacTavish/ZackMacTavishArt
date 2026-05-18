@@ -1,5 +1,6 @@
 // src/pages/Artworks.jsx
 import React, { useLayoutEffect, useEffect } from 'react';
+import ResponsiveImage from '../../components/Images/ResponsiveImage';
 // --- Blend backdrop effect for ImageTextSplit (matches Dwelling) ---
 function useBlendBackdrop() {
   useEffect(() => {
@@ -66,9 +67,17 @@ function useBlendBackdrop() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 }
-import { Seo, Grid60, ImageTextSplit } from '@zackmactavish/foundation'
+import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation } from '../../utils/seo'
+
+const AUTHOR_SAME_AS = [
+  'https://dribbble.com/Zmactavish',
+  'https://www.instagram.com/zackmichaelmactavish',
+  'https://www.linkedin.com/in/zacharymactavish/',
+  'https://github.com/ZackMacTavish',
+  'https://medium.com/@zmactavish',
+];
 import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import {
   ArtDesc,
@@ -98,67 +107,183 @@ import icon512 from '/src/assets/og/website-logoresolutions-512px.png';
 
 // ===================== PRINTMAKING ASSETS =====================
 import olivia4 from '/src/assets/olivia4.jpg';
+import olivia4Webp from '/src/assets/optimized/olivia4.webp';
+import olivia4Avif from '/src/assets/optimized/olivia4.avif';
 import olivia2 from '/src/assets/oliviacollab2.jpg';
+import olivia2Webp from '/src/assets/optimized/oliviacollab2.webp';
+import olivia2Avif from '/src/assets/optimized/oliviacollab2.avif';
 import oliviacollab1 from '/src/assets/Collab-framed.jpg';
+import oliviacollab1Webp from '/src/assets/optimized/Collab-framed.webp';
+import oliviacollab1Avif from '/src/assets/optimized/Collab-framed.avif';
 import oliviacollab2 from '/src/assets/Collab-framed2.jpg';
+import oliviacollab2Webp from '/src/assets/optimized/Collab-framed2.webp';
+import oliviacollab2Avif from '/src/assets/optimized/Collab-framed2.avif';
 import oliviacollab3 from '/src/assets/Olivia_3.jpg';
+import oliviacollab3Webp from '/src/assets/optimized/Olivia_3.webp';
+import oliviacollab3Avif from '/src/assets/optimized/Olivia_3.avif';
 import screenprint2 from '/src/assets/Screenprint2.jpg';
+import screenprint2Webp from '/src/assets/optimized/Screenprint2.webp';
+import screenprint2Avif from '/src/assets/optimized/Screenprint2.avif';
 import screenprint2_1 from '/src/assets/screenprint2.1.jpg';
+import screenprint2_1Webp from '/src/assets/optimized/screenprint2.1.webp';
+import screenprint2_1Avif from '/src/assets/optimized/screenprint2.1.avif';
 import screenprint1 from '/src/assets/Screenprint1.jpg';
+import screenprint1Webp from '/src/assets/optimized/Screenprint1.webp';
+import screenprint1Avif from '/src/assets/optimized/Screenprint1.avif';
 import oliviacollab4 from '/src/assets/Collab4.jpg';
+import oliviacollab4Webp from '/src/assets/optimized/Collab4.webp';
+import oliviacollab4Avif from '/src/assets/optimized/Collab4.avif';
 import oliviacollab5 from '/src/assets/oliviacollab5.jpg';
+import oliviacollab5Webp from '/src/assets/optimized/oliviacollab5.webp';
+import oliviacollab5Avif from '/src/assets/optimized/oliviacollab5.avif';
 import oliviacollab6 from '/src/assets/oliviacollab6.jpg';
+import oliviacollab6Webp from '/src/assets/optimized/oliviacollab6.webp';
+import oliviacollab6Avif from '/src/assets/optimized/oliviacollab6.avif';
 import oliviacollab7 from '/src/assets/oliviacollab7.jpg';
+import oliviacollab7Webp from '/src/assets/optimized/oliviacollab7.webp';
+import oliviacollab7Avif from '/src/assets/optimized/oliviacollab7.avif';
 import oliviacollab8 from '/src/assets/oliviacollab8.jpg';
+import oliviacollab8Webp from '/src/assets/optimized/oliviacollab8.webp';
+import oliviacollab8Avif from '/src/assets/optimized/oliviacollab8.avif';
 import bear from '/src/assets/BearCMYK.jpg';
+import bearWebp from '/src/assets/optimized/BearCMYK.webp';
+import bearAvif from '/src/assets/optimized/BearCMYK.avif';
 import graffiticollage from '/src/assets/GraffitiCollageCMYK.jpg';
+import graffiticollageWebp from '/src/assets/optimized/GraffitiCollageCMYK.webp';
+import graffiticollageAvif from '/src/assets/optimized/GraffitiCollageCMYK.avif';
 import thetown from '/src/assets/TheTown.jpg';
+import thetownWebp from '/src/assets/optimized/TheTown.webp';
+import thetownAvif from '/src/assets/optimized/TheTown.avif';
 import Cape from '/src/assets/CapeHouse.jpg';
+import CapeWebp from '/src/assets/optimized/CapeHouse.webp';
+import CapeAvif from '/src/assets/optimized/CapeHouse.avif';
 import Capetwo from '/src/assets/CapeHouseLg.jpg';
+import CapetwoWebp from '/src/assets/optimized/CapeHouseLg.webp';
+import CapetwoAvif from '/src/assets/optimized/CapeHouseLg.avif';
 
 // ===================== COLLAGES ASSETS =====================
 import collage50 from '/src/assets/collage50.png';
+import collage50Webp from '/src/assets/optimized/collage50.webp';
+import collage50Avif from '/src/assets/optimized/collage50.avif';
 import collage47 from '/src/assets/collage47.png';
+import collage47Webp from '/src/assets/optimized/collage47.webp';
+import collage47Avif from '/src/assets/optimized/collage47.avif';
 import collage32 from '/src/assets/collage32.png';
+import collage32Webp from '/src/assets/optimized/collage32.webp';
+import collage32Avif from '/src/assets/optimized/collage32.avif';
 import collage1 from '/src/assets/Collage1.2.jpg';
+import collage1Webp from '/src/assets/optimized/Collage1.2.webp';
+import collage1Avif from '/src/assets/optimized/Collage1.2.avif';
 import collage2 from '/src/assets/Collage2.2.png';
+import collage2Webp from '/src/assets/optimized/Collage2.2.webp';
+import collage2Avif from '/src/assets/optimized/Collage2.2.avif';
 import collage3 from '/src/assets/Collage3.png';
+import collage3Webp from '/src/assets/optimized/Collage3.webp';
+import collage3Avif from '/src/assets/optimized/Collage3.avif';
 import collage4 from '/src/assets/Collage4.png';
+import collage4Webp from '/src/assets/optimized/Collage4.webp';
+import collage4Avif from '/src/assets/optimized/Collage4.avif';
 import collagefour from '/src/assets/No4.png';
+import collagefourWebp from '/src/assets/optimized/No4.webp';
+import collagefourAvif from '/src/assets/optimized/No4.avif';
 import collage45 from '/src/assets/collage45.png';
+import collage45Webp from '/src/assets/optimized/collage45.webp';
+import collage45Avif from '/src/assets/optimized/collage45.avif';
 import collage41 from '/src/assets/collage41.jpg';
+import collage41Webp from '/src/assets/optimized/collage41.webp';
+import collage41Avif from '/src/assets/optimized/collage41.avif';
 import collage42 from '/src/assets/collage42.jpg';
+import collage42Webp from '/src/assets/optimized/collage42.webp';
+import collage42Avif from '/src/assets/optimized/collage42.avif';
 import collage43 from '/src/assets/collage43.jpg';
+import collage43Webp from '/src/assets/optimized/collage43.webp';
+import collage43Avif from '/src/assets/optimized/collage43.avif';
 import collage44 from '/src/assets/collage44.png';
+import collage44Webp from '/src/assets/optimized/collage44.webp';
+import collage44Avif from '/src/assets/optimized/collage44.avif';
 import collage37 from '/src/assets/collage37.jpg';
+import collage37Webp from '/src/assets/optimized/collage37.webp';
+import collage37Avif from '/src/assets/optimized/collage37.avif';
 import collage48 from '/src/assets/collage48.jpg';
+import collage48Webp from '/src/assets/optimized/collage48.webp';
+import collage48Avif from '/src/assets/optimized/collage48.avif';
 import collage40 from '/src/assets/collage40.png';
+import collage40Webp from '/src/assets/optimized/collage40.webp';
+import collage40Avif from '/src/assets/optimized/collage40.avif';
 import collage39 from '/src/assets/collage39.png';
+import collage39Webp from '/src/assets/optimized/collage39.webp';
+import collage39Avif from '/src/assets/optimized/collage39.avif';
 import collage38 from '/src/assets/collage38.jpg';
+import collage38Webp from '/src/assets/optimized/collage38.webp';
+import collage38Avif from '/src/assets/optimized/collage38.avif';
 import collage34 from '/src/assets/collage34.jpg';
+import collage34Webp from '/src/assets/optimized/collage34.webp';
+import collage34Avif from '/src/assets/optimized/collage34.avif';
 import collage35 from '/src/assets/collage35.jpg';
+import collage35Webp from '/src/assets/optimized/collage35.webp';
+import collage35Avif from '/src/assets/optimized/collage35.avif';
 import collage31 from '/src/assets/collage31.jpg';
+import collage31Webp from '/src/assets/optimized/collage31.webp';
+import collage31Avif from '/src/assets/optimized/collage31.avif';
 import collage28 from '/src/assets/collage28.jpg';
+import collage28Webp from '/src/assets/optimized/collage28.webp';
+import collage28Avif from '/src/assets/optimized/collage28.avif';
 import collage29 from '/src/assets/collage29.jpg';
+import collage29Webp from '/src/assets/optimized/collage29.webp';
+import collage29Avif from '/src/assets/optimized/collage29.avif';
 import collage30 from '/src/assets/collage30.jpg';
+import collage30Webp from '/src/assets/optimized/collage30.webp';
+import collage30Avif from '/src/assets/optimized/collage30.avif';
 import collage46 from '/src/assets/collage46.jpg';
+import collage46Webp from '/src/assets/optimized/collage46.webp';
+import collage46Avif from '/src/assets/optimized/collage46.avif';
 import collage33 from '/src/assets/collage33.jpg';
+import collage33Webp from '/src/assets/optimized/collage33.webp';
+import collage33Avif from '/src/assets/optimized/collage33.avif';
 import collage49 from '/src/assets/collage49.jpg';
+import collage49Webp from '/src/assets/optimized/collage49.webp';
+import collage49Avif from '/src/assets/optimized/collage49.avif';
 import rapture from '/src/assets/Dabs—Myla—Remix.jpg';
+import raptureWebp from '/src/assets/optimized/Dabs—Myla—Remix.webp';
+import raptureAvif from '/src/assets/optimized/Dabs—Myla—Remix.avif';
 import spread1 from '/src/assets/spread1.png';
+import spread1Webp from '/src/assets/optimized/spread1.webp';
+import spread1Avif from '/src/assets/optimized/spread1.avif';
 import spread2 from '/src/assets/spread2.png';
+import spread2Webp from '/src/assets/optimized/spread2.webp';
+import spread2Avif from '/src/assets/optimized/spread2.avif';
 import spread3 from '/src/assets/spread3.png';
+import spread3Webp from '/src/assets/optimized/spread3.webp';
+import spread3Avif from '/src/assets/optimized/spread3.avif';
 import spread4 from '/src/assets/spread4.png';
+import spread4Webp from '/src/assets/optimized/spread4.webp';
+import spread4Avif from '/src/assets/optimized/spread4.avif';
 import spread5 from '/src/assets/spread5.png';
+import spread5Webp from '/src/assets/optimized/spread5.webp';
+import spread5Avif from '/src/assets/optimized/spread5.avif';
 import spread6 from '/src/assets/spread6.png';
+import spread6Webp from '/src/assets/optimized/spread6.webp';
+import spread6Avif from '/src/assets/optimized/spread6.avif';
 
 // ===================== PAINTING ASSETS =====================
 import airbrush from '/src/assets/airbrush.jpg';
+import airbrushWebp from '/src/assets/optimized/airbrush.webp';
+import airbrushAvif from '/src/assets/optimized/airbrush.avif';
 import yellowlily from '/src/assets/YellowLily.jpg'
+import yellowlilyWebp from '/src/assets/optimized/YellowLily.webp';
+import yellowlilyAvif from '/src/assets/optimized/YellowLily.avif';
 import cacti1 from '/src/assets/E-png.png';
+import cacti1Webp from '/src/assets/optimized/E-png.webp';
+import cacti1Avif from '/src/assets/optimized/E-png.avif';
 import splash from '/src/assets/splashpanel.png';
+import splashWebp from '/src/assets/optimized/splashpanel.webp';
+import splashAvif from '/src/assets/optimized/splashpanel.avif';
 import yellowz from '/src/assets/Yellow-Z.png';
+import yellowzWebp from '/src/assets/optimized/Yellow-Z.webp';
+import yellowzAvif from '/src/assets/optimized/Yellow-Z.avif';
 import selfie from '/src/assets/SelfPortrait.jpg';
+import selfieWebp from '/src/assets/optimized/SelfPortrait.webp';
+import selfieAvif from '/src/assets/optimized/SelfPortrait.avif';
 
 export const FullHeightTextSection = styled.section`
   display: flex;
@@ -248,7 +373,7 @@ export default function Artworks() {
   return (
     <div>
       <Seo 
-        title="Printmaking  Screenprints and Collaborations by Zack MacTavish" 
+        title="Printmaking | Zack MacTavish Art & Design" 
         description="Screen printing and mixed media works, including collaborations with Olivia Zita Smith and CMYK experiments." 
         openGraphImages={[
           { url: ogImage1200, width: 1200, height: 630 },
@@ -258,7 +383,7 @@ export default function Artworks() {
         keywords={["printmaking", "screenprint", "collaboration", "CMYK", "collage"]}
   authorName="Zack MacTavish"
   authorAlternateNames={["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"]}
-        sameAs={["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]}
+          sameAs={AUTHOR_SAME_AS}
         favicons={[
           { rel: 'icon', type: 'image/png', sizes: '16x16', href: favicon16 },
           { rel: 'icon', type: 'image/png', sizes: '32x32', href: favicon32 },
@@ -277,7 +402,7 @@ export default function Artworks() {
             "@type": "Person",
             "name": "Zack MacTavish",
             "alternateName": ["Zachary MacTavish", "Zack MacTavish Art", "Zachary MacTavish Art"],
-            "sameAs": ["https://instagram.com/yourhandle", "https://github.com/ZackMacTavish"]
+            "sameAs": AUTHOR_SAME_AS
           }
         }}
       />
@@ -286,8 +411,11 @@ export default function Artworks() {
 
       {/* ===================== PRINTMAKING SECTION ===================== */}
        {/* Hero Images */}
-            <img
+            <ResponsiveImage
   src={Cape}
+  webpSrc={CapeWebp}
+  avifSrc={CapeAvif}
+  alt="Cape House exterior"
   style={{
     width: '100vw',           // full width
     height: '100vh',          // full viewport height
@@ -297,8 +425,11 @@ export default function Artworks() {
   }}
 />
            
-           <img
+           <ResponsiveImage
   src={Capetwo}
+  webpSrc={CapetwoWebp}
+  avifSrc={CapetwoAvif}
+  alt="Cape House large view"
   style={{
     width: '100vw',          // full width
     height: '100vh',         // full viewport height
@@ -312,8 +443,8 @@ export default function Artworks() {
     <div style={{ backgroundColor: 'white', width: '100vw' }}>
       <Grid60>
         <TwoImageGrid className="one-row">
-          <img src={olivia4} alt="Olivia 4" />
-          <img src={olivia2} alt="Olivia 2" />
+          <ResponsiveImage src={olivia4} webpSrc={olivia4Webp} avifSrc={olivia4Avif} alt="Olivia 4" />
+          <ResponsiveImage src={olivia2} webpSrc={olivia2Webp} avifSrc={olivia2Avif} alt="Olivia collaboration framed print" />
         </TwoImageGrid>
       </Grid60>
     </div>
@@ -351,35 +482,35 @@ export default function Artworks() {
         className="large multiply"
         style={{ width: 'min(98vw, 100%)', maxWidth: '1800px', margin: '0 auto' }}
       >
-        <img src={screenprint2} alt="Screen Print 2" style={{ mixBlendMode: 'multiply' }} />
-        <img src={screenprint2_1} alt="Screen Print 2.1" style={{ mixBlendMode: 'multiply' }} />
-        <img src={screenprint1} alt="Screen Print 1" style={{ mixBlendMode: 'multiply' }} />
+        <ResponsiveImage src={screenprint2} webpSrc={screenprint2Webp} avifSrc={screenprint2Avif} alt="Screen Print 2" imgStyle={{ mixBlendMode: 'multiply' }} />
+        <ResponsiveImage src={screenprint2_1} webpSrc={screenprint2_1Webp} avifSrc={screenprint2_1Avif} alt="Screen Print 2.1" imgStyle={{ mixBlendMode: 'multiply' }} />
+          <ResponsiveImage src={screenprint1} webpSrc={screenprint1Webp} avifSrc={screenprint1Avif} alt="Screen Print 1" imgStyle={{ mixBlendMode: 'multiply' }} />
       </ThreeImageGrid>
   </div>
 
             {/* Olivia Collabs */}
  <div style={{ backgroundColor: 'white', width: '100vw' }}>
    <TwoImageGrid className="one-row">
-     <img src={oliviacollab1} alt="Olivia 4" />
-     <img src={oliviacollab2} alt="Olivia 2" />
+     <ResponsiveImage src={oliviacollab1} webpSrc={oliviacollab1Webp} avifSrc={oliviacollab1Avif} alt="Olivia 4" />
+     <ResponsiveImage src={oliviacollab2} webpSrc={oliviacollab2Webp} avifSrc={oliviacollab2Avif} alt="Olivia 2" />
    </TwoImageGrid>
  </div>
 
             <RisoFlex>
-              <RisoItem $Width="60vw" src={oliviacollab3} />
+              <RisoItem as={ResponsiveImage} $Width="60vw" src={oliviacollab3} webpSrc={oliviacollab3Webp} avifSrc={oliviacollab3Avif} alt="Olivia collaboration portrait" />
             </RisoFlex>
 
              <div style={{ backgroundColor: 'white', width: '100vw' }}>
                <TwoImageGrid className="one-row">
-                 <img src={oliviacollab6} alt="Olivia 4" />
-                 <img src={oliviacollab5} alt="Olivia 2" />
+                 <ResponsiveImage src={oliviacollab6} webpSrc={oliviacollab6Webp} avifSrc={oliviacollab6Avif} alt="Olivia 4" />
+                 <ResponsiveImage src={oliviacollab5} webpSrc={oliviacollab5Webp} avifSrc={oliviacollab5Avif} alt="Olivia collaboration alternate framed print" />
                </TwoImageGrid>
              </div>
 
    <div style={{ backgroundColor: 'white', width: '100vw' }}>
      <TwoImageGrid className="one-row">
-       <img src={oliviacollab7} alt="Olivia 4" />
-       <img src={oliviacollab8} alt="Olivia 2" />
+       <ResponsiveImage src={oliviacollab7} webpSrc={oliviacollab7Webp} avifSrc={oliviacollab7Avif} alt="Olivia collaboration print detail" />
+       <ResponsiveImage src={oliviacollab8} webpSrc={oliviacollab8Webp} avifSrc={oliviacollab8Avif} alt="Olivia collaboration print variation" />
      </TwoImageGrid>
    </div>
       
@@ -390,9 +521,9 @@ export default function Artworks() {
 
             <div style={{ backgroundColor: 'white', width: '100vw' }}>
               <ThreeImageGrid className="large">
-                <img src={bear} alt="Screen Print 2" />
-                <img src={graffiticollage} alt="Screen Print 2.1" />
-                <img src={thetown} alt="Screen Print 1" />
+                <ResponsiveImage src={bear} webpSrc={bearWebp} avifSrc={bearAvif} alt="Screen Print 2" />
+                <ResponsiveImage src={graffiticollage} webpSrc={graffiticollageWebp} avifSrc={graffiticollageAvif} alt="Screen Print 2.1" />
+                <ResponsiveImage src={thetown} webpSrc={thetownWebp} avifSrc={thetownAvif} alt="Screen Print 1" />
               </ThreeImageGrid>
             </div>
 
@@ -415,37 +546,37 @@ export default function Artworks() {
 
       {/* Painting Feature Section: white background, gray image containers */}
       <section style={{ background: 'white', width: '100vw', padding: '4vh 0' }}>
-        <ImageTextSplit className="blend-img" imageSrc={oliviacollab4} imageAlt="Olivia Collaboration">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={oliviacollab4} imageWebp={oliviacollab4Webp} imageAvif={oliviacollab4Avif} imageAlt="Olivia Collaboration">
           <ArtHeader>Olivia Collaboration</ArtHeader>
           <ArtYear>2022</ArtYear>
           <ArtDesc>Spraypaint, and relief ink on paper</ArtDesc>
         </ImageTextSplit>
 
-        <ImageTextSplit className="blend-img" imageSrc={splash} imageAlt="MILKBONES">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={splash} imageWebp={splashWebp} imageAvif={splashAvif} imageAlt="MILKBONES">
           <ArtHeader>MILKBONES</ArtHeader>
           <ArtYear>2021</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
         </ImageTextSplit>
 
-        <ImageTextSplit className="blend-img" imageSrc={yellowz} imageAlt="YELLOW TWEED">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={yellowz} imageWebp={yellowzWebp} imageAvif={yellowzAvif} imageAlt="YELLOW TWEED">
           <ArtHeader>YELLOW TWEED</ArtHeader>
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
         </ImageTextSplit>
 
-        <ImageTextSplit className="blend-img" imageSrc={yellowlily} imageAlt="Yellow Lily">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={yellowlily} imageWebp={yellowlilyWebp} imageAvif={yellowlilyAvif} imageAlt="Yellow Lily">
           <ArtHeader>Yellow Lily</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Airbrush & acrylic on yupo paper.</ArtDesc>
         </ImageTextSplit>
 
-        <ImageTextSplit className="blend-img" imageSrc={airbrush} imageAlt="SHAPES">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={airbrush} imageWebp={airbrushWebp} imageAvif={airbrushAvif} imageAlt="SHAPES">
           <ArtHeader>SHAPES</ArtHeader>
           <ArtYear>2020</ArtYear>
           <ArtDesc>Acrylic & spraypaint on yupo paper.</ArtDesc>
         </ImageTextSplit>
 
-        <ImageTextSplit className="blend-img" imageSrc={cacti1} imageAlt="ORANGE CACTI">
+        <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={cacti1} imageWebp={cacti1Webp} imageAvif={cacti1Avif} imageAlt="ORANGE CACTI">
           <ArtHeader>ORANGE CACTI</ArtHeader>
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
@@ -453,7 +584,7 @@ export default function Artworks() {
       </section>
 
 <RisoFlex style={{ paddingBottom: "100px" }}>
-  <RisoItem $Width="55vw" src={selfie} />
+  <RisoItem as={ResponsiveImage} $Width="55vw" src={selfie} webpSrc={selfieWebp} avifSrc={selfieAvif} alt="Self portrait" />
 </RisoFlex>
 
 
@@ -487,16 +618,16 @@ export default function Artworks() {
    
               {/* Section with 3 photos */}
               <div style={{ backgroundColor: 'white', width: '100vw' }}>
-                <ThreeImageGrid className="large">
-                  <img src={collage32} alt="Screen Print 2" />
-                  <img src={collage47} alt="Screen Print 2.1" />
-                  <img src={collage50} alt="Screen Print 1" />
+                <ThreeImageGrid className="large portrait-large">
+                  <ResponsiveImage src={collage32} webpSrc={collage32Webp} avifSrc={collage32Avif} alt="Collage print 32" />
+                  <ResponsiveImage src={collage47} webpSrc={collage47Webp} avifSrc={collage47Avif} alt="Collage print 47" />
+                  <ResponsiveImage src={collage50} webpSrc={collage50Webp} avifSrc={collage50Avif} alt="Collage print 50" />
                 </ThreeImageGrid>
               </div>
                
                    <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread1} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread1} webpSrc={spread1Webp} avifSrc={spread1Avif} alt="Printmaking spread 1" />
    
    </RisoFlex>
    
@@ -507,9 +638,9 @@ export default function Artworks() {
 
                     <div style={{ backgroundColor: 'white', width: '100vw' }}>
                       <ThreeImageGrid className="large">
-                        <img src={collage1} alt="Screen Print 2" />
-                        <img src={collage2} alt="Screen Print 2.1" />
-                        <img src={collage3} alt="Screen Print 1" />
+                          <ResponsiveImage src={collage1} webpSrc={collage1Webp} avifSrc={collage1Avif} alt="Collage print 1" />
+                        <ResponsiveImage src={collage2} webpSrc={collage2Webp} avifSrc={collage2Avif} alt="Collage print 2" />
+                        <ResponsiveImage src={collage3} webpSrc={collage3Webp} avifSrc={collage3Avif} alt="Collage print 3" />
                       </ThreeImageGrid>
                     </div>
 
@@ -517,7 +648,7 @@ export default function Artworks() {
    
    <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread2} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread2} webpSrc={spread2Webp} avifSrc={spread2Avif} alt="Printmaking spread 2" />
    
    </RisoFlex>
    
@@ -525,17 +656,17 @@ export default function Artworks() {
          {/* Section with 3 photos */}
 
          <div style={{ backgroundColor: 'white', width: '100vw' }}>
-           <ThreeImageGrid className="large">
-             <img src={collage4} alt="Screen Print 2" />
-             <img src={collagefour} alt="Screen Print 2.1" />
-             <img src={collage45} alt="Screen Print 1" />
+           <ThreeImageGrid className="large portrait-large">
+             <ResponsiveImage src={collage4} webpSrc={collage4Webp} avifSrc={collage4Avif} alt="Collage print 4" />
+             <ResponsiveImage src={collagefour} webpSrc={collagefourWebp} avifSrc={collagefourAvif} alt="Collage print 4" />
+             <ResponsiveImage src={collage45} webpSrc={collage45Webp} avifSrc={collage45Avif} alt="Collage print 45" />
            </ThreeImageGrid>
          </div>
               
    
                <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread3} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread3} webpSrc={spread3Webp} avifSrc={spread3Avif} alt="Printmaking spread 3" />
    
    </RisoFlex>
    
@@ -544,16 +675,16 @@ export default function Artworks() {
      {/* Section with 3 photos */}
 
      <div style={{ backgroundColor: 'white', width: '100vw' }}>
-       <ThreeImageGrid className="large">
-         <img src={collage44} alt="Screen Print 2" />
-         <img src={collage37} alt="Screen Print 2.1" />
-         <img src={collage48} alt="Screen Print 1" />
+      <ThreeImageGrid className="large portrait-large">
+         <ResponsiveImage src={collage44} webpSrc={collage44Webp} avifSrc={collage44Avif} alt="Collage print 44" />
+         <ResponsiveImage src={collage37} webpSrc={collage37Webp} avifSrc={collage37Avif} alt="Collage print 37" />
+         <ResponsiveImage src={collage48} webpSrc={collage48Webp} avifSrc={collage48Avif} alt="Collage print 48" />
        </ThreeImageGrid>
      </div>
                                 
                    <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread4} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread4} webpSrc={spread4Webp} avifSrc={spread4Avif} alt="Printmaking spread 4" />
    
    </RisoFlex>
    
@@ -562,16 +693,16 @@ export default function Artworks() {
    {/* Section with 3 photos */}
 
    <div style={{ backgroundColor: 'white', width: '100vw' }}>
-     <ThreeImageGrid className="large">
-       <img src={collage40} alt="Screen Print 2" />
-       <img src={collage39} alt="Screen Print 2.1" />
-       <img src={collage38} alt="Screen Print 1" />
+    <ThreeImageGrid className="large portrait-large">
+      <ResponsiveImage src={collage40} webpSrc={collage40Webp} avifSrc={collage40Avif} alt="Collage print 40" />
+      <ResponsiveImage src={collage39} webpSrc={collage39Webp} avifSrc={collage39Avif} alt="Collage print 39" />
+      <ResponsiveImage src={collage38} webpSrc={collage38Webp} avifSrc={collage38Avif} alt="Collage print 38" />
      </ThreeImageGrid>
    </div>
       
                    <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread5} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread5} webpSrc={spread5Webp} avifSrc={spread5Avif} alt="Printmaking spread 5" />
    
    </RisoFlex>
    
@@ -581,53 +712,55 @@ export default function Artworks() {
 
    <div style={{ backgroundColor: 'white', width: '100vw' }}>
      <ThreeImageGrid className="large">
-       <img src={collage34} alt="Screen Print 2" />
-       <img src={collage35} alt="Screen Print 2.1" />
-       <img src={collage31} alt="Screen Print 1" />
+       <ResponsiveImage src={collage34} webpSrc={collage34Webp} avifSrc={collage34Avif} alt="Screen Print 2" />
+       <ResponsiveImage src={collage35} webpSrc={collage35Webp} avifSrc={collage35Avif} alt="Screen Print 2.1" />
+      <ResponsiveImage src={collage31} webpSrc={collage31Webp} avifSrc={collage31Avif} alt="Collage print 31" />
      </ThreeImageGrid>
    </div>
    
                    <RisoFlex >
    
-  <RisoItem $Width='60vw' src={spread6} />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread6} webpSrc={spread6Webp} avifSrc={spread6Avif} alt="Printmaking spread 6" />
    
    </RisoFlex>
    {/* Section with 3 photos */}
 
    <div style={{ backgroundColor: 'white', width: '100vw' }}>
      <ThreeImageGrid className="large">
-       <img src={collage28} alt="Screen Print 2" />
-       <img src={collage29} alt="Screen Print 2.1" />
-       <img src={collage30} alt="Screen Print 1" />
+       <ResponsiveImage src={collage28} webpSrc={collage28Webp} avifSrc={collage28Avif} alt="Screen Print 2" />
+       <ResponsiveImage src={collage29} webpSrc={collage29Webp} avifSrc={collage29Avif} alt="Screen Print 2.1" />
+      <ResponsiveImage src={collage30} webpSrc={collage30Webp} avifSrc={collage30Avif} alt="Collage print 30" />
      </ThreeImageGrid>
    </div>
    
    
-                 <FullBg 
-  src={rapture} 
-  style={{ 
-    width: "100vw",        // full width
-    height: "100vh",       // full viewport height
-    objectFit: "cover",    // crop/zoom without stretching
-    objectPosition: "bottom", // center the image
-  }} 
-/>
+                 <RisoFlex>
+  <RisoItem
+    as={ResponsiveImage}
+    $Width='60vw'
+    src={rapture}
+    webpSrc={raptureWebp}
+    avifSrc={raptureAvif}
+    alt="Dabs Myla Remix"
+    imgStyle={{ borderRadius: '18px' }}
+  />
+ </RisoFlex>
    
                     {/* Section with 3 photos */}
 
                     <div style={{ backgroundColor: 'white', width: '100vw' }}>
                       <ThreeImageGrid className="large">
-                        <img src={collage46} alt="Screen Print 2" />
-                        <img src={collage33} alt="Screen Print 2.1" />
-                        <img src={collage49} alt="Screen Print 1" />
+                        <ResponsiveImage src={collage46} webpSrc={collage46Webp} avifSrc={collage46Avif} alt="Collage print 46" />
+                        <ResponsiveImage src={collage33} webpSrc={collage33Webp} avifSrc={collage33Avif} alt="Collage print 33" />
+                        <ResponsiveImage src={collage49} webpSrc={collage49Webp} avifSrc={collage49Avif} alt="Collage print 49" />
                       </ThreeImageGrid>
                     </div>
 
          <div style={{ backgroundColor: 'white', width: '100vw' }}>
            <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
-             <img src={collage41} alt="Screen Print 2" />
-             <img src={collage42} alt="Screen Print 2.1" />
-             <img src={collage43} alt="Screen Print 1" />
+             <ResponsiveImage src={collage41} webpSrc={collage41Webp} avifSrc={collage41Avif} alt="Collage print 41" />
+             <ResponsiveImage src={collage42} webpSrc={collage42Webp} avifSrc={collage42Avif} alt="Collage print 42" />
+             <ResponsiveImage src={collage43} webpSrc={collage43Webp} avifSrc={collage43Avif} alt="Collage print 43" />
            </ThreeImageGrid>
          </div>
 

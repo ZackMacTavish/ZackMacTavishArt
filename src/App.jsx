@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 import { Agentation } from "agentation";
 
@@ -16,7 +16,6 @@ import About from "./pages/About/About";
 import Composition from "./pages/COMPOSITION/Composition";
 import Dwelling from "./pages/Dwelling/Dwelling";
 import Graffiti from "./pages/3d/MergedGraffiti"; 
-import LandingPage from "./pages/Landing_Page/LandingPage";
 import Photography from "./pages/Photography/Photography";
 
 // Combined Artworks Page
@@ -52,8 +51,8 @@ function App() {
           {/* Root shows IntroAnimation first */}
           <Route path="/" element={<IntroAnimation />} />
           
-          {/* Landing page */}
-          <Route path="/home" element={<LandingPage />} />
+          {/* Legacy home URL redirects to the root landing page */}
+          <Route path="/home" element={<Navigate to="/" replace />} />
           
           {/* Art pages */}
           <Route path="/about" element={<About />} />

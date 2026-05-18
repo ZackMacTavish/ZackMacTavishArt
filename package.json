@@ -7,9 +7,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "sitemap": "node sitemap.js",
     "preview": "vite preview",
     "lint": "eslint .",
-    "predeploy": "vite build && echo \"zackmactavish.com\" > dist/CNAME",
+    "predeploy": "vite build && node sitemap.js && echo \"zackmactavish.com\" > dist/CNAME",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
@@ -37,6 +39,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "gh-pages": "^6.3.0",
     "globals": "^16.3.0",
+    "sharp": "^0.34.5",
     "vite": "^7.1.2"
   }
 }

@@ -4,6 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Zack MacTavish Art & Design" />
+    <script>
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+
+      window.addEventListener('pageshow', function () {
+        if (window.location.pathname === '/') {
+          window.scrollTo(0, 0);
+        }
+      });
+
+      (function () {
+        var locationData = window.location;
+        if (locationData.search[1] !== '/') return;
+
+        var decoded = locationData.search
+          .slice(1)
+          .split('&')
+          .map(function (segment) {
+            return segment.replace(/~and~/g, '&');
+          })
+          .join('?');
+
+        window.history.replaceState(null, '', locationData.pathname.slice(0, -1) + decoded + locationData.hash);
+      })();
+    </script>
     
     <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
