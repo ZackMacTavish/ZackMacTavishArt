@@ -1,4 +1,4 @@
-import{b as n,j as l}from"./react-three-BKJczYnz.js";import{h as L,l as y}from"./index-B7-ssJ06.js";import"./three-BgQdTZ1w.js";const w=L`
+import{b as n,j as l}from"./react-three-BKJczYnz.js";import{h as L,l as y}from"./index-DkTrMt_g.js";import"./three-BgQdTZ1w.js";const w=L`
   * { cursor: none !important; }
 `,R=y.div`
   z-index: 2000;
