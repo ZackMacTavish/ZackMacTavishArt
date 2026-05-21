@@ -24,12 +24,24 @@ import {
 import polaroid1 from '../../assets/polaroid1.jpg';
 import polaroid1Webp from '../../assets/optimized/polaroid1.webp';
 import polaroid1Avif from '../../assets/optimized/polaroid1.avif';
+import polaroid1Webp640 from '../../assets/optimized/polaroid1-640.webp';
+import polaroid1Webp960 from '../../assets/optimized/polaroid1-960.webp';
+import polaroid1Avif640 from '../../assets/optimized/polaroid1-640.avif';
+import polaroid1Avif960 from '../../assets/optimized/polaroid1-960.avif';
 import polaroid2 from '../../assets/polaroid2.jpg';
 import polaroid2Webp from '../../assets/optimized/polaroid2.webp';
 import polaroid2Avif from '../../assets/optimized/polaroid2.avif';
+import polaroid2Webp640 from '../../assets/optimized/polaroid2-640.webp';
+import polaroid2Webp960 from '../../assets/optimized/polaroid2-960.webp';
+import polaroid2Avif640 from '../../assets/optimized/polaroid2-640.avif';
+import polaroid2Avif960 from '../../assets/optimized/polaroid2-960.avif';
 import polaroid3 from '../../assets/polaroid3.jpg';
 import polaroid3Webp from '../../assets/optimized/polaroid3.webp';
 import polaroid3Avif from '../../assets/optimized/polaroid3.avif';
+import polaroid3Webp640 from '../../assets/optimized/polaroid3-640.webp';
+import polaroid3Webp960 from '../../assets/optimized/polaroid3-960.webp';
+import polaroid3Avif640 from '../../assets/optimized/polaroid3-640.avif';
+import polaroid3Avif960 from '../../assets/optimized/polaroid3-960.avif';
 import polaroid7 from '../../assets/polaroid7.jpg';
 import polaroid7Webp from '../../assets/optimized/polaroid7.webp';
 import polaroid7Avif from '../../assets/optimized/polaroid7.avif';
@@ -44,6 +56,10 @@ import polaroid9Avif from '../../assets/optimized/polaroid9.avif';
 import Hawaii1 from '../../assets/Greenhut.jpg';
 import Hawaii1Webp from '../../assets/optimized/Greenhut.webp';
 import Hawaii1Avif from '../../assets/optimized/Greenhut.avif';
+import Hawaii1Webp640 from '../../assets/optimized/Greenhut-640.webp';
+import Hawaii1Webp960 from '../../assets/optimized/Greenhut-960.webp';
+import Hawaii1Avif640 from '../../assets/optimized/Greenhut-640.avif';
+import Hawaii1Avif960 from '../../assets/optimized/Greenhut-960.avif';
 import eighteen from '../../assets/1821.jpg';
 import eighteenWebp from '../../assets/optimized/1821.webp';
 import eighteenAvif from '../../assets/optimized/1821.avif';
@@ -129,6 +145,8 @@ const splitSectionStyle = {
   backgroundColor: 'white',
   width: '100vw',
   padding: '5vh 0',
+  contentVisibility: 'auto',
+  containIntrinsicSize: '1200px',
 };
 
 
@@ -176,9 +194,9 @@ export default function Photography() {
 
      <div style={{ backgroundColor: '#191919', width: '100vw', paddingTop: '8vh' }}>
        <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
-         <ResponsiveImage src={polaroid1} webpSrc={polaroid1Webp} avifSrc={polaroid1Avif} alt="Polaroid film photograph" loading="eager" decoding="sync" fetchPriority="high" />
-         <ResponsiveImage src={polaroid2} webpSrc={polaroid2Webp} avifSrc={polaroid2Avif} alt="Polaroid film photograph" loading="eager" decoding="async" />
-         <ResponsiveImage src={polaroid3} webpSrc={polaroid3Webp} avifSrc={polaroid3Avif} alt="Polaroid film photograph" loading="eager" decoding="async" />
+         <ResponsiveImage src={polaroid1} webpSrc={polaroid1Webp} webpSrcSet={`${polaroid1Webp640} 640w, ${polaroid1Webp960} 960w, ${polaroid1Webp} 2200w`} avifSrc={polaroid1Avif} avifSrcSet={`${polaroid1Avif640} 640w, ${polaroid1Avif960} 960w, ${polaroid1Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="eager" decoding="sync" fetchPriority="high" />
+         <ResponsiveImage src={polaroid2} webpSrc={polaroid2Webp} webpSrcSet={`${polaroid2Webp640} 640w, ${polaroid2Webp960} 960w, ${polaroid2Webp} 2200w`} avifSrc={polaroid2Avif} avifSrcSet={`${polaroid2Avif640} 640w, ${polaroid2Avif960} 960w, ${polaroid2Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="lazy" decoding="async" />
+         <ResponsiveImage src={polaroid3} webpSrc={polaroid3Webp} webpSrcSet={`${polaroid3Webp640} 640w, ${polaroid3Webp960} 960w, ${polaroid3Webp} 2200w`} avifSrc={polaroid3Avif} avifSrcSet={`${polaroid3Avif640} 640w, ${polaroid3Avif960} 960w, ${polaroid3Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="lazy" decoding="async" />
        </ThreeImageGrid>
      </div>
 
@@ -188,11 +206,16 @@ export default function Photography() {
   as={ResponsiveImage}
   src={Hawaii1}
   webpSrc={Hawaii1Webp}
+  webpSrcSet={`${Hawaii1Webp640} 640w, ${Hawaii1Webp960} 960w, ${Hawaii1Webp} 2200w`}
   avifSrc={Hawaii1Avif}
+  avifSrcSet={`${Hawaii1Avif640} 640w, ${Hawaii1Avif960} 960w, ${Hawaii1Avif} 2200w`}
+  sizes="100vw"
   alt="Greenhut scene"
+  width={5760}
+  height={3840}
   style={{
     width: "100vw",
-    height: "100vh",
+    height: "100svh",
     objectFit: "cover",
     display: "block"
   }}
@@ -258,7 +281,7 @@ export default function Photography() {
   alt="Film photograph of a church in Hawaii"
   style={{ 
     width: "100vw",        
-    height: "100vh",       
+    height: "100svh",       
     objectFit: "cover",    
     objectPosition: "center", 
     display: "block",      // removes inline spacing that causes bottom gap
@@ -304,7 +327,7 @@ export default function Photography() {
       alt="Film photograph titled Splash"
   style={{ 
 width: "100vw",        
-    height: "100vh",       
+    height: "100svh",       
     objectFit: "cover",    
     objectPosition: "center", 
     display: "block",      // removes inline spacing that causes bottom gap
@@ -358,9 +381,11 @@ width: "100vw",
       webpSrc={greensandWebp}
       avifSrc={greensandAvif}
       alt="Green sand landscape"
+      width={5760}
+      height={3840}
   style={{ 
     width: "100vw",           // full viewport width
-    height: "100vh",          // full viewport height
+    height: "100svh",         // full viewport height
     objectFit: "cover",       // crop/zoom without stretching
     objectPosition: "center", // center the image
   }} 

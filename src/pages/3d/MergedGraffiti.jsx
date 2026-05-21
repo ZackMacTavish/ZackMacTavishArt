@@ -32,9 +32,17 @@ import { NewSection } from '../About/About';
 import fiftytwo from '../../assets/52.jpg';
 import fiftytwoWebp from '../../assets/optimized/52.webp';
 import fiftytwoAvif from '../../assets/optimized/52.avif';
+import fiftytwoWebp640 from '../../assets/optimized/52-640.webp';
+import fiftytwoWebp960 from '../../assets/optimized/52-960.webp';
+import fiftytwoAvif640 from '../../assets/optimized/52-640.avif';
+import fiftytwoAvif960 from '../../assets/optimized/52-960.avif';
 import fiftysix from '../../assets/56.jpg';
 import fiftysixWebp from '../../assets/optimized/56.webp';
 import fiftysixAvif from '../../assets/optimized/56.avif';
+import fiftysixWebp640 from '../../assets/optimized/56-640.webp';
+import fiftysixWebp960 from '../../assets/optimized/56-960.webp';
+import fiftysixAvif640 from '../../assets/optimized/56-640.avif';
+import fiftysixAvif960 from '../../assets/optimized/56-960.avif';
 import one from '../../assets/1.2.jpg';
 import oneWebp from '../../assets/optimized/1.2.webp';
 import oneAvif from '../../assets/optimized/1.2.avif';
@@ -180,13 +188,18 @@ export default function MergedGraffiti() {
       />
       <h1 style={visuallyHiddenHeadingStyle}>3D and Graffiti by Zack MacTavish</h1>
       {/* --- ThreeD Section --- */}
-      <FullBg as={ResponsiveImage} src={fiftytwo} webpSrc={fiftytwoWebp} avifSrc={fiftytwoAvif} alt="Rhino render 52" loading="eager" decoding="sync" fetchPriority="high" />
+        <FullBg as={ResponsiveImage} src={fiftytwo} webpSrc={fiftytwoWebp} webpSrcSet={`${fiftytwoWebp640} 640w, ${fiftytwoWebp960} 960w, ${fiftytwoWebp} 2200w`} avifSrc={fiftytwoAvif} avifSrcSet={`${fiftytwoAvif640} 640w, ${fiftytwoAvif960} 960w, ${fiftytwoAvif} 2200w`} sizes="100vw" alt="Rhino render 52" width={4000} height={2249} loading="eager" decoding="sync" fetchPriority="high" />
  <FullBg
   as={ResponsiveImage}
   src={fiftysix}
   webpSrc={fiftysixWebp}
+      webpSrcSet={`${fiftysixWebp640} 640w, ${fiftysixWebp960} 960w, ${fiftysixWebp} 2200w`}
   avifSrc={fiftysixAvif}
+      avifSrcSet={`${fiftysixAvif640} 640w, ${fiftysixAvif960} 960w, ${fiftysixAvif} 2200w`}
+      sizes="100vw"
   alt="Rhino render 56"
+  width={4000}
+  height={2251}
   style={{
     width: "100vw",
     minHeight: "100vh",   // ensures no strip, but allows bigger

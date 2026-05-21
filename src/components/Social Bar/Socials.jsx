@@ -35,33 +35,67 @@ height: auto;
  }
 `
 
+const IconLink = styled.a`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% - 0.25rem);
+    left: 50%;
+    transform: translate(-50%, 4px);
+    background: rgba(10, 10, 10, 0.92);
+    color: #f3f0e8;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+`
+
 export default function Socials() {
     return (
         <Socialbar>
 
             
 
-            <a href="https://dribbble.com/Zmactavish" target='_blank' rel="noreferrer" >
-            <SocialImages src={dribbble} />
-            </a>
+            <IconLink href="https://dribbble.com/Zmactavish" target='_blank' rel="noreferrer" data-label="Dribbble" aria-label="Dribbble">
+            <SocialImages src={dribbble} alt="Dribbble" loading="lazy" decoding="async" />
+            </IconLink>
 
             
-            <a href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer" >
-            <SocialImages src={instagram} />
-            </a>
+            <IconLink href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer" data-label="Instagram" aria-label="Instagram">
+            <SocialImages src={instagram} alt="Instagram" loading="lazy" decoding="async" />
+            </IconLink>
 
            
-            <a href="https://www.linkedin.com/in/zacharymactavish/" target='_blank' rel="noreferrer" >
-            <SocialImages src={linkedin} />
-            </a>
+            <IconLink href="https://www.linkedin.com/in/zacharymactavish/" target='_blank' rel="noreferrer" data-label="LinkedIn" aria-label="LinkedIn">
+            <SocialImages src={linkedin} alt="LinkedIn" loading="lazy" decoding="async" />
+            </IconLink>
 
-            <a href="  https://github.com/ZackMacTavish" target='_blank' rel="noreferrer" >
-            <SocialImages src={github} />
-            </a>
+            <IconLink href="https://github.com/ZackMacTavish" target='_blank' rel="noreferrer" data-label="GitHub" aria-label="GitHub">
+            <SocialImages src={github} alt="GitHub" loading="lazy" decoding="async" />
+            </IconLink>
 
-            <a href="https://medium.com/@zmactavish" target='_blank' rel="noreferrer" >
-            <SocialImages src={medium} />
-            </a>  
+            <IconLink href="https://medium.com/@zmactavish" target='_blank' rel="noreferrer" data-label="Medium" aria-label="Medium">
+            <SocialImages src={medium} alt="Medium" loading="lazy" decoding="async" />
+            </IconLink>  
 
 
             

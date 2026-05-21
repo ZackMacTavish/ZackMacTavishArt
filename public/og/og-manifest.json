@@ -1,0 +1,30 @@
+{
+  "home": {
+    "file": "home.jpg",
+    "alt": "Zack MacTavish — multidisciplinary artist portfolio cover image."
+  },
+  "about": {
+    "file": "about.jpg",
+    "alt": "Portrait of artist Zack MacTavish."
+  },
+  "3d": {
+    "file": "3d.jpg",
+    "alt": "3D rendered house composition from Zack MacTavish — 3D & Graffiti work."
+  },
+  "composition": {
+    "file": "composition.jpg",
+    "alt": "Back cover composition piece from Zack MacTavish — Composition series."
+  },
+  "dwelling": {
+    "file": "dwelling.jpg",
+    "alt": "Cape house painting from Zack MacTavish — Dwelling series."
+  },
+  "photography": {
+    "file": "photography.jpg",
+    "alt": "Aquarium photograph by Zack MacTavish — Photography series."
+  },
+  "printmaking": {
+    "file": "printmaking.jpg",
+    "alt": "Print from Zack MacTavish — Printmaking series."
+  }
+}

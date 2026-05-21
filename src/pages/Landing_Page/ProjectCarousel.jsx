@@ -4,18 +4,38 @@ import ResponsiveImage from '../../components/Images/ResponsiveImage';
 import imgComposition from '../../assets/Mash5.png';
 import imgCompositionWebp from '../../assets/optimized/Mash5.webp';
 import imgCompositionAvif from '../../assets/optimized/Mash5.avif';
+import imgCompositionWebp640 from '../../assets/optimized/Mash5-640.webp';
+import imgCompositionWebp960 from '../../assets/optimized/Mash5-960.webp';
+import imgCompositionAvif640 from '../../assets/optimized/Mash5-640.avif';
+import imgCompositionAvif960 from '../../assets/optimized/Mash5-960.avif';
 import imgDwelling from '../../assets/House—Mash.jpg';
 import imgDwellingWebp from '../../assets/optimized/House—Mash.webp';
 import imgDwellingAvif from '../../assets/optimized/House—Mash.avif';
+import imgDwellingWebp640 from '../../assets/optimized/House—Mash-640.webp';
+import imgDwellingWebp960 from '../../assets/optimized/House—Mash-960.webp';
+import imgDwellingAvif640 from '../../assets/optimized/House—Mash-640.avif';
+import imgDwellingAvif960 from '../../assets/optimized/House—Mash-960.avif';
 import imgPrintmaking from '../../assets/CapeHouse.jpg';
 import imgPrintmakingWebp from '../../assets/optimized/CapeHouse.webp';
 import imgPrintmakingAvif from '../../assets/optimized/CapeHouse.avif';
+import imgPrintmakingWebp640 from '../../assets/optimized/CapeHouse-640.webp';
+import imgPrintmakingWebp960 from '../../assets/optimized/CapeHouse-960.webp';
+import imgPrintmakingAvif640 from '../../assets/optimized/CapeHouse-640.avif';
+import imgPrintmakingAvif960 from '../../assets/optimized/CapeHouse-960.avif';
 import imgGraffiti from '../../assets/RIPSENSE.jpg';
 import imgGraffitiWebp from '../../assets/optimized/RIPSENSE.webp';
 import imgGraffitiAvif from '../../assets/optimized/RIPSENSE.avif';
+import imgGraffitiWebp640 from '../../assets/optimized/RIPSENSE-640.webp';
+import imgGraffitiWebp960 from '../../assets/optimized/RIPSENSE-960.webp';
+import imgGraffitiAvif640 from '../../assets/optimized/RIPSENSE-640.avif';
+import imgGraffitiAvif960 from '../../assets/optimized/RIPSENSE-960.avif';
 import imgPhotography from '../../assets/BirdyBrooklyn.jpg';
 import imgPhotographyWebp from '../../assets/optimized/BirdyBrooklyn.webp';
 import imgPhotographyAvif from '../../assets/optimized/BirdyBrooklyn.avif';
+import imgPhotographyWebp640 from '../../assets/optimized/BirdyBrooklyn-640.webp';
+import imgPhotographyWebp960 from '../../assets/optimized/BirdyBrooklyn-960.webp';
+import imgPhotographyAvif640 from '../../assets/optimized/BirdyBrooklyn-640.avif';
+import imgPhotographyAvif960 from '../../assets/optimized/BirdyBrooklyn-960.avif';
 
 let gsapCorePromise;
 let gsapPluginsPromise;
@@ -61,6 +81,8 @@ const PROJECTS = [
     image: imgDwelling,
     imageWebp: imgDwellingWebp,
     imageAvif: imgDwellingAvif,
+    imageWebpSet: `${imgDwellingWebp640} 640w, ${imgDwellingWebp960} 960w, ${imgDwellingWebp} 2200w`,
+    imageAvifSet: `${imgDwellingAvif640} 640w, ${imgDwellingAvif960} 960w, ${imgDwellingAvif} 2200w`,
     path: '/dwelling',
   },
   {
@@ -71,6 +93,8 @@ const PROJECTS = [
     image: imgComposition,
     imageWebp: imgCompositionWebp,
     imageAvif: imgCompositionAvif,
+    imageWebpSet: `${imgCompositionWebp640} 640w, ${imgCompositionWebp960} 960w, ${imgCompositionWebp} 2200w`,
+    imageAvifSet: `${imgCompositionAvif640} 640w, ${imgCompositionAvif960} 960w, ${imgCompositionAvif} 2200w`,
     path: '/composition',
   },
   {
@@ -81,6 +105,8 @@ const PROJECTS = [
     image: imgPrintmaking,
     imageWebp: imgPrintmakingWebp,
     imageAvif: imgPrintmakingAvif,
+    imageWebpSet: `${imgPrintmakingWebp640} 640w, ${imgPrintmakingWebp960} 960w, ${imgPrintmakingWebp} 2200w`,
+    imageAvifSet: `${imgPrintmakingAvif640} 640w, ${imgPrintmakingAvif960} 960w, ${imgPrintmakingAvif} 2200w`,
     path: '/printmaking',
   },
   {
@@ -91,6 +117,8 @@ const PROJECTS = [
     image: imgGraffiti,
     imageWebp: imgGraffitiWebp,
     imageAvif: imgGraffitiAvif,
+    imageWebpSet: `${imgGraffitiWebp640} 640w, ${imgGraffitiWebp960} 960w, ${imgGraffitiWebp} 2200w`,
+    imageAvifSet: `${imgGraffitiAvif640} 640w, ${imgGraffitiAvif960} 960w, ${imgGraffitiAvif} 2200w`,
     path: '/3d',
   },
   {
@@ -101,6 +129,8 @@ const PROJECTS = [
     image: imgPhotography,
     imageWebp: imgPhotographyWebp,
     imageAvif: imgPhotographyAvif,
+    imageWebpSet: `${imgPhotographyWebp640} 640w, ${imgPhotographyWebp960} 960w, ${imgPhotographyWebp} 2200w`,
+    imageAvifSet: `${imgPhotographyAvif640} 640w, ${imgPhotographyAvif960} 960w, ${imgPhotographyAvif} 2200w`,
     path: '/photography',
   },
 ];
@@ -116,7 +146,6 @@ export default function ProjectCarousel() {
   const sectionRef = useRef(null);
   const rowRef = useRef(null);
   const counterCurRef = useRef(null);
-  const marqueeRef = useRef(null);
   const cardRefs = useRef([]);
   const imgRefs = useRef([]);
   const currentIdxRef = useRef(0);
@@ -142,35 +171,23 @@ export default function ProjectCarousel() {
 
     const section = sectionRef.current;
     const row = rowRef.current;
-    const marquee = marqueeRef.current;
     const setupCarousel = async () => {
-      const { gsap, ScrollTrigger, Draggable } = await loadGsap({ includePlugins: !useVerticalStack });
+      if (useVerticalStack || !section || !row) {
+        currentIdxRef.current = 0;
+        setShowInteractionCue(false);
+
+        teardown = () => {};
+
+        return;
+      }
+
+      const { gsap, ScrollTrigger, Draggable } = await loadGsap({ includePlugins: true });
 
       if (isCancelled) {
         return;
       }
 
       gsapRef.current = gsap;
-
-      const marqueeTween = marquee
-        ? gsap.to(marquee, {
-            xPercent: -50,
-            duration: 15,
-            ease: 'none',
-            repeat: -1,
-          })
-        : null;
-
-      if (useVerticalStack || !section || !row) {
-        currentIdxRef.current = 0;
-        setShowInteractionCue(false);
-
-        teardown = () => {
-          marqueeTween?.kill();
-        };
-
-        return;
-      }
 
       let snapPositions = [0];
       let startSnap = 0;
@@ -325,7 +342,6 @@ export default function ProjectCarousel() {
         section.removeEventListener('wheel', handleWheel);
         stRef.current?.kill();
         drag?.kill();
-        marqueeTween?.kill();
       };
     };
 
@@ -389,10 +405,13 @@ export default function ProjectCarousel() {
             ref={stacked ? undefined : (el) => { imgRefs.current[i] = el; }}
             src={project.image}
             webpSrc={project.imageWebp}
+            webpSrcSet={project.imageWebpSet}
             avifSrc={project.imageAvif}
+            avifSrcSet={project.imageAvifSet}
+            sizes={stacked ? '(max-width: 980px) 92vw, 640px' : '(max-width: 1200px) 70vw, 68rem'}
             alt={project.title}
             loading={i === 0 ? 'eager' : 'lazy'}
-            decoding={i === 0 ? 'sync' : 'async'}
+            decoding="async"
             fetchPriority={i === 0 ? 'high' : undefined}
             imgStyle={{
               width: '100%',
@@ -467,7 +486,7 @@ export default function ProjectCarousel() {
           minHeight: useVerticalStack ? '100vh' : undefined,
           position: 'relative',
           backgroundColor: '#0a0a0a',
-          paddingTop: useVerticalStack ? 'min(32rem, 60vh)' : 0,
+          paddingTop: useVerticalStack ? '1rem' : 0,
           paddingBottom: useVerticalStack ? '3rem' : 0,
         }}
       >
@@ -576,11 +595,12 @@ export default function ProjectCarousel() {
         }}
       >
         <div
-          ref={marqueeRef}
           style={{
             display: 'flex',
             whiteSpace: 'nowrap',
             width: 'max-content',
+            animation: useVerticalStack ? 'none' : 'marqueeScroll 15s linear infinite',
+            willChange: useVerticalStack ? 'auto' : 'transform',
           }}
         >
           {[0, 1].map((n) => (
@@ -632,6 +652,21 @@ export default function ProjectCarousel() {
           }
           50% {
             transform: translateX(7px);
+          }
+        }
+
+        @keyframes marqueeScroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          [data-carousel-card='true'] {
+            transition: none !important;
           }
         }
       `}</style>

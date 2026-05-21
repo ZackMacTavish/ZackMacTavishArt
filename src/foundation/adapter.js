@@ -1,25 +1,14 @@
 // Adapter for integrating with @zackmactavish/foundation when available,
 // while providing safe fallbacks to local implementations.
 import React from 'react'
-import * as Foundation from '@zackmactavish/foundation'
+import { Seo as FoundationSeo, Grid60 as FoundationGrid60 } from '@zackmactavish/foundation'
 import styled from 'styled-components'
 import SEOFallback from '../components/SEO/SEO.jsx'
 
 // Export a common SEO component
-export const Seo = Foundation.Seo || SEOFallback
+export const Seo = FoundationSeo || SEOFallback
 
-// Themes: prefer foundation tokens if present
-export const lightThemeFromFoundation = Foundation.lightTheme || null
-export const darkThemeFromFoundation = Foundation.darkTheme || null
-export const GlobalStylesFromFoundation = Foundation.GlobalStyles || null
-
-// Optional custom cursor from foundation
-export const CustomCursorFromFoundation = Foundation.CustomCursor || null
-
-// Helper to read site defaults if provided by foundation
-export const siteDefaults = {}
-
-export const Grid60 = Foundation.Grid60 || null
+export const Grid60 = FoundationGrid60 || null
 
 const SplitRoot = styled.div`
 	width: min(${props => props.$width || '88vw'}, 1180px);
@@ -42,6 +31,8 @@ const SplitRoot = styled.div`
 		flex-direction: column;
 		gap: 1.5rem;
 		align-items: center;
+		content-visibility: auto;
+		contain-intrinsic-size: 900px;
 	}
 `
 
@@ -145,10 +136,15 @@ const SplitText = styled.div`
 export function ImageTextSplit({
 	imageSrc,
 	imageAvif,
+	imageAvifSet,
 	imageWebp,
+	imageWebpSet,
 	imageAlt,
-	imageLoading,
-	imageDecoding,
+	imageWidth,
+	imageHeight,
+	imageSizes,
+	imageLoading = 'lazy',
+	imageDecoding = 'async',
 	imageFetchPriority,
 	children,
 	width,
@@ -169,11 +165,18 @@ export function ImageTextSplit({
 			React.createElement(
 				'picture',
 				null,
-				imageAvif ? React.createElement('source', { srcSet: imageAvif, type: 'image/avif' }) : null,
-				imageWebp ? React.createElement('source', { srcSet: imageWebp, type: 'image/webp' }) : null,
+				(imageAvif || imageAvifSet)
+					? React.createElement('source', { srcSet: imageAvifSet || imageAvif, sizes: imageSizes, type: 'image/avif' })
+					: null,
+				(imageWebp || imageWebpSet)
+					? React.createElement('source', { srcSet: imageWebpSet || imageWebp, sizes: imageSizes, type: 'image/webp' })
+					: null,
 				React.createElement('img', {
 					src: imageSrc,
 					alt: imageAlt,
+					width: imageWidth,
+					height: imageHeight,
+					sizes: imageSizes,
 					loading: imageLoading,
 					decoding: imageDecoding,
 					fetchPriority: imageFetchPriority,

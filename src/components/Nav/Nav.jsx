@@ -1,5 +1,5 @@
 // src/components/Nav/Nav.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import logo from '../../assets/Final-M-SinglePiece.svg';
 import { Link } from 'react-router-dom';
@@ -29,6 +29,10 @@ const Spotlight = styled.span`
   filter: blur(70px);
   pointer-events: none;
   z-index: 997;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    display: none;
+  }
 `;
 
 const SpotlightLeft = styled(Spotlight)`
@@ -60,6 +64,11 @@ const Navdiv = styled.div`
   height: 8vh;
   padding: 0 3vw;
   z-index: 1000;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    backdrop-filter: none;
+    background-color: rgba(0, 0, 0, 0.72);
+  }
 `;
 
 const StrokeWrapper = styled.div`
@@ -83,6 +92,11 @@ const SolidStroke = styled.span`
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
   animation: ${slideFade} 10s ease-in-out forwards;
   z-index: 998;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    display: none;
+    animation: none;
+  }
 `;
 
 const NeonStroke = styled.span`
@@ -99,6 +113,11 @@ const NeonStroke = styled.span`
   -webkit-mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
   animation: ${slideFade} 10s ease-in-out forwards;
   z-index: 999;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    display: none;
+    animation: none;
+  }
 `;
 
 const pinkPulse = keyframes`
@@ -160,6 +179,11 @@ const PinkMicroStroke = styled.span`
   }
 
   z-index: 1001;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    display: none;
+    animation: none;
+  }
 `;
 
 const Logo = styled.img`
@@ -239,6 +263,10 @@ const Dropdown = styled.div`
   display: none;
   min-width: 8rem;
   z-index: 1000;
+
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    backdrop-filter: none;
+  }
 `;
 
 const DropdownMenu = styled(Link)`
@@ -260,7 +288,83 @@ const DropdownDivider = styled.div`
   margin: 0.25rem 0;
 `;
 
+const MobileMenuOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.96);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  @media (min-width: 901px) {
+    display: none;
+  }
+`;
+
+const MobileMenuClose = styled.button`
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  color: #f3f0e8;
+  border: 0;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+`;
+
+const MobileMenuLink = styled(Link)`
+  color: #f3f0e8;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.45rem, 5vw, 2rem);
+  letter-spacing: 0.02em;
+  padding: 0.35rem 1rem;
+`;
+
 export default function Nav({ hidden = false }) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+    return window.matchMedia('(max-width: 900px)').matches;
+  });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
+
+    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const syncMobileMode = () => {
+      setIsMobile(mediaQuery.matches);
+      if (!mediaQuery.matches) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    syncMobileMode();
+    mediaQuery.addEventListener('change', syncMobileMode);
+
+    return () => {
+      mediaQuery.removeEventListener('change', syncMobileMode);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   if (hidden) {
     return null;
   }
@@ -274,7 +378,24 @@ export default function Nav({ hidden = false }) {
       <NavLinksWrapper>
         <NavLinks>
           <ListItem>
-            <NavLabel>Art</NavLabel>
+            {isMobile ? (
+              <NavLabel
+                role="button"
+                tabIndex={0}
+                onClick={() => setIsMobileMenuOpen(true)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setIsMobileMenuOpen(true);
+                  }
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                Art
+              </NavLabel>
+            ) : (
+              <NavLabel>Art</NavLabel>
+            )}
             <Dropdown>
               <DropdownMenu to="/dwelling">Dwelling</DropdownMenu>
               <DropdownMenu to="/composition">Composition</DropdownMenu>
@@ -298,6 +419,20 @@ export default function Nav({ hidden = false }) {
           <SpotlightRight />
         </StrokeWrapper>
       </NavLinksWrapper>
+
+      {isMobile && isMobileMenuOpen ? (
+        <MobileMenuOverlay>
+          <MobileMenuClose type="button" aria-label="Close menu" onClick={() => setIsMobileMenuOpen(false)}>
+            ×
+          </MobileMenuClose>
+          <MobileMenuLink to="/dwelling" onClick={() => setIsMobileMenuOpen(false)}>Dwelling</MobileMenuLink>
+          <MobileMenuLink to="/composition" onClick={() => setIsMobileMenuOpen(false)}>Composition</MobileMenuLink>
+          <MobileMenuLink to="/printmaking" onClick={() => setIsMobileMenuOpen(false)}>Printmaking</MobileMenuLink>
+          <MobileMenuLink to="/photography" onClick={() => setIsMobileMenuOpen(false)}>Photography</MobileMenuLink>
+          <MobileMenuLink to="/3d" onClick={() => setIsMobileMenuOpen(false)}>3D + Graffiti</MobileMenuLink>
+          <MobileMenuLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</MobileMenuLink>
+        </MobileMenuOverlay>
+      ) : null}
     </Navdiv>
   );
 }

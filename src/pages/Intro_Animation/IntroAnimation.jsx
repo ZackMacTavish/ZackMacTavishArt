@@ -17,9 +17,45 @@ export default function IntroAnimation({ onIntroReady }) {
   useEffect(() => {
     let isCancelled = false;
     let timeline = null;
-    const carouselTimer = window.setTimeout(() => {
-      setShowCarousel(true);
-    }, 900);
+    let idleId;
+    let fallbackTimer;
+    const isReducedMotion =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSmallScreen =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(max-width: 768px)').matches;
+
+    const revealCarousel = () => {
+      if (!isCancelled) {
+        setShowCarousel(true);
+      }
+    };
+
+    if (isSmallScreen) {
+      if (typeof window.requestIdleCallback === 'function') {
+        idleId = window.requestIdleCallback(revealCarousel, { timeout: 2200 });
+      }
+      fallbackTimer = window.setTimeout(revealCarousel, 1200);
+    } else {
+      const carouselDelay = isReducedMotion ? 0 : 900;
+      fallbackTimer = window.setTimeout(revealCarousel, carouselDelay);
+    }
+
+    if (isReducedMotion || isSmallScreen) {
+      if (overlayRef.current) overlayRef.current.style.display = 'none';
+      return () => {
+        isCancelled = true;
+        if (typeof window.cancelIdleCallback === 'function' && idleId) {
+          window.cancelIdleCallback(idleId);
+        }
+        if (fallbackTimer) {
+          window.clearTimeout(fallbackTimer);
+        }
+      };
+    }
 
     document.body.style.overflow = 'hidden';
 
@@ -43,7 +79,7 @@ export default function IntroAnimation({ onIntroReady }) {
       const counterObj = { value: 0 };
       timeline.to(counterObj, {
         value: 100,
-        duration: 2.5,
+        duration: isSmallScreen ? 1.4 : 2.5,
         ease: 'power2.inOut',
         onUpdate: () => {
           if (counterRef.current) {
@@ -58,23 +94,28 @@ export default function IntroAnimation({ onIntroReady }) {
         {
           yPercent: 0,
           autoAlpha: 1,
-          stagger: 0.04,
-          duration: 0.8,
+          stagger: isSmallScreen ? 0.025 : 0.04,
+          duration: isSmallScreen ? 0.55 : 0.8,
           ease: 'power3.out',
         },
-        '-=2'
+        isSmallScreen ? '-=1.1' : '-=2'
       );
 
       timeline.to(overlayRef.current, {
         clipPath: 'inset(0% 0% 100% 0%)',
-        duration: 0.8,
+        duration: isSmallScreen ? 0.5 : 0.8,
         ease: 'power4.inOut',
       });
     });
 
     return () => {
       isCancelled = true;
-      window.clearTimeout(carouselTimer);
+      if (typeof window.cancelIdleCallback === 'function' && idleId) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (fallbackTimer) {
+        window.clearTimeout(fallbackTimer);
+      }
       timeline?.kill();
       document.body.style.overflow = '';
     };

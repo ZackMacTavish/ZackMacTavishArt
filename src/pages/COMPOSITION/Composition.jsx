@@ -26,6 +26,10 @@ import { FullHeightTextSection, TextContainer, TextContent } from '../Printmakin
 import fullcover from '../../assets/Composition-BackCover-Pt.2-01.jpg';
 import fullcoverWebp from '../../assets/optimized/Composition-BackCover-Pt.2-01.webp';
 import fullcoverAvif from '../../assets/optimized/Composition-BackCover-Pt.2-01.avif';
+import fullcoverWebp640 from '../../assets/optimized/Composition-BackCover-Pt.2-01-640.webp';
+import fullcoverWebp960 from '../../assets/optimized/Composition-BackCover-Pt.2-01-960.webp';
+import fullcoverAvif640 from '../../assets/optimized/Composition-BackCover-Pt.2-01-640.avif';
+import fullcoverAvif960 from '../../assets/optimized/Composition-BackCover-Pt.2-01-960.avif';
 import renderone from '../../assets/Render1.png';
 import renderoneWebp from '../../assets/optimized/Render1.webp';
 import renderoneAvif from '../../assets/optimized/Render1.avif';
@@ -604,7 +608,7 @@ export default function Composition() {
 
 {/*COMPOSITION NOTEBOOK Part 2 Landing */}
   <LanderSection>
-            <FullCover as={ResponsiveImage} src={fullcover} webpSrc={fullcoverWebp} avifSrc={fullcoverAvif} alt="Composition notebook cover" loading="eager" decoding="sync" fetchPriority="high" />
+            <FullCover as={ResponsiveImage} src={fullcover} webpSrc={fullcoverWebp} webpSrcSet={`${fullcoverWebp640} 640w, ${fullcoverWebp960} 960w, ${fullcoverWebp} 2200w`} avifSrc={fullcoverAvif} avifSrcSet={`${fullcoverAvif640} 640w, ${fullcoverAvif960} 960w, ${fullcoverAvif} 2200w`} sizes="(max-width: 850px) 80vw, 54vw" alt="Composition notebook cover" width={5620} height={3685} loading="eager" decoding="sync" fetchPriority="high" />
         </LanderSection>
 
 {/*RENDER 1 FULL SCREEN */}

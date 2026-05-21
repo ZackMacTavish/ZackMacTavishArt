@@ -8,11 +8,12 @@
     "dev": "vite",
     "build": "vite build",
     "optimize-images": "node scripts/optimize-images.mjs",
+    "og-images": "node scripts/generate-og-images.mjs",
     "route-pages": "node scripts/create-route-pages.mjs",
     "sitemap": "node sitemap.js",
     "preview": "vite preview",
     "lint": "eslint .",
-    "predeploy": "vite build && node sitemap.js && node scripts/create-route-pages.mjs && echo \"zackmactavish.com\" > dist/CNAME",
+    "predeploy": "node scripts/generate-og-images.mjs && vite build && node sitemap.js && node scripts/create-route-pages.mjs && echo \"zackmactavish.com\" > dist/CNAME",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

@@ -4,13 +4,16 @@ import appleTouchIcon from '../../assets/og/website-logoresolutions-180px.png';
 import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useLayoutEffect, useEffect, useState } from 'react';
 import { Seo, ImageTextSplit } from '../../foundation/adapter'
 import styled, { keyframes } from 'styled-components';
-import Scene from '../../components/Three/three';
 import me from '../../assets/Me.jpeg';
 import meWebp from '../../assets/optimized/Me.webp';
 import meAvif from '../../assets/optimized/Me.avif';
+import meWebp640 from '../../assets/optimized/Me-640.webp';
+import meWebp960 from '../../assets/optimized/Me-960.webp';
+import meAvif640 from '../../assets/optimized/Me-640.avif';
+import meAvif960 from '../../assets/optimized/Me-960.avif';
 import imagereplace from '../../assets/BlackTurtleneck-popart-01.jpg';
 import imagereplaceWebp from '../../assets/optimized/BlackTurtleneck-popart-01.webp';
 import imagereplaceAvif from '../../assets/optimized/BlackTurtleneck-popart-01.avif';
@@ -21,6 +24,8 @@ import quilthangingAvif from '../../assets/optimized/hangingquilts.avif';
 import { useLocation } from 'react-router-dom';
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo';
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
+
+const Scene = lazy(() => import('../../components/Three/three'));
 
 const AUTHOR_SAME_AS = [
   'https://dribbble.com/Zmactavish',
@@ -282,6 +287,13 @@ const GridHeaderContainer = styled.div`
     padding: 1.2rem 1rem 1.2rem 1.5rem;
     width: fit-content;
     margin-left: 2vw;
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -373,7 +385,14 @@ const GridImage = styled.div`
 const About = () => {
   const [showArrow, setShowArrow] = useState(true);
   const [hiddenForever, setHiddenForever] = useState(false);
-  const [isDesktop, setDesktop] = useState(window.innerWidth > 450);
+  const [isDesktop, setDesktop] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth > 900;
+  });
+  const [allowMotion, setAllowMotion] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return true;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
   const location = useLocation();
   const canonical = canonicalFromLocation(location);
 
@@ -390,7 +409,10 @@ const About = () => {
     };
     window.addEventListener('scroll', handleScroll);
 
-    const updateMedia = () => setDesktop(window.innerWidth > 450);
+    const updateMedia = () => {
+      setDesktop(window.innerWidth > 900);
+      setAllowMotion(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    };
     window.addEventListener('resize', updateMedia);
 
     return () => {
@@ -457,7 +479,7 @@ const About = () => {
       <h1 style={visuallyHiddenHeadingStyle}>About Zack MacTavish</h1>
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageAvif={meAvif} imageAlt="Portrait of Zack MacTavish" imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
+        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageWebpSet={`${meWebp640} 640w, ${meWebp960} 960w, ${meWebp} 2200w`} imageAvif={meAvif} imageAvifSet={`${meAvif640} 640w, ${meAvif960} 960w, ${meAvif} 2200w`} imageSizes="(max-width: 900px) 100vw, 40vw" imageAlt="Portrait of Zack MacTavish" imageWidth={960} imageHeight={960} imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
           <SplitText style={{ color: '#5d5d5d' }}>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
        history through painting, textile, collage, and print. Having moved over twenty times across 
@@ -495,10 +517,12 @@ const About = () => {
             <GridCTA href="https://mactavish.xyz" target="_blank" rel="noopener noreferrer">View Portfolio</GridCTA>
           </GridHeaderContainer>
           <GridImage>
-            {isDesktop ? (
-              <Scene />
+            {isDesktop && allowMotion ? (
+              <Suspense fallback={null}>
+                <Scene />
+              </Suspense>
             ) : (
-              <ResponsiveImage style={{ width: '100vw', height: '70vh', objectFit: 'cover' }} imgStyle={{ width: '100vw', height: '70vh', objectFit: 'cover' }} src={imagereplace} webpSrc={imagereplaceWebp} avifSrc={imagereplaceAvif} alt="Pop-art portrait" />
+              <ResponsiveImage style={{ width: '100vw', height: '70vh', objectFit: 'cover' }} imgStyle={{ width: '100vw', height: '70vh', objectFit: 'cover' }} src={imagereplace} webpSrc={imagereplaceWebp} avifSrc={imagereplaceAvif} alt="Pop-art portrait" width={3706} height={3706} loading="lazy" decoding="async" />
             )}
           </GridImage>
         </GridThemes>

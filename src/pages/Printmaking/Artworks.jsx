@@ -156,9 +156,17 @@ import thetownAvif from '/src/assets/optimized/TheTown.avif';
 import Cape from '/src/assets/CapeHouse.jpg';
 import CapeWebp from '/src/assets/optimized/CapeHouse.webp';
 import CapeAvif from '/src/assets/optimized/CapeHouse.avif';
+import CapeWebp640 from '/src/assets/optimized/CapeHouse-640.webp';
+import CapeWebp960 from '/src/assets/optimized/CapeHouse-960.webp';
+import CapeAvif640 from '/src/assets/optimized/CapeHouse-640.avif';
+import CapeAvif960 from '/src/assets/optimized/CapeHouse-960.avif';
 import Capetwo from '/src/assets/CapeHouseLg.jpg';
 import CapetwoWebp from '/src/assets/optimized/CapeHouseLg.webp';
 import CapetwoAvif from '/src/assets/optimized/CapeHouseLg.avif';
+import CapetwoWebp640 from '/src/assets/optimized/CapeHouseLg-640.webp';
+import CapetwoWebp960 from '/src/assets/optimized/CapeHouseLg-960.webp';
+import CapetwoAvif640 from '/src/assets/optimized/CapeHouseLg-640.avif';
+import CapetwoAvif960 from '/src/assets/optimized/CapeHouseLg-960.avif';
 
 // ===================== COLLAGES ASSETS =====================
 import collage50 from '/src/assets/collage50.png';
@@ -310,6 +318,8 @@ export const FullHeightTextSection = styled.section`
     justify-content: center;
     min-height: 80vh;
     padding: 4vh 4vw;
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
   }
 `;
 
@@ -410,14 +420,19 @@ export default function Artworks() {
             <ResponsiveImage
   src={Cape}
   webpSrc={CapeWebp}
+  webpSrcSet={`${CapeWebp640} 640w, ${CapeWebp960} 960w, ${CapeWebp} 2200w`}
   avifSrc={CapeAvif}
+  avifSrcSet={`${CapeAvif640} 640w, ${CapeAvif960} 960w, ${CapeAvif} 2200w`}
+  sizes="100vw"
   alt="Cape House exterior"
+  width={3788}
+  height={2015}
               loading="eager"
               decoding="sync"
               fetchPriority="high"
   style={{
     width: '100vw',           // full width
-    height: '100vh',          // full viewport height
+    height: '100svh',         // full viewport height
     objectFit: 'cover',       // crop/zoom without stretching
     objectPosition: 'bottom', // align image to the bottom
     display: 'block'
@@ -427,11 +442,16 @@ export default function Artworks() {
            <ResponsiveImage
   src={Capetwo}
   webpSrc={CapetwoWebp}
+  webpSrcSet={`${CapetwoWebp640} 640w, ${CapetwoWebp960} 960w, ${CapetwoWebp} 2200w`}
   avifSrc={CapetwoAvif}
+  avifSrcSet={`${CapetwoAvif640} 640w, ${CapetwoAvif960} 960w, ${CapetwoAvif} 2200w`}
+  sizes="100vw"
   alt="Cape House large view"
+  width={5424}
+  height={2967}
   style={{
     width: '100vw',          // full width
-    height: '100vh',         // full viewport height
+    height: '100svh',        // full viewport height
     objectFit: 'cover',      // crop/zoom without stretching
     objectPosition: 'center',// center the image
     display: 'block'

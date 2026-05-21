@@ -31,22 +31,38 @@ const AppCursorstyles = styled.div`
 
 const CustomCursor = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
   const firstMove = useRef(false);
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    // Detect if screen is mobile size
-    const checkMobile = () => setIsMobile(window.innerWidth <= 450);
+    const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaCoarse = window.matchMedia('(pointer: coarse)');
+
+    // Disable the custom cursor on touch/coarse pointers and reduced-motion users.
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 900 || mediaCoarse.matches);
+      setReduceMotion(mediaReduce.matches);
+    };
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    mediaReduce.addEventListener('change', checkMobile);
+    mediaCoarse.addEventListener('change', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      mediaReduce.removeEventListener('change', checkMobile);
+      mediaCoarse.removeEventListener('change', checkMobile);
+    };
   }, []);
 
   useEffect(() => {
-    if (isMobile) return; // disable all cursor logic on mobile
+    if (isMobile || reduceMotion) return; // disable all cursor logic on mobile/reduced-motion
 
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
@@ -85,20 +101,23 @@ const CustomCursor = () => {
         const scale = hoveredRef.current ? 0.3 : 1;
         cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) scale(${scale})`;
       }
-      requestAnimationFrame(animate);
+      rafRef.current = requestAnimationFrame(animate);
     };
 
     const onHover = (e) => {
-      const tag = e.currentTarget.tagName.toLowerCase();
-      if ((tag === 'a' || tag === 'svg') && cursorRef.current) {
+      const el = e.target.closest && e.target.closest('a, svg, [data-cursor-hover]');
+      if (el && cursorRef.current) {
         hoveredRef.current = true;
         cursorRef.current.classList.add('hovered');
       }
     };
 
     const onHoverOut = (e) => {
-      const tag = e.currentTarget.tagName.toLowerCase();
-      if ((tag === 'a' || tag === 'svg') && cursorRef.current) {
+      const el = e.target.closest && e.target.closest('a, svg, [data-cursor-hover]');
+      if (!el) return;
+      const related = e.relatedTarget;
+      if (related && related.closest && related.closest('a, svg, [data-cursor-hover]')) return;
+      if (cursorRef.current) {
         hoveredRef.current = false;
         cursorRef.current.classList.remove('hovered');
       }
@@ -107,27 +126,22 @@ const CustomCursor = () => {
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mouseleave', hideCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    const hoverElements = document.querySelectorAll('a, svg');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', onHover);
-      el.addEventListener('mouseleave', onHoverOut);
-    });
+    document.addEventListener('mouseover', onHover);
+    document.addEventListener('mouseout', onHoverOut);
 
     animate();
 
     return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mouseleave', hideCursor);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      hoverElements.forEach(el => {
-        el.removeEventListener('mouseenter', onHover);
-        el.removeEventListener('mouseleave', onHoverOut);
-      });
+      document.removeEventListener('mouseover', onHover);
+      document.removeEventListener('mouseout', onHoverOut);
     };
-  }, [isMobile]);
+  }, [isMobile, reduceMotion]);
 
-  if (isMobile) return null; // Don’t render anything on mobile
+  if (isMobile || reduceMotion) return null; // Don’t render anything on mobile/reduced-motion
 
   return (
     <>

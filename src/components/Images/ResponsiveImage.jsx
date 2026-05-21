@@ -5,7 +5,11 @@ const ResponsiveImage = React.forwardRef(function ResponsiveImage(
     className,
     src,
     webpSrc,
+    webpSrcSet,
     avifSrc,
+    avifSrcSet,
+    srcSet,
+    sizes,
     alt,
     style,
     imgStyle,
@@ -18,11 +22,13 @@ const ResponsiveImage = React.forwardRef(function ResponsiveImage(
 ) {
   return (
     <picture className={className} style={style}>
-      {avifSrc ? <source srcSet={avifSrc} type="image/avif" /> : null}
-      {webpSrc ? <source srcSet={webpSrc} type="image/webp" /> : null}
+      {avifSrc || avifSrcSet ? <source srcSet={avifSrcSet || avifSrc} sizes={sizes} type="image/avif" /> : null}
+      {webpSrc || webpSrcSet ? <source srcSet={webpSrcSet || webpSrc} sizes={sizes} type="image/webp" /> : null}
       <img
         ref={ref}
         src={src}
+        srcSet={srcSet}
+        sizes={sizes}
         alt={alt}
         loading={loading}
         decoding={decoding}

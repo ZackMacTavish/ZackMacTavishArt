@@ -5,6 +5,7 @@ import { ROUTES } from '../sitemap.js';
 const cwd = process.cwd();
 const distDir = path.join(cwd, 'dist');
 const indexPath = path.join(distDir, 'index.html');
+const publicOgDir = path.join(cwd, 'public', 'og');
 
 const ROUTE_METADATA = {
   '/': {
@@ -95,6 +96,54 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;');
 }
 
+function loadOgManifest() {
+  const manifestPath = path.join(publicOgDir, 'og-manifest.json');
+  if (!fs.existsSync(manifestPath)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+const OG_MANIFEST = loadOgManifest();
+
+function extensionToMime(ext) {
+  switch (ext.toLowerCase()) {
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'webp':
+      return 'image/webp';
+    default:
+      return 'image/jpeg';
+  }
+}
+
+function resolveRouteImageMeta(siteUrl, routePath) {
+  const slug = routePath === '/' ? 'home' : routePath.replace(/^\//, '');
+  const baseUrl = siteUrl.replace(/\/$/, '');
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    const filename = `${slug}.${ext}`;
+    if (fs.existsSync(path.join(publicOgDir, filename))) {
+      return {
+        url: `${baseUrl}/og/${filename}`,
+        type: extensionToMime(ext),
+        alt:
+          (OG_MANIFEST[slug] && OG_MANIFEST[slug].alt) ||
+          `${ROUTE_METADATA[routePath]?.title || 'Zack MacTavish Art & Design'} — social preview image.`,
+      };
+    }
+  }
+  return {
+    url: `${baseUrl}/og-default.png`,
+    type: 'image/png',
+    alt: 'Zack MacTavish Art & Design logo.',
+  };
+}
+
 function replaceOrInsert(html, pattern, replacement) {
   if (pattern.test(html)) {
     return html.replace(pattern, replacement);
@@ -121,6 +170,10 @@ function applyRouteMetadata(html, siteUrl, routePath) {
   const description = escapeHtml(metadata.description);
   const canonical = escapeHtml(url);
   const jsonLd = buildJsonLd(routePath, url);
+  const image = resolveRouteImageMeta(siteUrl, routePath);
+  const ogImage = escapeHtml(image.url);
+  const ogImageType = escapeHtml(image.type);
+  const ogImageAlt = escapeHtml(image.alt);
 
   let nextHtml = replaceOrInsert(html, /<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${description}" />`);
@@ -128,8 +181,14 @@ function applyRouteMetadata(html, siteUrl, routePath) {
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:title"\s+content="[^"]*"\s*\/>/, `<meta property="og:title" content="${title}" />`);
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:description"\s+content="[^"]*"\s*\/>/, `<meta property="og:description" content="${description}" />`);
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/, `<meta property="og:url" content="${canonical}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/, `<meta property="og:image" content="${ogImage}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:image:secure_url"\s+content="[^"]*"\s*\/>/, `<meta property="og:image:secure_url" content="${ogImage}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:image:type"\s+content="[^"]*"\s*\/>/, `<meta property="og:image:type" content="${ogImageType}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/>/, `<meta property="og:image:alt" content="${ogImageAlt}" />`);
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/, `<meta name="twitter:title" content="${title}" />`);
   nextHtml = replaceOrInsert(nextHtml, /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/, `<meta name="twitter:description" content="${description}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/, `<meta name="twitter:image" content="${ogImage}" />`);
+  nextHtml = replaceOrInsert(nextHtml, /<meta\s+name="twitter:image:alt"\s+content="[^"]*"\s*\/>/, `<meta name="twitter:image:alt" content="${ogImageAlt}" />`);
   nextHtml = replaceOrInsertJsonLd(nextHtml, jsonLd);
 
   return nextHtml;

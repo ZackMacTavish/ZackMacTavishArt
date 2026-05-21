@@ -42,6 +42,10 @@ import { TextContainer, TextContent, FullHeightTextSection } from '../Printmakin
 import housemash from '../../assets/House—Mash.jpg';
 import housemashWebp from '../../assets/optimized/House—Mash.webp';
 import housemashAvif from '../../assets/optimized/House—Mash.avif';
+import housemashWebp640 from '../../assets/optimized/House—Mash-640.webp';
+import housemashWebp960 from '../../assets/optimized/House—Mash-960.webp';
+import housemashAvif640 from '../../assets/optimized/House—Mash-640.avif';
+import housemashAvif960 from '../../assets/optimized/House—Mash-960.avif';
 import housefront from '../../assets/Housequiltfront.jpg';
 import housefrontWebp from '../../assets/optimized/Housequiltfront.webp';
 import housefrontAvif from '../../assets/optimized/Housequiltfront.avif';
@@ -104,6 +108,10 @@ import house7Avif from '../../assets/optimized/house7.avif';
 import housemash2 from '../../assets/housemash2.jpg';
 import housemash2Webp from '../../assets/optimized/housemash2.webp';
 import housemash2Avif from '../../assets/optimized/housemash2.avif';
+import housemash2Webp640 from '../../assets/optimized/housemash2-640.webp';
+import housemash2Webp960 from '../../assets/optimized/housemash2-960.webp';
+import housemash2Avif640 from '../../assets/optimized/housemash2-640.avif';
+import housemash2Avif960 from '../../assets/optimized/housemash2-960.avif';
 import manisteeblock from '../../assets/Manisteeblock.jpg';
 import manisteeblockWebp from '../../assets/optimized/Manisteeblock.webp';
 import manisteeblockAvif from '../../assets/optimized/Manisteeblock.avif';
@@ -314,6 +322,8 @@ export const ThreeImageGrid = styled.div`
     gap: 32px;
     padding: 60px 20px;
     align-items: center;    /* center stacked images horizontally */
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
 
     & > img,
     & > picture {
@@ -406,6 +416,8 @@ export const TwoImageGrid = styled.div`
     gap: 32px;
     padding: 40px 20px;
     align-items: center;
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
 
     & > img,
     & > picture {
@@ -596,8 +608,8 @@ export default function Dwelling() {
           {/* Top housemash images horizontally */}
          <div style={{ backgroundColor: 'white', width: '100vw' }}>
            <TwoImageGrid className="large">
-               <ResponsiveImage src={housemash} webpSrc={housemashWebp} avifSrc={housemashAvif} alt="Layered house collage from the Dwelling series" loading="eager" decoding="sync" fetchPriority="high" />
-               <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} avifSrc={housemash2Avif} alt="Layered house collage with stitched details from the Dwelling series" loading="eager" decoding="async" />
+               <ResponsiveImage src={housemash} webpSrc={housemashWebp} webpSrcSet={`${housemashWebp640} 640w, ${housemashWebp960} 960w, ${housemashWebp} 2200w`} avifSrc={housemashAvif} avifSrcSet={`${housemashAvif640} 640w, ${housemashAvif960} 960w, ${housemashAvif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage from the Dwelling series" width={4000} height={3000} loading="eager" decoding="sync" fetchPriority="high" />
+               <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} webpSrcSet={`${housemash2Webp640} 640w, ${housemash2Webp960} 960w, ${housemash2Webp} 2200w`} avifSrc={housemash2Avif} avifSrcSet={`${housemash2Avif640} 640w, ${housemash2Avif960} 960w, ${housemash2Avif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage with stitched details from the Dwelling series" width={4000} height={3000} loading="lazy" decoding="async" />
            </TwoImageGrid>
          </div>
 
