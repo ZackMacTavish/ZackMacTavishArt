@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Block spa-github-pages 404 redirect form so it isn't indexed as a soft-404.
+Disallow: /?/
 
 Sitemap: https://zackmactavish.com/sitemap.xml

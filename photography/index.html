@@ -4,25 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="A selection of film photographs and polaroids from Hawaii, New York, Portland, and other places observed through travel and daily life." />
+    <meta name="author" content="Zack MacTavish" />
+    <meta name="application-name" content="Zack MacTavish Art & Design" />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="canonical" href="https://zackmactavish.com/photography" />
     <link rel="manifest" href="/manifest.json" />
     <meta property="og:site_name" content="Zack MacTavish Art & Design" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Photography | Zack MacTavish Art &amp; Design" />
     <meta property="og:description" content="A selection of film photographs and polaroids from Hawaii, New York, Portland, and other places observed through travel and daily life." />
     <meta property="og:url" content="https://zackmactavish.com/photography" />
-    <meta property="og:image" content="https://zackmactavish.com/og-default.png" />
-    <meta property="og:image:secure_url" content="https://zackmactavish.com/og-default.png" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content="https://zackmactavish.com/og/photography.jpg" />
+    <meta property="og:image:secure_url" content="https://zackmactavish.com/og/photography.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Zack MacTavish Art & Design logo" />
+    <meta property="og:image:alt" content="Aquarium photograph by Zack MacTavish — Photography series." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Photography | Zack MacTavish Art &amp; Design" />
     <meta name="twitter:description" content="A selection of film photographs and polaroids from Hawaii, New York, Portland, and other places observed through travel and daily life." />
-    <meta name="twitter:image" content="https://zackmactavish.com/og-default.png" />
+    <meta name="twitter:image" content="https://zackmactavish.com/og/photography.jpg" />
+    <meta name="twitter:image:alt" content="Aquarium photograph by Zack MacTavish — Photography series." />
     <script>
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'manual';
@@ -61,16 +65,98 @@
         min-height: 100%;
         background: #0a0a0a;
       }
+
+      /* Static landing skeleton — painted instantly on first byte for mobile.
+         React replaces this when LandingPage mounts. Visual styles mirror the
+         mobile header in src/pages/Landing_Page/LandingPage.jsx so there is no
+         layout shift. */
+      #landing-skeleton {
+        color: #f3f0e8;
+        min-height: 100vh;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        margin-top: max(9vh, 4.75rem);
+      }
+      #landing-skeleton .kicker {
+        font-family: monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(243, 240, 232, 0.68);
+        margin: 0 0 0.75rem;
+      }
+      #landing-skeleton h1 {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: clamp(2rem, 11vw, 3rem);
+        line-height: 0.95;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      #landing-skeleton .lede {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: rgba(243, 240, 232, 0.82);
+        margin: 1rem 0 0;
+      }
     </style>
 
     <title>Photography | Zack MacTavish Art &amp; Design</title>
-    <script type="module" crossorigin src="/assets/index-8mlp982d.js"></script>
+    <script type="module" crossorigin src="/assets/index-B7-ssJ06.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/three-BgQdTZ1w.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-three-BKJczYnz.js">
     <link rel="stylesheet" crossorigin href="/assets/index-zEtQuIES.css">
       <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"Photography Series","url":"https://zackmactavish.com/photography","author":{"@type":"Person","name":"Zack MacTavish","alternateName":["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],"sameAs":["https://dribbble.com/Zmactavish","https://www.instagram.com/zackmichaelmactavish","https://www.linkedin.com/in/zacharymactavish/","https://github.com/ZackMacTavish","https://medium.com/@zmactavish"]}}</script>
   </head>
   <body>
     <!-- React root -->
-    <div id="root"></div>
+    <div id="root">
+      <div id="landing-skeleton" aria-hidden="true">
+        <p class="kicker">Artist Portfolio</p>
+        <h1>Zack MacTavish</h1>
+        <p class="lede">
+          Drawing, painting, quilting, and graffiti-based work anchored by personal history,
+          domestic memory, and image-making across physical and digital forms.
+        </p>
+      </div>
+    </div>
+    <script>
+      // Strip the skeleton immediately on routes other than home, or on
+      // larger pointer-fine devices where the intro animation owns the
+      // first paint.
+      (function () {
+        var sk = document.getElementById('landing-skeleton');
+        if (!sk) return;
+        var path = window.location.pathname;
+        var isHome = path === '/' || path === '';
+        var mq = window.matchMedia(
+          '(max-width: 768px), (pointer: coarse), (prefers-reduced-motion: reduce)'
+        );
+        if (!isHome || !mq.matches) {
+          sk.parentNode && sk.parentNode.removeChild(sk);
+        }
+      })();
+    </script>
+
+    <noscript>
+      <style>#landing-skeleton{display:none}</style>
+      <div style="max-width:720px;margin:0 auto;padding:3rem 1.25rem;color:#f3f0e8;font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55">
+        <h1 style="font-size:clamp(2rem,6vw,3rem);margin:0 0 1rem;text-transform:uppercase;letter-spacing:0.02em">Zack MacTavish</h1>
+        <p>Portfolio of Zack MacTavish, a Philadelphia-based artist and designer working across painting, printmaking, photography, collage, textiles, and 3D.</p>
+        <nav aria-label="Portfolio sections" style="margin-top:1.5rem">
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem">
+            <li><a href="/about" style="color:#f3f0e8">About</a></li>
+            <li><a href="/composition" style="color:#f3f0e8">Composition</a></li>
+            <li><a href="/dwelling" style="color:#f3f0e8">Dwelling</a></li>
+            <li><a href="/printmaking" style="color:#f3f0e8">Printmaking</a></li>
+            <li><a href="/photography" style="color:#f3f0e8">Photography</a></li>
+            <li><a href="/3d" style="color:#f3f0e8">3D &amp; Graffiti</a></li>
+          </ul>
+        </nav>
+        <p style="margin-top:2rem;font-size:0.9rem;color:rgba(243,240,232,0.7)">This site is best experienced with JavaScript enabled.</p>
+      </div>
+    </noscript>
 
     <!-- Vite entry -->
   </body>

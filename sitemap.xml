@@ -1,45 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://zackmactavish.com/</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/home.jpg</image:loc>
+      <image:title>Zack MacTavish Art &amp; Design</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/about</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/about.jpg</image:loc>
+      <image:title>About Zack MacTavish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/3d</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/3d.jpg</image:loc>
+      <image:title>3D &amp; Graffiti — Zack MacTavish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/composition</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/composition.jpg</image:loc>
+      <image:title>Composition — Zack MacTavish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/dwelling</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/dwelling.jpg</image:loc>
+      <image:title>Dwelling — Zack MacTavish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/photography</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/photography.jpg</image:loc>
+      <image:title>Photography — Zack MacTavish</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://zackmactavish.com/printmaking</loc>
-    <lastmod>2026-05-18T22:27:57.885Z</lastmod>
+    <lastmod>2026-05-21T19:55:49.469Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://zackmactavish.com/og/printmaking.jpg</image:loc>
+      <image:title>Printmaking — Zack MacTavish</image:title>
+    </image:image>
   </url>
 </urlset>
