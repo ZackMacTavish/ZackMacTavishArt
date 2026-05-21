@@ -11,8 +11,8 @@ This repo is a React + Vite single-page app for an art/portfolio site. It uses s
   - Calls `useLayoutEffect(() => window.scrollTo(0,0))` to reset scroll on navigation.
   - Renders large image sections using responsive inline styles (`objectFit`, `objectPosition`) when needed.
 - 3D/graphics:
-  - Intro overlay animation in `src/pages/Intro_Animation/IntroAnimation.jsx` uses `@react-three/fiber` and `@react-three/drei` (`Canvas`, `Float`, `OrbitControls`, `useGLTF`). Loads glTF from `public/models/scene.glb` via `import.meta.env.BASE_URL + 'models/...'`.
-  - A standalone Three.js component in `src/components/Three/three.jsx` demonstrates a textured, animated plane with `useFrame`/`useLoader`.
+  - Intro overlay animation in `src/pages/Intro_Animation/IntroAnimation.jsx` is a text-only GSAP timeline (no Three.js). GSAP is loaded via dynamic `import('gsap')` so it only ships when the intro mounts.
+  - A standalone Three.js component in `src/components/Three/three.jsx` demonstrates a textured, animated plane with `useFrame`/`useLoader`. It is lazy-loaded only by `src/pages/About/About.jsx`.
 
 ## Conventions & patterns to follow
 - Use hash-based routing (`HashRouter`) to support GitHub Pages; add new routes in `src/App.jsx`. Don’t switch to `BrowserRouter` unless deployment strategy changes.
@@ -35,7 +35,7 @@ This repo is a React + Vite single-page app for an art/portfolio site. It uses s
 - Deploy to GitHub Pages: `npm run predeploy` (builds and writes `dist/CNAME` with `zackmactavish.com`), then `npm run deploy` (publishes `dist` via `gh-pages`). Vite `base` is `/` and routing uses hashes, matching static hosting.
 
 ## Integration notes
-- External deps in use: `react` 19, `react-router-dom` 7, `styled-components` 6, `@react-three/fiber` 9, `@react-three/drei`, `three` 0.179. The package `@zackmactavish/foundation` is listed but not referenced in the codebase at present.
+- External deps in use: `react` 19, `react-router-dom` 7, `styled-components` 6, `@react-three/fiber` 9, `three` 0.179, `gsap` 3 (dynamically imported), `@zackmactavish/foundation` (used via `src/foundation/adapter.js` for `Seo`).
 - ESLint: extends `@eslint/js` recommended, React Hooks latest, React Refresh for Vite. Rule tweak: allow unused uppercase vars via `varsIgnorePattern: '^[A-Z_]'`.
 
 ## When adding features
