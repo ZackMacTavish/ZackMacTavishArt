@@ -49,13 +49,13 @@ function DevAgentation() {
 function HomeRoute({ onIntroReady }) {
   const [skipIntro, setSkipIntro] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-    return window.matchMedia('(max-width: 768px), (pointer: coarse), (prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 
   useEffect(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
 
-    const mediaQuery = window.matchMedia('(max-width: 768px), (pointer: coarse), (prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const syncSkipIntro = () => setSkipIntro(mediaQuery.matches);
 
     syncSkipIntro();

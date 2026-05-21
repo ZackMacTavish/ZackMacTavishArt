@@ -44,7 +44,7 @@ export default function IntroAnimation({ onIntroReady }) {
       fallbackTimer = window.setTimeout(revealCarousel, carouselDelay);
     }
 
-    if (isReducedMotion || isSmallScreen) {
+    if (isReducedMotion) {
       if (overlayRef.current) overlayRef.current.style.display = 'none';
       return () => {
         isCancelled = true;

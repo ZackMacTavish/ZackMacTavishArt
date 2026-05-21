@@ -233,8 +233,13 @@ const ListItem = styled.li`
   position: relative;
   white-space: nowrap;
 
-  &:hover > div {
-    display: block;
+  /* Only show the desktop hover dropdown on devices that actually hover.
+     On touch devices iOS/Android emulate :hover on first tap which would
+     reveal this dropdown and require a second tap to fire onClick. */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover > div {
+      display: block;
+    }
   }
 `;
 
@@ -264,7 +269,10 @@ const Dropdown = styled.div`
   min-width: 8rem;
   z-index: 1000;
 
-  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  /* The mobile menu overlay handles touch navigation; never show this
+     dropdown on small screens or coarse pointers. */
+  @media (max-width: 900px), (pointer: coarse) {
+    display: none !important;
     backdrop-filter: none;
   }
 `;
