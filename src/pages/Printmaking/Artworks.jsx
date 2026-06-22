@@ -78,7 +78,6 @@ const AUTHOR_SAME_AS = [
   'https://github.com/ZackMacTavish',
   'https://medium.com/@zmactavish',
 ];
-import { RisoFlex, RisoItem } from '../3d/MergedGraffiti';
 import {
   ArtDesc,
   ArtHeader,
@@ -291,6 +290,32 @@ import yellowzAvif from '/src/assets/optimized/Yellow-Z.avif';
 import selfie from '/src/assets/SelfPortrait.jpg';
 import selfieWebp from '/src/assets/optimized/SelfPortrait.webp';
 import selfieAvif from '/src/assets/optimized/SelfPortrait.avif';
+
+const RisoFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${(props) => props.theme.backgroundTwo};
+  align-items: center;
+  height: auto;
+  padding: 3vh 0;
+  width: 100vw;
+`;
+
+const RisoItem = styled.img`
+  width: ${(props) => props.$Width || 'auto'};
+  max-width: 1000px;
+  height: auto;
+
+  @media (max-width: 1000px) {
+    width: 90vw;
+    padding-top: 3vh;
+  }
+
+  @media (max-width: 450px) {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+  }
+`;
 
 export const FullHeightTextSection = styled.section`
   display: flex;

@@ -15,8 +15,9 @@ const AppCursorstyles = styled.div`
   backdrop-filter: blur(6px);
   pointer-events: none;
   position: fixed;
-  transform: translate3d(0,0,0) scale(1);
-  transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  transform: translate3d(0,0,0) translate(-50%, -50%) scale(1);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
   display: none;
 
   &.hovered {
@@ -67,8 +68,8 @@ const CustomCursor = () => {
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
 
-      const mouseX = e.clientX - cursorRef.current.clientWidth / 2;
-      const mouseY = e.clientY - cursorRef.current.clientHeight / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
 
       if (!firstMove.current) {
         current.current = { x: mouseX, y: mouseY };
@@ -95,11 +96,11 @@ const CustomCursor = () => {
 
     const animate = () => {
       if (cursorRef.current && firstMove.current) {
-        current.current.x += (target.current.x - current.current.x) * 0.65;
-        current.current.y += (target.current.y - current.current.y) * 0.65;
+        current.current.x += (target.current.x - current.current.x) * 0.82;
+        current.current.y += (target.current.y - current.current.y) * 0.82;
 
         const scale = hoveredRef.current ? 0.3 : 1;
-        cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) scale(${scale})`;
+        cursorRef.current.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) translate(-50%, -50%) scale(${scale})`;
       }
       rafRef.current = requestAnimationFrame(animate);
     };
@@ -123,7 +124,7 @@ const CustomCursor = () => {
       }
     };
 
-    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('pointermove', moveCursor, { passive: true });
     document.addEventListener('mouseleave', hideCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
     document.addEventListener('mouseover', onHover);
@@ -133,7 +134,7 @@ const CustomCursor = () => {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('pointermove', moveCursor);
       document.removeEventListener('mouseleave', hideCursor);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       document.removeEventListener('mouseover', onHover);

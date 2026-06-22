@@ -10,18 +10,73 @@ export const Seo = FoundationSeo || SEOFallback
 
 export const Grid60 = FoundationGrid60 || null
 
+const SPLIT_SIZE_PRESETS = {
+	default: {},
+	medium: {
+		rootWidth: '86vw',
+		rootMaxWidth: '1120px',
+		rootWidthLg: '88vw',
+		rootMaxWidthLg: '1080px',
+		rootColumns: 'minmax(0, 1.02fr) minmax(300px, 0.98fr)',
+		rootColumnsLg: 'minmax(0, 1fr) minmax(280px, 1fr)',
+		rootGap: 'clamp(20px, 2vw, 32px)',
+		rootMobileGap: '1.15rem',
+		mediaMaxWidth: '580px',
+		mediaMaxWidthLg: '540px',
+		mobilePictureWidth: '96vw',
+		mobileImageMaxWidth: '96vw',
+		textSize: 'clamp(1.04rem, 1.18vw, 1.26rem)',
+		textMobileSize: '1.18rem',
+		textMaxWidth: '420px',
+	},
+	wide: {
+		rootWidth: '90vw',
+		rootMaxWidth: '1260px',
+		rootWidthLg: '92vw',
+		rootMaxWidthLg: '1180px',
+		rootColumns: 'minmax(0, 1.08fr) minmax(320px, 0.92fr)',
+		rootColumnsLg: 'minmax(0, 1.04fr) minmax(300px, 0.96fr)',
+		rootGap: 'clamp(24px, 2.2vw, 40px)',
+		rootMobileGap: '1.25rem',
+		mediaMaxWidth: '640px',
+		mediaMaxWidthLg: '600px',
+		mobilePictureWidth: '96vw',
+		mobileImageMaxWidth: '96vw',
+		textSize: 'clamp(1.08rem, 1.25vw, 1.3rem)',
+		textMobileSize: '1.2rem',
+		textMaxWidth: '470px',
+	},
+	compact: {
+		rootWidth: '82vw',
+		rootMaxWidth: '1120px',
+		rootWidthLg: '86vw',
+		rootMaxWidthLg: '1040px',
+		rootColumns: 'minmax(0, 1.05fr) minmax(240px, 0.9fr)',
+		rootColumnsLg: 'minmax(0, 1fr) minmax(220px, 0.95fr)',
+		rootGap: 'clamp(18px, 1.8vw, 32px)',
+		rootMobileGap: '1rem',
+		mediaMaxWidth: '560px',
+		mediaMaxWidthLg: '520px',
+		mobilePictureWidth: '96vw',
+		mobileImageMaxWidth: '96vw',
+		textSize: 'clamp(1.02rem, 1.2vw, 1.25rem)',
+		textMobileSize: '1.2rem',
+		textMaxWidth: '380px',
+	},
+}
+
 const SplitRoot = styled.div`
-	width: min(${props => props.$width || '88vw'}, 1180px);
+	width: min(${props => props.$width || '88vw'}, ${props => props.$maxWidth || '1180px'});
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.78fr);
-	gap: clamp(36px, 3vw, 56px);
+	grid-template-columns: ${props => props.$columns || 'minmax(0, 1.2fr) minmax(280px, 0.78fr)'};
+	gap: ${props => props.$gap || 'clamp(36px, 3vw, 56px)'};
 	align-items: center;
 	padding: clamp(1.75rem, 2.6vw, 2.1rem) 0;
 
 	@media (max-width: 1320px) {
-		width: min(${props => props.$width || '90vw'}, 1080px);
-		grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.82fr);
+		width: min(${props => props.$widthLg || props.$width || '90vw'}, ${props => props.$maxWidthLg || '1080px'});
+		grid-template-columns: ${props => props.$columnsLg || props.$columns || 'minmax(0, 1.1fr) minmax(260px, 0.82fr)'};
 	}
 
 	@media (max-width: 900px) {
@@ -29,7 +84,7 @@ const SplitRoot = styled.div`
 		max-width: 100vw;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: ${props => props.$mobileGap || '1.5rem'};
 		align-items: center;
 		content-visibility: auto;
 		contain-intrinsic-size: 900px;
@@ -38,7 +93,7 @@ const SplitRoot = styled.div`
 
 const SplitMedia = styled.div`
 	width: 100%;
-	max-width: 680px;
+	max-width: ${props => props.$mediaMaxWidth || '680px'};
 	min-width: 0;
 	min-height: 0;
 	display: flex;
@@ -77,7 +132,7 @@ const SplitMedia = styled.div`
 	}
 
 	@media (max-width: 1200px) {
-		max-width: 600px;
+		max-width: ${props => props.$mediaMaxWidthLg || props.$mediaMaxWidth || '600px'};
 
 		img {
 			min-height: 140px;
@@ -92,14 +147,14 @@ const SplitMedia = styled.div`
 		margin-bottom: 1.2rem;
 
 		picture {
-			width: 92vw;
+			width: ${props => props.$mobilePictureWidth || '92vw'};
 			margin: 0 auto;
 			padding: ${props => (props.$imageMode === 'framed' ? '18px 14px' : '0')};
 		}
 
 		img {
 			width: ${props => (props.$imageMode === 'framed' ? 'auto' : '100%')};
-			max-width: 92vw;
+			max-width: ${props => props.$mobileImageMaxWidth || props.$mobilePictureWidth || '92vw'};
 			max-height: none;
 			min-height: 120px;
 			border-radius: 16px;
@@ -121,12 +176,12 @@ const SplitText = styled.div`
 	text-align: left;
 	min-width: 0;
 	height: 100%;
-	max-width: 420px;
+	max-width: ${props => props.$textMaxWidth || '420px'};
 	justify-self: start;
 
 	@media (max-width: 900px) {
-		font-size: 1.7rem;
-		width: 92vw;
+		font-size: ${props => props.$mobileTextSize || '1.7rem'};
+		width: ${props => props.$mobileTextWidth || '92vw'};
 		max-width: none;
 		margin: 0 auto;
 		min-height: 40px;
@@ -153,15 +208,39 @@ export function ImageTextSplit({
 	imageBlendMode,
 	textSize,
 	textColor,
+	splitSize = 'default',
 	className,
 	...rest
 }) {
+	const sizePreset = SPLIT_SIZE_PRESETS[splitSize] || SPLIT_SIZE_PRESETS.default
+	const resolvedTextSize = textSize || sizePreset.textSize
+	const resolvedTextColor = textColor || sizePreset.textColor
+
 	return React.createElement(
 		SplitRoot,
-		{ $width: width, className, ...rest },
+		{
+			$width: width || sizePreset.rootWidth,
+			$maxWidth: sizePreset.rootMaxWidth,
+			$widthLg: sizePreset.rootWidthLg,
+			$maxWidthLg: sizePreset.rootMaxWidthLg,
+			$columns: sizePreset.rootColumns,
+			$columnsLg: sizePreset.rootColumnsLg,
+			$gap: sizePreset.rootGap,
+			$mobileGap: sizePreset.rootMobileGap,
+			className,
+			...rest,
+		},
 		React.createElement(
 			SplitMedia,
-			{ $imageMaxHeight: imageMaxHeight, $imageMode: imageMode, $imageBlendMode: imageBlendMode },
+			{
+				$imageMaxHeight: imageMaxHeight || sizePreset.imageMaxHeight,
+				$imageMode: imageMode,
+				$imageBlendMode: imageBlendMode,
+				$mediaMaxWidth: sizePreset.mediaMaxWidth,
+				$mediaMaxWidthLg: sizePreset.mediaMaxWidthLg,
+				$mobilePictureWidth: sizePreset.mobilePictureWidth,
+				$mobileImageMaxWidth: sizePreset.mobileImageMaxWidth,
+			},
 			React.createElement(
 				'picture',
 				null,
@@ -183,6 +262,16 @@ export function ImageTextSplit({
 				})
 			)
 		),
-		React.createElement(SplitText, { $textSize: textSize, $textColor: textColor }, children)
+		React.createElement(
+			SplitText,
+			{
+				$textSize: resolvedTextSize,
+				$textColor: resolvedTextColor,
+				$textMaxWidth: sizePreset.textMaxWidth,
+				$mobileTextSize: sizePreset.textMobileSize,
+				$mobileTextWidth: sizePreset.mobileTextWidth,
+			},
+			children
+		)
 	)
 }

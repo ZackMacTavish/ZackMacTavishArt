@@ -104,24 +104,17 @@ const ParagraphTwo = styled.div`
   }
 `;
 
-// Smaller text variant for ImageTextSplit sections to avoid oversized copy
-const SplitText = styled(ParagraphTwo)`
+// Keep split copy styles local so inherited layout props do not offset centering.
+const SplitText = styled.div`
   width: auto;
   color: #5d5d5d;
-  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: inherit;
+  font-weight: 500;
   line-height: 1.6;
   max-width: none;
-  padding-right: 0;
-
-  @media (max-width: 1400px) {
-    font-size: 1.4rem;
-  }
-  @media (max-width: 1000px) {
-    font-size: 1.2rem;
-  }
-  @media (max-width: 450px) {
-    font-size: 1.2rem;
-  }
+  margin: 0;
+  align-self: center;
 `;
 
 /* ---------- Animations ---------- */
@@ -219,24 +212,16 @@ export const QuiltText = styled(ParagraphTwo)`
   }
 `;
 
-// Smaller quilt text when used inside ImageTextSplit
-const SplitQuiltText = styled(QuiltText)`
-  max-width: none;
+const SplitQuiltText = styled.div`
   width: auto;
-  color: #5d5d5d;
-  font-size: clamp(1.15rem, 1.5vw, 1.5rem);
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: inherit;
+  font-weight: 500;
   line-height: 1.6;
-  padding-right: 0;
-
-  @media (max-width: 1400px) {
-    font-size: 1.35rem;
-  }
-  @media (max-width: 1000px) {
-    font-size: 1.2rem;
-  }
-  @media (max-width: 450px) {
-    font-size: 1.2rem;
-  }
+  max-width: none;
+  margin: 0;
+  align-self: center;
 `;
 /* ---------- Scene Section Styling ---------- */
 const ArtDiv = styled.div`
@@ -423,32 +408,6 @@ const About = () => {
 
   return (
     <div>
-      <style>{`
-        /* Reduce the default gap and slightly widen the ImageTextSplit container */
-        .tight-split {
-          gap: 12px !important;
-          width: 80vw;
-          max-width: 1400px;
-          margin: 0 auto;
-        }
-        @media (max-width: 900px) {
-          .tight-split {
-            width: 100vw;
-            max-width: 100vw;
-            padding: 0;
-            margin: 0;
-            gap: 0 !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-          }
-          .tight-split img {
-            width: 100vw !important;
-            max-width: 100vw !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
-          }
-        }
-      `}</style>
       <Seo 
         title="About | Zack MacTavish Art & Design" 
         description="About Zack MacTavish, an artist and product designer based in Philadelphia, PA." 
@@ -479,8 +438,8 @@ const About = () => {
       <h1 style={visuallyHiddenHeadingStyle}>About Zack MacTavish</h1>
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
       <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={me} imageWebp={meWebp} imageWebpSet={`${meWebp640} 640w, ${meWebp960} 960w, ${meWebp} 2200w`} imageAvif={meAvif} imageAvifSet={`${meAvif640} 640w, ${meAvif960} 960w, ${meAvif} 2200w`} imageSizes="(max-width: 900px) 100vw, 40vw" imageAlt="Portrait of Zack MacTavish" imageWidth={960} imageHeight={960} imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
-          <SplitText style={{ color: '#5d5d5d' }}>
+        <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={me} imageWebp={meWebp} imageWebpSet={`${meWebp640} 640w, ${meWebp960} 960w, ${meWebp} 2200w`} imageAvif={meAvif} imageAvifSet={`${meAvif640} 640w, ${meAvif960} 960w, ${meAvif} 2200w`} imageSizes="(max-width: 900px) 100vw, 40vw" imageAlt="Portrait of Zack MacTavish" imageWidth={960} imageHeight={960} imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
+          <SplitText>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
        history through painting, textile, collage, and print. Having moved over twenty times across 
        six states, his practice is rooted in how displacement and movement shape identity over time. 
@@ -498,8 +457,8 @@ const About = () => {
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
       <div style={{ width: '100vw', padding: '0' }}>
-        <ImageTextSplit className="tight-split" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Installed quilt from the Dwelling series">
-          <SplitQuiltText style={{ color: 'white' }}>
+        <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Installed quilt from the Dwelling series">
+          <SplitQuiltText>
             His current work shifts focus from transition to permanence: the homes, families, 
             and communities that endure across a life in motion. Working in quilting, embroidery, 
             collage, painting, and an artist book, MacTavish archives personal and familial histories 

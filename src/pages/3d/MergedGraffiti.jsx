@@ -21,7 +21,7 @@ import styled from 'styled-components';
 import { 
   ArtDesc, ArtHeader, ArtYear, FullBg, ParagraphFour 
 } from '../COMPOSITION/Composition';
-import { ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
+import { ThreeImageGrid, SingleImageGrid } from '../Dwelling/Dwelling';
 import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
@@ -111,13 +111,14 @@ import euAvif from '../../assets/optimized/EU.avif';
 
 // --- Styled Components ---
 export const RisoItem = styled.img`
-   width: ${(props) => props.$Width || 'auto'};
+  width: ${(props) => props.$Width || 'auto'};
   max-width: 1000px;
   height: auto;
   @media (max-width: 1000px) { width: 90vw; padding-top: 3vh; }
   @media (max-width: 450px) { padding-top: 5vh; padding-bottom: 5vh; }
 `;
 
+// Kept as a shared compatibility export for pages that still compose single-image riso sections.
 export const RisoFlex = styled.div`
   display: flex;
   justify-content: center;
@@ -312,10 +313,11 @@ export default function MergedGraffiti() {
         </ImageTextSplit>
       </section>
 
-        <RisoFlex>
-      <RisoItem as={ResponsiveImage} $Width="60vw" src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread" />
-          <RisoItem as={ResponsiveImage} $Width="60vw" src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread duplicate" />
-      </RisoFlex>
+      <div style={{ backgroundColor: 'white', width: '100%' }}>
+        <SingleImageGrid className="narrow rounded-corners">
+          <ResponsiveImage src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread" />
+        </SingleImageGrid>
+      </div>
 
       <section style={splitSectionStyle}>
         <ImageTextSplit imageSrc={sushix} imageWebp={sushixWebp} imageAvif={sushixAvif} imageAlt="Sushi X graffiti piece">

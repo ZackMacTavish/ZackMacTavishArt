@@ -233,8 +233,17 @@ export const ThreeImageGrid = styled.div`
   }
 
   &.rounded-corners > picture {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
     border-radius: 18px;
     overflow: hidden;
+  }
+
+  &.rounded-corners > picture img {
+    width: auto;
+    max-width: 100%;
+    display: block;
   }
 
   &.rounded-corners > picture img,
@@ -442,6 +451,75 @@ export const TwoImageGrid = styled.div`
       flex-direction: column;
       flex-wrap: wrap;
       width: min(92vw, 100%);
+    }
+  }
+`;
+
+export const SingleImageGrid = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(80vw, 1400px);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(50px, 8vw, 100px) clamp(20px, 4vw, 40px);
+  box-sizing: border-box;
+
+  & > img,
+  & > picture {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  & picture img {
+    width: 100%;
+    height: auto;
+    max-height: inherit;
+    object-fit: contain;
+  }
+
+  &.narrow {
+    width: min(72vw, 1180px);
+    max-width: 1180px;
+  }
+
+  &.rounded-corners > picture {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  &.rounded-corners > picture img {
+    width: auto;
+    max-width: 100%;
+    display: block;
+    border-radius: 18px;
+    clip-path: inset(0 round 18px);
+  }
+
+  &.rounded-corners > picture img,
+  &.rounded-corners > img {
+    border-radius: 18px;
+  }
+
+  @media (max-width: 900px) {
+    width: min(92vw, 100%);
+    padding: 40px 20px;
+
+    &.narrow {
+      width: min(92vw, 100%);
+      max-width: none;
+    }
+
+    & > img,
+    & > picture {
+      max-height: 60vh;
     }
   }
 `;
