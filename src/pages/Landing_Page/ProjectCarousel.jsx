@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 import imgComposition from '../../assets/Mash5.png';
@@ -138,6 +139,7 @@ const PROJECTS = [
 const TOTAL = PROJECTS.length;
 
 export default function ProjectCarousel() {
+  const theme = useTheme();
   const [showInteractionCue, setShowInteractionCue] = useState(true);
   const [useVerticalStack, setUseVerticalStack] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth < MOBILE_STACK_BREAKPOINT : false
@@ -334,6 +336,9 @@ export default function ProjectCarousel() {
           setRowX(clampedX);
           syncScrollToRowPosition(clampedX);
           updateCounter(getNearestIdx(Math.abs(clampedX)));
+          window.setTimeout(() => {
+            draggedRef.current = false;
+          }, 0);
         },
       });
 
@@ -438,7 +443,7 @@ export default function ProjectCarousel() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontWeight: 700,
                 fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
-                color: 'white',
+                color: theme.pageText,
                 margin: 0,
                 lineHeight: 1.1,
               }}
@@ -449,7 +454,7 @@ export default function ProjectCarousel() {
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: '0.85rem',
-                color: 'rgba(255,255,255,0.45)',
+                color: theme.pageMuted,
                 margin: '0.3rem 0 0',
                 lineHeight: 1.5,
                 maxWidth: '52ch',
@@ -463,7 +468,7 @@ export default function ProjectCarousel() {
               style={{
                 fontFamily: 'monospace',
                 fontSize: '0.85rem',
-                color: 'rgba(255,255,255,0.35)',
+                color: theme.pageMuted,
                 margin: 0,
               }}
             >
@@ -485,7 +490,7 @@ export default function ProjectCarousel() {
           height: useVerticalStack ? 'auto' : '100vh',
           minHeight: useVerticalStack ? '100vh' : undefined,
           position: 'relative',
-          backgroundColor: '#0a0a0a',
+          backgroundColor: theme.pageBackground,
           paddingTop: useVerticalStack ? '1rem' : 0,
           paddingBottom: useVerticalStack ? '3rem' : 0,
         }}
@@ -499,7 +504,7 @@ export default function ProjectCarousel() {
             zIndex: 10,
             fontFamily: 'monospace',
             fontSize: '1rem',
-            color: 'rgba(255,255,255,0.6)',
+            color: theme.pageMuted,
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
@@ -527,10 +532,10 @@ export default function ProjectCarousel() {
             gap: '0.7rem',
             padding: '0.8rem 1rem',
             borderRadius: '999px',
-            backgroundColor: 'rgba(0, 0, 0, 0.82)',
-            border: '1px solid rgba(255,255,255,0.12)',
+            backgroundColor: theme.controlBackground,
+            border: `1px solid ${theme.controlBorder}`,
             boxShadow: '0 18px 35px rgba(0,0,0,0.28)',
-            color: 'rgba(243,240,232,0.82)',
+            color: theme.controlText,
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '0.85rem',
             letterSpacing: '0.06em',
@@ -548,7 +553,7 @@ export default function ProjectCarousel() {
               justifyContent: 'center',
               width: '1.7rem',
               height: '1.7rem',
-              border: '1px solid rgba(243,240,232,0.2)',
+              border: `1px solid ${theme.controlBorder}`,
               borderRadius: '999px',
               animation: showInteractionCue ? 'carouselCueSlide 1.25s ease-in-out 3.6s infinite' : 'none',
             }}
@@ -589,9 +594,9 @@ export default function ProjectCarousel() {
       <div
         style={{
           overflow: 'hidden',
-          backgroundColor: '#0a0a0a',
+          backgroundColor: theme.pageBackground,
           padding: '2.5rem 0',
-          borderTop: '1px solid rgba(255,255,255,0.08)',
+          borderTop: `1px solid ${theme.pageSubtle}`,
         }}
       >
         <div
@@ -611,7 +616,7 @@ export default function ProjectCarousel() {
                 fontWeight: 900,
                 fontSize: 'clamp(3rem, 7vw, 7rem)',
                 color: 'transparent',
-                WebkitTextStroke: '1.5px rgba(255,255,255,0.25)',
+                WebkitTextStroke: `1.5px ${theme.pageSubtle}`,
                 textTransform: 'uppercase',
                 letterSpacing: '0.04em',
                 paddingRight: '4rem',

@@ -67,7 +67,7 @@ function useBlendBackdrop() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 }
-import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, Grid60, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 
@@ -321,7 +321,7 @@ export const FullHeightTextSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #191919;
+  background-color: var(--surface-secondary);
   width: 100vw; /* full width */
   min-height: 100vh;
   padding: 5vh 5vw;
@@ -365,7 +365,7 @@ export const TextContainer = styled.div`
 
 export const TextContent = styled.p`
   font-family: 'Space Grotesk', sans-serif;
-  color: #ffffff;
+  color: ${(props) => props.theme.narrativeText};
   font-size: clamp(1.2rem, 1.5vw, 1.42rem);
   max-width: 50ch;
   line-height: 1.65;
@@ -382,7 +382,7 @@ export const TextContent = styled.p`
   }
 
   a.inline-link {
-    color: #ffffff;
+    color: ${(props) => props.theme.narrativeText};
     text-decoration: underline;
     display: inline-flex;
     align-items: center;
@@ -484,7 +484,7 @@ export default function Artworks() {
 />
       
       {/* Olivia Collabs Section */}
-    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+    <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
       <Grid60>
         <TwoImageGrid className="one-row">
           <ResponsiveImage src={olivia4} webpSrc={olivia4Webp} avifSrc={olivia4Avif} alt="Collaborative Olivia portrait print" />
@@ -521,7 +521,7 @@ export default function Artworks() {
 </FullHeightTextSection>
 
         {/* Screenprints */}
-  <div style={{ backgroundColor: 'white', width: '100vw', padding: '8vh 0' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw', padding: '8vh 0' }}>
       <ThreeImageGrid
         className="large multiply"
         style={{ width: 'min(98vw, 100%)', maxWidth: '1800px', margin: '0 auto' }}
@@ -533,7 +533,7 @@ export default function Artworks() {
   </div>
 
             {/* Olivia Collabs */}
- <div style={{ backgroundColor: 'white', width: '100vw' }}>
+ <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
    <TwoImageGrid className="one-row">
     <ResponsiveImage src={oliviacollab1} webpSrc={oliviacollab1Webp} avifSrc={oliviacollab1Avif} alt="Collaborative Olivia print" />
     <ResponsiveImage src={oliviacollab2} webpSrc={oliviacollab2Webp} avifSrc={oliviacollab2Avif} alt="Collaborative Olivia print variation" />
@@ -544,14 +544,14 @@ export default function Artworks() {
               <RisoItem as={ResponsiveImage} $Width="60vw" src={oliviacollab3} webpSrc={oliviacollab3Webp} avifSrc={oliviacollab3Avif} alt="Olivia collaboration portrait" />
             </RisoFlex>
 
-             <div style={{ backgroundColor: 'white', width: '100vw' }}>
+             <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
                <TwoImageGrid className="one-row">
                  <ResponsiveImage src={oliviacollab6} webpSrc={oliviacollab6Webp} avifSrc={oliviacollab6Avif} alt="Collaborative Olivia print with alternate colorway" />
                  <ResponsiveImage src={oliviacollab5} webpSrc={oliviacollab5Webp} avifSrc={oliviacollab5Avif} alt="Alternate framed collaborative Olivia print" />
                </TwoImageGrid>
              </div>
 
-   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
      <TwoImageGrid className="one-row">
        <ResponsiveImage src={oliviacollab7} webpSrc={oliviacollab7Webp} avifSrc={oliviacollab7Avif} alt="Olivia collaboration print detail" />
        <ResponsiveImage src={oliviacollab8} webpSrc={oliviacollab8Webp} avifSrc={oliviacollab8Avif} alt="Olivia collaboration print variation" />
@@ -563,7 +563,7 @@ export default function Artworks() {
       
             {/* CMYK Screenprints up to "The Nuns" */}
 
-            <div style={{ backgroundColor: 'white', width: '100vw' }}>
+            <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
               <ThreeImageGrid className="large">
                 <ResponsiveImage src={bear} webpSrc={bearWebp} avifSrc={bearAvif} alt="CMYK bear print" />
                 <ResponsiveImage src={graffiticollage} webpSrc={graffiticollageWebp} avifSrc={graffiticollageAvif} alt="Graffiti collage print" />
@@ -589,7 +589,7 @@ export default function Artworks() {
 
 
       {/* Painting Feature Section: white background, gray image containers */}
-      <section style={{ background: 'white', width: '100vw', padding: '4vh 0' }}>
+      <NarrativeFeatureSection style={{ padding: '4vh 0' }}>
         <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={oliviacollab4} imageWebp={oliviacollab4Webp} imageAvif={oliviacollab4Avif} imageAlt="Olivia Collaboration print">
           <ArtHeader>Olivia Collaboration</ArtHeader>
           <ArtYear>2022</ArtYear>
@@ -625,7 +625,7 @@ export default function Artworks() {
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
 <RisoFlex style={{ paddingBottom: "100px" }}>
   <RisoItem as={ResponsiveImage} $Width="55vw" src={selfie} webpSrc={selfieWebp} avifSrc={selfieAvif} alt="Self portrait" />
@@ -661,7 +661,7 @@ export default function Artworks() {
    
    
               {/* Section with 3 photos */}
-              <div style={{ backgroundColor: 'white', width: '100vw' }}>
+              <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
                 <ThreeImageGrid className="large portrait-large">
                   <ResponsiveImage src={collage32} webpSrc={collage32Webp} avifSrc={collage32Avif} alt="Abstract collage artwork 32" />
                   <ResponsiveImage src={collage47} webpSrc={collage47Webp} avifSrc={collage47Avif} alt="Abstract collage artwork 47" />
@@ -680,7 +680,7 @@ export default function Artworks() {
    
                     {/* Section with 3 photos */}
 
-                    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+                    <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
                       <ThreeImageGrid className="large">
                           <ResponsiveImage src={collage1} webpSrc={collage1Webp} avifSrc={collage1Avif} alt="Abstract collage artwork 1" />
                         <ResponsiveImage src={collage2} webpSrc={collage2Webp} avifSrc={collage2Avif} alt="Abstract collage artwork 2" />
@@ -699,7 +699,7 @@ export default function Artworks() {
    
          {/* Section with 3 photos */}
 
-         <div style={{ backgroundColor: 'white', width: '100vw' }}>
+         <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
            <ThreeImageGrid className="large portrait-large">
              <ResponsiveImage src={collage4} webpSrc={collage4Webp} avifSrc={collage4Avif} alt="Abstract collage artwork 4" />
              <ResponsiveImage src={collagefour} webpSrc={collagefourWebp} avifSrc={collagefourAvif} alt="Abstract collage artwork 4 alternate version" />
@@ -718,7 +718,7 @@ export default function Artworks() {
    
      {/* Section with 3 photos */}
 
-     <div style={{ backgroundColor: 'white', width: '100vw' }}>
+    <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
       <ThreeImageGrid className="large portrait-large">
          <ResponsiveImage src={collage44} webpSrc={collage44Webp} avifSrc={collage44Avif} alt="Abstract collage artwork 44" />
          <ResponsiveImage src={collage37} webpSrc={collage37Webp} avifSrc={collage37Avif} alt="Abstract collage artwork 37" />
@@ -736,7 +736,7 @@ export default function Artworks() {
    
    {/* Section with 3 photos */}
 
-   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
     <ThreeImageGrid className="large portrait-large">
       <ResponsiveImage src={collage40} webpSrc={collage40Webp} avifSrc={collage40Avif} alt="Abstract collage artwork 40" />
       <ResponsiveImage src={collage39} webpSrc={collage39Webp} avifSrc={collage39Avif} alt="Abstract collage artwork 39" />
@@ -754,7 +754,7 @@ export default function Artworks() {
    
    {/* Section with 3 photos */}
 
-   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
      <ThreeImageGrid className="large">
       <ResponsiveImage src={collage34} webpSrc={collage34Webp} avifSrc={collage34Avif} alt="Abstract collage artwork 34" />
       <ResponsiveImage src={collage35} webpSrc={collage35Webp} avifSrc={collage35Avif} alt="Abstract collage artwork 35" />
@@ -769,7 +769,7 @@ export default function Artworks() {
    </RisoFlex>
    {/* Section with 3 photos */}
 
-   <div style={{ backgroundColor: 'white', width: '100vw' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
      <ThreeImageGrid className="large">
       <ResponsiveImage src={collage28} webpSrc={collage28Webp} avifSrc={collage28Avif} alt="Abstract collage artwork 28" />
       <ResponsiveImage src={collage29} webpSrc={collage29Webp} avifSrc={collage29Avif} alt="Abstract collage artwork 29" />
@@ -792,7 +792,7 @@ export default function Artworks() {
    
                     {/* Section with 3 photos */}
 
-                    <div style={{ backgroundColor: 'white', width: '100vw' }}>
+                    <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
                       <ThreeImageGrid className="large">
                         <ResponsiveImage src={collage46} webpSrc={collage46Webp} avifSrc={collage46Avif} alt="Abstract collage artwork 46" />
                         <ResponsiveImage src={collage33} webpSrc={collage33Webp} avifSrc={collage33Avif} alt="Abstract collage artwork 33" />
@@ -800,7 +800,7 @@ export default function Artworks() {
                       </ThreeImageGrid>
                     </div>
 
-         <div style={{ backgroundColor: 'white', width: '100vw' }}>
+         <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
            <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
              <ResponsiveImage src={collage41} webpSrc={collage41Webp} avifSrc={collage41Avif} alt="Abstract collage artwork 41" />
              <ResponsiveImage src={collage42} webpSrc={collage42Webp} avifSrc={collage42Avif} alt="Abstract collage artwork 42" />

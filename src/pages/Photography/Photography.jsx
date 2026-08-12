@@ -5,11 +5,10 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
-// styled is not used in this file
 import {ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
@@ -141,13 +140,7 @@ const AUTHOR_SAME_AS = [
   'https://medium.com/@zmactavish',
 ];
 
-const splitSectionStyle = {
-  backgroundColor: 'white',
-  width: '100vw',
-  padding: '5vh 0',
-  contentVisibility: 'auto',
-  containIntrinsicSize: '1200px',
-};
+const featureSectionStyle = { padding: '5vh 0' };
 
 
 export default function Photography() {
@@ -192,7 +185,7 @@ export default function Photography() {
 
       {/* Section with three polaroids */}
 
-     <div style={{ backgroundColor: '#191919', width: '100vw', paddingTop: '8vh' }}>
+    <div style={{ backgroundColor: 'var(--surface-secondary)', width: '100vw', paddingTop: '8vh' }}>
        <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
          <ResponsiveImage src={polaroid1} webpSrc={polaroid1Webp} webpSrcSet={`${polaroid1Webp640} 640w, ${polaroid1Webp960} 960w, ${polaroid1Webp} 2200w`} avifSrc={polaroid1Avif} avifSrcSet={`${polaroid1Avif640} 640w, ${polaroid1Avif960} 960w, ${polaroid1Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="eager" decoding="sync" fetchPriority="high" />
          <ResponsiveImage src={polaroid2} webpSrc={polaroid2Webp} webpSrcSet={`${polaroid2Webp640} 640w, ${polaroid2Webp960} 960w, ${polaroid2Webp} 2200w`} avifSrc={polaroid2Avif} avifSrcSet={`${polaroid2Avif640} 640w, ${polaroid2Avif960} 960w, ${polaroid2Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="lazy" decoding="async" />
@@ -222,7 +215,7 @@ export default function Photography() {
 />
 
       {/* Photography feature section */}
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={featureSectionStyle}>
         <ImageTextSplit imageSrc={eighteen} imageWebp={eighteenWebp} imageAvif={eighteenAvif} imageAlt="Film photograph of 1821 in Chicago">
           <ArtHeader>1821 (Chicago)</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -240,7 +233,7 @@ export default function Photography() {
           <ArtYear>2021</ArtYear>
           <ArtDesc>Film photograph taken on the Holga 120N.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* Section with three yellow polaroids */}
 
@@ -252,7 +245,7 @@ export default function Photography() {
 
  
       {/* Photography feature section */}
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={featureSectionStyle}>
         <ImageTextSplit imageSrc={kevin} imageWebp={kevinWebp} imageAvif={kevinAvif} imageAlt="Portrait photograph of Kevin taken on Holga 120N film">
           <ArtHeader>KEVIN</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -270,7 +263,7 @@ export default function Photography() {
           <ArtYear>2021</ArtYear>
           <ArtDesc>Double exposure film photograph.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* Full image section */}
 <FullBg 
@@ -290,7 +283,7 @@ export default function Photography() {
 
       {/* Section with three aquarium polaroids */}
 
-            <ThreeImageGrid className="rounded-corners" style={{ backgroundColor: '#191919' }}>
+            <ThreeImageGrid className="rounded-corners" style={{ backgroundColor: 'var(--surface-secondary)' }}>
             <ResponsiveImage src={aquarium} webpSrc={aquariumWebp} avifSrc={aquariumAvif} alt="Film photograph inside an aquarium" />
           <ResponsiveImage src={jelly1} webpSrc={jelly1Webp} avifSrc={jelly1Avif} alt="Film photograph of jellyfish in an aquarium" />
           <ResponsiveImage src={jelly2} webpSrc={jelly2Webp} avifSrc={jelly2Avif} alt="Close-up film photograph of jellyfish in an aquarium" />
@@ -298,7 +291,7 @@ export default function Photography() {
 
   
       {/* Photography feature section */}
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={featureSectionStyle}>
         <ImageTextSplit imageSrc={goog} imageWebp={googWebp} imageAvif={googAvif} imageAlt="Film photograph titled GOOG">
           <ArtHeader>GOOG</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -316,7 +309,7 @@ export default function Photography() {
           <ArtYear>2021</ArtYear>
           <ArtDesc>Double exposure film photograph.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* Full splash image */}
         <FullBg 
@@ -337,7 +330,7 @@ width: "100vw",
       {/* Section with three circle polaroids */}
 
 
-          <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+          <ThreeImageGrid style={{ backgroundColor: 'var(--surface-secondary)' }}>
   <ResponsiveImage src={circle1} webpSrc={circle1Webp} avifSrc={circle1Avif} alt="Polaroid film photograph with circular framing" />
   <ResponsiveImage src={circle2} webpSrc={circle2Webp} avifSrc={circle2Avif} alt="Film photograph with circular framing" />
   <ResponsiveImage src={circle3} webpSrc={circle3Webp} avifSrc={circle3Avif} alt="Double-exposure film photograph with circular framing" />
@@ -345,7 +338,7 @@ width: "100vw",
 
 
       {/* Photography feature section */}
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={featureSectionStyle}>
         <ImageTextSplit imageSrc={Avalon} imageWebp={AvalonWebp} imageAvif={AvalonAvif} imageAlt="Film photograph of Avalon Theatre in Portland, Oregon">
           <ArtHeader>Avalon Theatre (Portland, OR)</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -363,11 +356,11 @@ width: "100vw",
           <ArtYear>2021</ArtYear>
           <ArtDesc>Double exposure film photograph.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* Section with three final polaroids */}
 
-      <ThreeImageGrid style={{ backgroundColor: '#191919' }}>
+      <ThreeImageGrid style={{ backgroundColor: 'var(--surface-secondary)' }}>
   <ResponsiveImage src={polaroid7} webpSrc={polaroid7Webp} avifSrc={polaroid7Avif} alt="Polaroid film photograph" />
   <ResponsiveImage src={polaroid8} webpSrc={polaroid8Webp} avifSrc={polaroid8Avif} alt="Polaroid film photograph" />
   <ResponsiveImage src={polaroid9} webpSrc={polaroid9Webp} avifSrc={polaroid9Avif} alt="Polaroid film photograph" />

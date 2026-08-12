@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Viewer = styled.section`
   width: min(92vw, 1240px);
   margin: 0 auto;
-  color: #252525;
+  color: ${(props) => props.theme.pageText};
   font-family: 'Space Grotesk', sans-serif;
 
   &:fullscreen {
@@ -17,7 +17,7 @@ const Viewer = styled.section`
     max-width: none;
     height: 100vh;
     padding: 3vh 2vw;
-    background: #e8e8e5;
+    background: ${(props) => props.theme.surfaceSecondary};
   }
 
   &:fullscreen > div:first-child {
@@ -42,7 +42,7 @@ const Stage = styled.div`
     outline-offset: 3px;
   }
 
-  .composition-flipbook {
+  .book-flipbook {
     position: relative;
     z-index: 1;
     transform: translateX(${({ $coverPosition }) => $coverPosition === 'front' ? '-25%' : $coverPosition === 'back' ? '25%' : '0'});
@@ -77,7 +77,7 @@ const Status = styled.div`
   place-items: center;
   min-height: 180px;
   padding: 2rem;
-  color: #5d5d5d;
+  color: ${(props) => props.theme.pageMuted};
   text-align: center;
 `;
 
@@ -110,14 +110,14 @@ const IconButton = styled.button`
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid rgba(63, 69, 92, 0.22);
+  border: 1px solid ${(props) => props.theme.controlBorder};
   border-radius: 4px;
-  background: #fff;
-  color: #3f455c;
+  background: ${(props) => props.theme.uiSurfaceStrong};
+  color: ${(props) => props.theme.pageText};
   cursor: pointer;
 
   &:hover:not(:disabled) {
-    color: #111;
+    color: ${(props) => props.theme.pageText};
     border-color: #e88d67;
   }
 
@@ -139,20 +139,20 @@ const IconButton = styled.button`
 
 const PageCount = styled.div`
   min-width: 9rem;
-  color: #5d5d5d;
+  color: ${(props) => props.theme.pageText};
   font-size: 0.92rem;
   font-variant-numeric: tabular-nums;
   text-align: center;
 `;
 
-const FlipPage = forwardRef(function FlipPage({ page, index }, ref) {
+const FlipPage = forwardRef(function FlipPage({ page, index, bookTitle }, ref) {
   const isCover = index === 0 || page.isLast;
 
   return (
     <Page ref={ref} data-density={index === 0 || page.isLast ? 'hard' : 'soft'} data-cursor-hover>
       <PageImage
         src={page.src}
-        alt={index === 0 ? 'Composition book front cover' : page.isLast ? 'Composition book back cover' : `Composition book page ${index + 1}`}
+        alt={index === 0 ? `${bookTitle} front cover` : page.isLast ? `${bookTitle} back cover` : `${bookTitle} page ${index + 1}`}
         width={page.width}
         height={page.height}
         loading={index < 4 ? 'eager' : 'lazy'}
@@ -163,7 +163,7 @@ const FlipPage = forwardRef(function FlipPage({ page, index }, ref) {
   );
 });
 
-export default function BookFlip() {
+export default function BookFlip({ assetDirectory = 'composition-book', bookTitle = 'Composition art book' }) {
   const bookRef = useRef(null);
   const viewerRef = useRef(null);
   const stageRef = useRef(null);
@@ -180,7 +180,7 @@ export default function BookFlip() {
 
   useEffect(() => {
     const controller = new AbortController();
-    const basePath = `${import.meta.env.BASE_URL}composition-book/`;
+    const basePath = `${import.meta.env.BASE_URL}${assetDirectory}/`;
 
     fetch(`${basePath}manifest.json`, { signal: controller.signal })
       .then((response) => {
@@ -199,7 +199,7 @@ export default function BookFlip() {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [assetDirectory]);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -252,7 +252,7 @@ export default function BookFlip() {
   };
 
   return (
-    <Viewer ref={viewerRef} aria-label="Composition art book flip through">
+    <Viewer ref={viewerRef} aria-label={`${bookTitle} flip through`}>
       <Stage
         ref={stageRef}
         tabIndex={0}
@@ -289,10 +289,10 @@ export default function BookFlip() {
                 setIsCoverClosing(false);
               }
             }}
-            className="composition-flipbook"
+            className="book-flipbook"
           >
             {pages.map((page, index) => (
-              <FlipPage key={page.file} page={page} index={index} />
+              <FlipPage key={page.file} page={page} index={index} bookTitle={bookTitle} />
             ))}
           </HTMLFlipBook>
         )}

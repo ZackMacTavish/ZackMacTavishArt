@@ -1,5 +1,6 @@
 // src/components/Nav/Nav.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import logo from '../../assets/Final-M-SinglePiece.svg';
 import { Link } from 'react-router-dom';
@@ -57,7 +58,7 @@ const Navdiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.uiSurface};
   backdrop-filter: blur(6px);
   position: fixed;
   width: 100vw;
@@ -67,7 +68,7 @@ const Navdiv = styled.div`
 
   @media (max-width: 900px), (prefers-reduced-motion: reduce) {
     backdrop-filter: none;
-    background-color: rgba(0, 0, 0, 0.72);
+    background-color: ${(props) => props.theme.uiSurfaceStrong};
   }
 `;
 
@@ -188,6 +189,7 @@ const PinkMicroStroke = styled.span`
 
 const Logo = styled.img`
   width: clamp(46px, 2.6vw, 90px);
+  filter: ${(props) => props.theme.iconFilter};
   transition: all 0.3s ease;
 
   &:hover {
@@ -215,7 +217,7 @@ const NavLinks = styled.ul`
 `;
 
 const NavLabel = styled.span`
-  color: #D7E1F2;
+  color: ${(props) => props.theme.pageText};
   font-weight: 800;
   font-size: 1.2rem;
   text-decoration: none;
@@ -237,25 +239,32 @@ const ListItem = styled.li`
      On touch devices iOS/Android emulate :hover on first tap which would
      reveal this dropdown and require a second tap to fire onClick. */
   @media (hover: hover) and (pointer: fine) {
-    &::after {
+    &:has(> div)::after {
       content: '';
       position: absolute;
-      top: 100%;
+      top: 0;
       left: 50%;
-      width: 8rem;
-      height: 4vh;
+      width: 11rem;
+      height: calc(100% + 4vh + 0.75rem);
       transform: translateX(-50%);
       z-index: 999;
+      pointer-events: none;
     }
 
-    &:hover > div {
+    &:has(> div):hover::after {
+      pointer-events: auto;
+    }
+
+    &:has(> div):hover > div {
       display: block;
     }
   }
 `;
 
 const NavLink = styled(Link)`
-  color: #D7E1F2;
+  position: relative;
+  z-index: 1001;
+  color: ${(props) => props.theme.pageText};
   font-weight: 800;
   font-size: 1.2rem;
   text-decoration: none;
@@ -268,14 +277,131 @@ const NavLink = styled(Link)`
   }
 `;
 
+const HelpButton = styled.button`
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 50%;
+  background: transparent;
+  color: ${(props) => props.theme.pageText};
+  font: 700 0.9rem/1 'Space Grotesk', sans-serif;
+
+  &:hover {
+    background: ${(props) => props.theme.controlBackground};
+    color: ${(props) => props.theme.controlText};
+  }
+
+  &:focus-visible {
+    outline: 2px solid #e88d67;
+    outline-offset: 3px;
+  }
+`;
+
+const HelpItem = styled.li`
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+`;
+
+const ModalBackdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.46);
+`;
+
+const ShortcutsDialog = styled.div`
+  width: min(30rem, calc(100vw - 2.5rem));
+  box-sizing: border-box;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  background: ${(props) => props.theme.uiSurfaceStrong};
+  color: ${(props) => props.theme.pageText};
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+`;
+
+const DialogHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+`;
+
+const DialogTitle = styled.h2`
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.15;
+`;
+
+const DialogClose = styled.button`
+  min-width: 2.5rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 4px;
+  background: transparent;
+  color: ${(props) => props.theme.pageText};
+  font: 600 0.75rem/1 'Space Grotesk', sans-serif;
+
+  &:focus-visible {
+    outline: 2px solid #e88d67;
+    outline-offset: 2px;
+  }
+`;
+
+const DialogIntro = styled.p`
+  margin: 0.8rem 0 1.25rem;
+  color: ${(props) => props.theme.pageMuted};
+  font-size: 0.95rem;
+  line-height: 1.5;
+`;
+
+const ShortcutList = styled.ul`
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+const ShortcutItem = styled.li`
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 0.8rem;
+  align-items: center;
+`;
+
+const ShortcutKey = styled.kbd`
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  box-sizing: border-box;
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 4px;
+  background: ${(props) => props.theme.pageBackground};
+  color: ${(props) => props.theme.pageText};
+  font: 700 0.9rem/1 'Space Grotesk', sans-serif;
+`;
+
 const Dropdown = styled.div`
   position: absolute;
   top: calc(50% + 4vh);
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(74, 74, 74, 0.9);
+  background-color: ${(props) => props.theme.uiSurfaceStrong};
   backdrop-filter: blur(6px);
-  border-radius: 0.25rem;
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 0 0 0.25rem 0.25rem;
+  box-sizing: border-box;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: none;
   min-width: 8rem;
@@ -292,19 +418,19 @@ const Dropdown = styled.div`
 const DropdownMenu = styled(Link)`
   display: block;
   padding: 0.75rem 1rem;
-  color: white;
+  color: ${(props) => props.theme.pageText};
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background-color: #3F455C;
-    color: white;
+    background-color: ${(props) => props.theme.controlBackground};
+    color: ${(props) => props.theme.controlText};
   }
 `;
 
 const DropdownDivider = styled.div`
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: ${(props) => props.theme.pageSubtle};
   margin: 0.25rem 0;
 `;
 
@@ -313,7 +439,7 @@ const MobileMenuOverlay = styled.div`
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.96);
+  background-color: ${(props) => props.theme.uiSurfaceStrong};
   z-index: 2000;
   display: flex;
   flex-direction: column;
@@ -331,7 +457,7 @@ const MobileMenuClose = styled.button`
   top: 1.25rem;
   right: 1.25rem;
   background: transparent;
-  color: #f3f0e8;
+  color: ${(props) => props.theme.pageText};
   border: 0;
   font-size: 2rem;
   line-height: 1;
@@ -339,7 +465,7 @@ const MobileMenuClose = styled.button`
 `;
 
 const MobileMenuLink = styled(Link)`
-  color: #f3f0e8;
+  color: ${(props) => props.theme.pageText};
   text-decoration: none;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
@@ -348,12 +474,17 @@ const MobileMenuLink = styled(Link)`
   padding: 0.35rem 1rem;
 `;
 
-export default function Nav({ hidden = false }) {
+export default function Nav({ hidden = false, themeMode = 'light', customCursorActive = false }) {
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
     return window.matchMedia('(max-width: 900px)').matches;
   });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
+  const helpButtonRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const openedWithKeyboardRef = useRef(false);
+  const restoreKeyboardFocusRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
@@ -385,13 +516,55 @@ export default function Nav({ hidden = false }) {
     };
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    const openShortcuts = (event) => {
+      const target = event.target;
+      const isEditable = target instanceof HTMLElement
+        && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+
+      if (isEditable || event.metaKey || event.ctrlKey || event.altKey || event.key !== '?') return;
+      event.preventDefault();
+      openedWithKeyboardRef.current = true;
+      restoreKeyboardFocusRef.current = true;
+      setIsShortcutsOpen(true);
+    };
+
+    window.addEventListener('keydown', openShortcuts);
+    return () => window.removeEventListener('keydown', openShortcuts);
+  }, []);
+
+  useEffect(() => {
+    if (!isShortcutsOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const helpButton = helpButtonRef.current;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        restoreKeyboardFocusRef.current = true;
+        setIsShortcutsOpen(false);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    if (openedWithKeyboardRef.current) closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+      if (restoreKeyboardFocusRef.current) helpButton?.focus();
+      openedWithKeyboardRef.current = false;
+      restoreKeyboardFocusRef.current = false;
+    };
+  }, [isShortcutsOpen]);
+
   if (hidden) {
     return null;
   }
 
   return (
     <Navdiv>
-      <Link to="/" style={{ cursor: 'none' }}>
+      <Link to="/">
         <Logo src={logo} />
       </Link>
 
@@ -429,6 +602,23 @@ export default function Nav({ hidden = false }) {
           <ListItem>
             <NavLink to="/About">About</NavLink>
           </ListItem>
+          <HelpItem>
+            <HelpButton
+              ref={helpButtonRef}
+              type="button"
+              aria-label="Open keyboard shortcuts help"
+              aria-haspopup="dialog"
+              data-cursor-hover
+              onClick={(event) => {
+                const openedWithKeyboard = event.detail === 0;
+                openedWithKeyboardRef.current = openedWithKeyboard;
+                restoreKeyboardFocusRef.current = openedWithKeyboard;
+                setIsShortcutsOpen(true);
+              }}
+            >
+              ?
+            </HelpButton>
+          </HelpItem>
         </NavLinks>
 
         <StrokeWrapper>
@@ -452,6 +642,54 @@ export default function Nav({ hidden = false }) {
           <MobileMenuLink to="/3d" onClick={() => setIsMobileMenuOpen(false)}>3D + Graffiti</MobileMenuLink>
           <MobileMenuLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</MobileMenuLink>
         </MobileMenuOverlay>
+      ) : null}
+
+      {isShortcutsOpen ? createPortal(
+        <ModalBackdrop
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              restoreKeyboardFocusRef.current = false;
+              setIsShortcutsOpen(false);
+            }
+          }}
+        >
+          <ShortcutsDialog
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="keyboard-shortcuts-title"
+          >
+            <DialogHeader>
+              <DialogTitle id="keyboard-shortcuts-title">Keyboard Shortcuts</DialogTitle>
+              <DialogClose
+                ref={closeButtonRef}
+                type="button"
+                aria-label="Close keyboard shortcuts help"
+                onClick={(event) => {
+                  restoreKeyboardFocusRef.current = event.detail === 0;
+                  setIsShortcutsOpen(false);
+                }}
+              >
+                Esc
+              </DialogClose>
+            </DialogHeader>
+            <DialogIntro>Use these shortcuts to change how the portfolio appears and responds.</DialogIntro>
+            <ShortcutList>
+              <ShortcutItem>
+                <ShortcutKey>D</ShortcutKey>
+                <span>Toggle light and dark mode (currently {themeMode}).</span>
+              </ShortcutItem>
+              <ShortcutItem>
+                <ShortcutKey>C</ShortcutKey>
+                <span>Toggle the custom cursor (currently {customCursorActive ? 'custom' : 'native'}).</span>
+              </ShortcutItem>
+              <ShortcutItem>
+                <ShortcutKey>Esc</ShortcutKey>
+                <span>Close this panel.</span>
+              </ShortcutItem>
+            </ShortcutList>
+          </ShortcutsDialog>
+        </ModalBackdrop>,
+        document.body,
       ) : null}
     </Navdiv>
   );

@@ -10,6 +10,21 @@ export const Seo = FoundationSeo || SEOFallback
 
 export const Grid60 = FoundationGrid60 || null
 
+export const NarrativeFeatureSection = styled.section`
+	width: 100vw;
+	background-color: ${props => props.theme.narrativeBackground};
+	color: ${props => props.theme.narrativeText};
+	content-visibility: auto;
+	contain-intrinsic-size: 1200px;
+
+	h1,
+	h2,
+	h3,
+	[data-narrative-text] {
+		color: ${props => props.theme.narrativeText};
+	}
+`
+
 const SPLIT_SIZE_PRESETS = {
 	default: {},
 	medium: {

@@ -5,7 +5,7 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, Grid60, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
@@ -170,7 +170,7 @@ const BlogCardLink = styled.a`
   align-items: center;
   color: inherit;
   text-decoration: none;
-  background: white;
+  background: ${(props) => props.theme.narrativeBackground};
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 16px 40px rgba(0,0,0,0.08);
@@ -206,7 +206,7 @@ const BlogTitle = styled.h2`
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.18rem, 1.45vw, 1.45rem);
   line-height: 1.12;
-  color: #181818;
+  color: ${(props) => props.theme.narrativeText};
 `;
 
 const BlogDescription = styled.p`
@@ -214,14 +214,14 @@ const BlogDescription = styled.p`
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.92rem;
   line-height: 1.5;
-  color: #4f4f4f;
+  color: ${(props) => props.theme.pageMuted};
 `;
 
 const BlogCta = styled.span`
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.92rem;
   font-weight: 600;
-  color: #111;
+  color: ${(props) => props.theme.narrativeText};
 `;
 
 export const Orbital = styled.img`
@@ -294,7 +294,7 @@ export const TwinsText = styled.div`
   grid-row-start: 2;
   grid-column: 1 / span 2;
   justify-self: start;
-  color: ${(props) => props.theme.fontColor};
+  color: ${(props) => props.theme.narrativeText};
   padding-top: 1.5rem;
   line-height: 1.3;
   font-family: 'Space Grotesk', sans-serif;
@@ -353,7 +353,7 @@ display: grid;
 grid-template-columns: 10vw 40vw 40vw 10vw;
 grid-template-rows: ${(props) => props.Grids};
 padding-top: 5vh;
-background-color:${props => props.theme.backgroundTwo};
+background-color:${props => props.theme.narrativeBackground};
 
 @media (max-width: 830px){
     grid-template-columns: 100vw;
@@ -366,7 +366,7 @@ background-color:${props => props.theme.backgroundTwo};
 /* Custom Grid for Ephemeral Twins - moving single row to 2 rows of content */
 export const ArtSectiontwins = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 460px));
+  grid-template-columns: repeat(2, minmax(280px, 576px));
   grid-template-rows: auto auto;
   width: 100vw;
   box-sizing: border-box;
@@ -376,7 +376,13 @@ export const ArtSectiontwins = styled.div`
   column-gap: clamp(18px, 2vw, 28px);
   padding-top: 5vh;
   padding-bottom: 5vh;
-  background-color: ${props => props.theme.backgroundTwo};
+  background-color: ${props => props.theme.narrativeBackground};
+
+  & > ${Orbital},
+  & > ${TwinTwo} {
+    width: 100%;
+    max-width: none;
+  }
 
   @media (max-width: 1320px) {
     padding-left: 5vw;
@@ -399,7 +405,7 @@ export const ArtSectionthreeog = styled.div`
   row-gap: 3ch;
   padding-top: 5vh;
   padding-bottom: 5vh;
-  background-color: ${props => props.theme.backgroundTwo};
+  background-color: ${props => props.theme.narrativeBackground};
 
   @media (max-width: 830px) {
     grid-template-columns: 100vw;
@@ -417,7 +423,7 @@ grid-template-rows: auto auto auto auto;
 row-gap: 3ch;
 padding-top: 5vh;
 padding-bottom: 5vh;
-background-color: ${props => props.theme.backgroundTwo};
+background-color: ${props => props.theme.narrativeBackground};
 
 @media (max-width: 830px){
     grid-template-columns: 100vw;
@@ -435,7 +441,7 @@ grid-template-rows: auto auto;
 row-gap: 3ch;
 padding-top: 5vh;
 padding-bottom: 5vh;
-background-color:${props => props.theme.backgroundTwo};
+background-color:${props => props.theme.narrativeBackground};
 
 @media (max-width: 830px){
     grid-template-columns: 100vw;
@@ -457,7 +463,7 @@ export const ArtText = styled.div`
   justify-content: center;
   padding-left: 7.5vw;
   padding-right: 6vw;
-  color: ${(props) => props.theme.fontColor};
+  color: ${(props) => props.theme.narrativeText};
 
   @media (max-width: 830px) {
     /* Remove grid positioning */
@@ -496,7 +502,7 @@ export const ArtHeader = styled.h1`
   font-weight: 700;
   font-size: 2.5rem;
   margin: 0 0 0.5rem 0;
-  color: #222;
+  color: inherit;
 
   @media(max-width: 1750px) { font-size: 1.8rem; }
   @media(max-width: 830px) { font-size: 1.4rem; }
@@ -506,7 +512,7 @@ export const ArtYear = styled.h3`
   font-weight: 500;
   font-size: 2rem;
   margin: 0 0 1rem 0;  // spacing below year
-  color: #222;
+  color: inherit;
 
   @media(max-width: 1750px) { font-size: 1.5rem; }
   @media(max-width: 830px) { font-size: 1.2rem; }
@@ -517,7 +523,7 @@ export const ArtDesc = styled.h2`
   font-size: 1.4rem;
   line-height: 1.2; // tighter line-height for description
   margin: 0;
-  color: #222;
+  color: inherit;
 
   @media(max-width: 1750px) { font-size: 1rem; }
   @media(max-width: 830px) { font-size: 0.9rem; }
@@ -526,7 +532,7 @@ export const ArtDesc = styled.h2`
 // Slightly larger, consistent text style for ImageTextSplit copy blocks
 const SplitTextComp = styled.div`
   font-family: 'Space Grotesk', sans-serif;
-  color: #5d5d5d;
+  color: ${(props) => props.theme.narrativeText};
   font-size: clamp(1.08rem, 1.35vw, 1.35rem);
   line-height: 1.6;
 
@@ -639,13 +645,13 @@ export default function Composition() {
 {/*Art Book + Text */}
 {/* ---------- Art Book + Text Section ---------- */}
 {/* ---------- Art Book + Text Section ---------- */}
-<div style={{ backgroundColor: '#f5f5f5', width: '100vw', padding: '8vh 0' }}>
+<div style={{ backgroundColor: 'var(--surface-secondary)', width: '100vw', padding: '8vh 0' }}>
   <ImageTextSplit className="tight-split" imageSrc={artbook} imageWebp={artbookWebp} imageAvif={artbookAvif} imageAlt="Composition artist book">
     <SplitTextComp>
       I self-published a limited edition book for Composition. All 30 copies sold during the run of the series, and the book extended the exhibition's interest in journaling, documentation, and building an archive around the work.
     </SplitTextComp>
   </ImageTextSplit>
-  <div style={{ width: '100vw', background: '#f5f5f5', padding: '4vh 0' }}>
+  <div style={{ width: '100vw', background: 'var(--surface-secondary)', padding: '4vh 0' }}>
       <BookFlip />
     </div>
 </div>
@@ -654,20 +660,20 @@ export default function Composition() {
 
 
           {/* Orbital */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={orbital} imageWebp={orbitalWebp} imageAvif={orbitalAvif} imageAlt="ORBITAL mixed-media work from Composition">
               <ArtHeader>ORBITAL</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* Erasure 1 */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={spraywash} imageWebp={spraywashWebp} imageAvif={spraywashAvif} imageAlt="Erasure 1">
               <ArtHeader>ERASURE I</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
 {/*RENDER 2 FULL SCREEN */}
 <CenteredRenderSection>
@@ -678,12 +684,12 @@ export default function Composition() {
 
 
           {/* Staircases */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={staircases} imageWebp={staircasesWebp} imageAvif={staircasesAvif} imageAlt="Staircases">
               <ArtHeader>STAIRCASES</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
                     {/*EPHEMERAL I & II SECTION */}
                     <ArtSectiontwins>
@@ -716,28 +722,28 @@ export default function Composition() {
 
 
           {/* CONEY ISLAND, NY */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={coney} imageWebp={coneyWebp} imageAvif={coneyAvif} imageAlt="Coney Island, NY">
               <ArtHeader>CONEY ISLAND, NY</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* BROOKLYN, NY I */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={brooklyn} imageWebp={brooklynWebp} imageAvif={brooklynAvif} imageAlt="Brooklyn, NY I">
               <ArtHeader>BROOKLYN, NY I</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* BROOKLYN, NY II */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={brooklyn2} imageWebp={brooklyn2Webp} imageAvif={brooklyn2Avif} imageAlt="Brooklyn, NY II">
               <ArtHeader>BROOKLYN, NY II</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
                                {/*Render4 FULL SCREEN */}
 <CenteredRenderSection>
@@ -746,28 +752,28 @@ export default function Composition() {
 
 
           {/* RUG I */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={rug} imageWebp={rugWebp} imageAvif={rugAvif} imageAlt="Rug I">
               <ArtHeader>RUG I</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* COMPOSITION III */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash1} imageWebp={mash1Webp} imageAvif={mash1Avif} imageAlt="Composition III">
               <ArtHeader>COMPOSITION III</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* COMPOSITION IV */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash2} imageWebp={mash2Webp} imageAvif={mash2Avif} imageAlt="Composition IV">
               <ArtHeader>COMPOSITION IV</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
                                 {/*Render5 FULL SCREEN */}
 <CenteredRenderSection>
@@ -776,28 +782,28 @@ export default function Composition() {
 
 
           {/* COMPOSITION V */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash3} imageWebp={mash3Webp} imageAvif={mash3Avif} imageAlt="Composition V">
               <ArtHeader>COMPOSITION V</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* COMPOSITION VI */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash4} imageWebp={mash4Webp} imageAvif={mash4Avif} imageAlt="Composition VI">
               <ArtHeader>COMPOSITION VI</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* COMPOSITION VII */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash5} imageWebp={mash5Webp} imageAvif={mash5Avif} imageAlt="Composition VII">
               <ArtHeader>COMPOSITION VII</ArtHeader>
               <ArtYear>2020</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
                                   {/*MATTOS FULL SCREEN */}
 <CenteredRenderSection>
@@ -806,20 +812,20 @@ export default function Composition() {
 
 
           {/* COMPOSITION I */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={og} imageWebp={ogWebp} imageAvif={ogAvif} imageAlt="Composition I">
               <ArtHeader>COMPOSITION I</ArtHeader>
               <ArtYear>2018</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* GRAIN */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageSrc={grain} imageWebp={grainWebp} imageAvif={grainAvif} imageAlt="GRAIN mixed-media work from Composition">
               <ArtHeader>GRAIN</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
                             {/*EPHEMERAL I & II SECTION */}
 <ArtSectiontwins>

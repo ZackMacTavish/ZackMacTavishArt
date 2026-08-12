@@ -25,6 +25,7 @@ padding: 1vw;
 /* Make icons larger across typical desktop widths while keeping a sensible cap */
 width: clamp(52px, 4vw, 84px);
 height: auto;
+filter: ${(props) => props.theme.iconFilter};
 -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;

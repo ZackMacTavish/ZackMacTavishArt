@@ -22,6 +22,17 @@ function parseEdgeFixes(value = '') {
   });
 }
 
+function parseCrop(value) {
+  if (!value) return null;
+
+  const [left, top, width, height] = value.split(':').map(Number);
+  if (![left, top, width, height].every(Number.isInteger) || [left, top, width, height].some((number) => number < 0) || width === 0 || height === 0) {
+    throw new Error('Invalid cover crop. Use left:top:width:height in pixels.');
+  }
+
+  return { left, top, width, height };
+}
+
 function readArguments() {
   const values = process.argv.slice(2);
   const options = {};
@@ -30,7 +41,7 @@ function readArguments() {
     options[values[index].replace(/^--/, '')] = values[index + 1];
   }
 
-  const required = ['cover', 'content', 'back', 'output'];
+  const required = ['cover', 'content', 'output'];
   const missing = required.filter((name) => !options[name]);
 
   if (missing.length > 0) {
@@ -38,13 +49,45 @@ function readArguments() {
   }
 
   return {
-    sources: [options.cover, options.content, options.back],
+    sources: [options.cover, options.content, options.back].filter(Boolean),
     outputDirectory: options.output,
     trimInset: Number(options['trim-inset'] ?? DEFAULT_TRIM_INSET),
     scale: Number(options.scale ?? DEFAULT_SCALE),
     innerTrim: Number(options['inner-trim'] ?? 0),
     edgeFixes: parseEdgeFixes(options['edge-fixes']),
+    coverCrop: parseCrop(options['cover-crop']),
+    coverScale: Number(options['cover-scale'] ?? 1),
+    coverQuality: Number(options['cover-quality'] ?? 90),
   };
+}
+
+async function renderImage(source, startIndex, settings, sourceIndex) {
+  const fileName = `page-${String(startIndex).padStart(3, '0')}.avif`;
+  const outputPath = path.join(settings.outputDirectory, fileName);
+  let image = sharp(source);
+
+  if (sourceIndex === 0 && settings.coverCrop) {
+    image = image.extract(settings.coverCrop);
+  }
+
+  if (sourceIndex === 0 && settings.coverScale !== 1) {
+    const width = settings.coverCrop?.width ?? (await image.metadata()).width;
+    const height = settings.coverCrop?.height ?? (await image.metadata()).height;
+    image = image
+      .resize(Math.round(width * settings.coverScale), Math.round(height * settings.coverScale), { kernel: sharp.kernel.lanczos3 })
+      .sharpen({ sigma: 0.55, m1: 0.45, m2: 0.2 });
+  }
+
+  const { width, height } = await image
+    .avif({ quality: sourceIndex === 0 ? settings.coverQuality : 72, effort: 6, chromaSubsampling: '4:4:4' })
+    .toFile(outputPath);
+
+  process.stdout.write(`Rendered ${path.basename(source)}\n`);
+  return [{ file: fileName, width, height }];
+}
+
+function isPdf(source) {
+  return path.extname(source).toLowerCase() === '.pdf';
 }
 
 async function renderPdf(source, startIndex, settings, sourceIndex) {
@@ -125,7 +168,8 @@ async function main() {
 
   const pages = [];
   for (const [sourceIndex, source] of settings.sources.entries()) {
-    pages.push(...await renderPdf(source, pages.length + 1, settings, sourceIndex));
+    const renderSource = isPdf(source) ? renderPdf : renderImage;
+    pages.push(...await renderSource(source, pages.length + 1, settings, sourceIndex));
   }
 
   const manifest = {

@@ -4,7 +4,6 @@
 /* Global body styles */
 body {
     overflow-x: hidden;
-    cursor: none;
     font-family: 'Space Grotesk', sans-serif; /* Apply font here */
 }
 
@@ -12,7 +11,6 @@ body {
     padding: 0;
     margin: 0;
     overflow: hidden;
-    cursor: none;
 }
 
 /* Scrollbar styles */

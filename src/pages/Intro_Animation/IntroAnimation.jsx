@@ -1,9 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import LandingPage from '../Landing_Page/LandingPage';
+import { useTheme } from 'styled-components';
 
 const NAME = "ZACHARY MACTAVISH.";
 
 export default function IntroAnimation({ onIntroReady }) {
+  const theme = useTheme();
   const [showCarousel, setShowCarousel] = useState(false);
   const overlayRef = useRef(null);
   const counterRef = useRef(null);
@@ -131,7 +133,7 @@ export default function IntroAnimation({ onIntroReady }) {
           position: 'fixed',
           inset: 0,
           zIndex: 9999,
-          backgroundColor: '#0a0a0a',
+          backgroundColor: theme.pageBackground,
           visibility: 'visible',
           opacity: 1,
           display: 'flex',
@@ -146,7 +148,7 @@ export default function IntroAnimation({ onIntroReady }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontWeight: 700,
             fontSize: 'min(7.5vw, 110px)',
-            color: 'white',
+            color: theme.pageText,
             textTransform: 'uppercase',
             letterSpacing: '0.02em',
             whiteSpace: 'nowrap',
@@ -180,7 +182,7 @@ export default function IntroAnimation({ onIntroReady }) {
             right: '2.5rem',
             fontFamily: 'monospace',
             fontSize: '1.1rem',
-            color: 'rgba(255,255,255,0.7)',
+            color: theme.pageMuted,
             letterSpacing: '0.05em',
             opacity: 0,
           }}

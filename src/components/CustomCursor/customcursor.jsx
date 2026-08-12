@@ -7,7 +7,7 @@ const GlobalCursorStyle = createGlobalStyle`
 `;
 
 const AppCursorstyles = styled.div`
-  z-index: 2000;
+  z-index: 2147483647;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -33,9 +33,8 @@ const AppCursorstyles = styled.div`
   }
 `;
 
-const CustomCursor = () => {
+const CustomCursor = ({ routeKey }) => {
   const [isMobile, setIsMobile] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
   const [portalTarget, setPortalTarget] = useState(() => document.fullscreenElement || document.body);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
@@ -43,25 +42,21 @@ const CustomCursor = () => {
   const current = useRef({ x: 0, y: 0 });
   const firstMove = useRef(false);
   const rafRef = useRef(null);
+  const revealRafRef = useRef(null);
+  const revealRafTwoRef = useRef(null);
 
   useEffect(() => {
-    const mediaReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     const mediaCoarse = window.matchMedia('(pointer: coarse)');
 
-    // Disable the custom cursor on touch/coarse pointers and reduced-motion users.
+    // Match the eligibility check in App so touch pointers retain their native cursor.
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 900 || mediaCoarse.matches);
-      setReduceMotion(mediaReduce.matches);
+      setIsMobile(mediaCoarse.matches);
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    mediaReduce.addEventListener('change', checkMobile);
     mediaCoarse.addEventListener('change', checkMobile);
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
-      mediaReduce.removeEventListener('change', checkMobile);
       mediaCoarse.removeEventListener('change', checkMobile);
     };
   }, []);
@@ -76,7 +71,19 @@ const CustomCursor = () => {
   }, []);
 
   useEffect(() => {
-    if (isMobile || reduceMotion) return; // disable all cursor logic on mobile/reduced-motion
+    if (isMobile) return; // disable all cursor logic on touch/coarse pointers
+
+    const revealCursor = () => {
+      if (revealRafRef.current || revealRafTwoRef.current) return;
+
+      revealRafRef.current = requestAnimationFrame(() => {
+        revealRafRef.current = null;
+        revealRafTwoRef.current = requestAnimationFrame(() => {
+          revealRafTwoRef.current = null;
+          cursorRef.current?.classList.add('visible');
+        });
+      });
+    };
 
     const moveCursor = (e) => {
       if (!cursorRef.current) return;
@@ -87,23 +94,29 @@ const CustomCursor = () => {
       if (!firstMove.current) {
         current.current = { x: mouseX, y: mouseY };
         target.current = { x: mouseX, y: mouseY };
-        cursorRef.current.classList.add('visible');
         firstMove.current = true;
+        revealCursor();
       } else {
         target.current = { x: mouseX, y: mouseY };
-        cursorRef.current.classList.add('visible');
+        if (!cursorRef.current.classList.contains('visible')) revealCursor();
       }
     };
 
-    const hideCursor = () => {
-      if (cursorRef.current) cursorRef.current.classList.remove('visible');
+    const resetCursor = () => {
+      if (revealRafRef.current) cancelAnimationFrame(revealRafRef.current);
+      if (revealRafTwoRef.current) cancelAnimationFrame(revealRafTwoRef.current);
+      revealRafRef.current = null;
+      revealRafTwoRef.current = null;
+      firstMove.current = false;
+      hoveredRef.current = false;
+      if (cursorRef.current) {
+        cursorRef.current.classList.remove('visible', 'hovered');
+      }
     };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        hideCursor();
-      } else {
-        firstMove.current = false;
+        resetCursor();
       }
     };
 
@@ -137,25 +150,32 @@ const CustomCursor = () => {
       }
     };
 
+    resetCursor();
     document.addEventListener('pointermove', moveCursor, { passive: true });
-    document.addEventListener('mouseleave', hideCursor);
+    document.addEventListener('mouseleave', resetCursor);
     document.addEventListener('visibilitychange', handleVisibilityChange);
     document.addEventListener('mouseover', onHover);
     document.addEventListener('mouseout', onHoverOut);
+    window.addEventListener('blur', resetCursor);
+    window.addEventListener('focus', resetCursor);
+    window.addEventListener('pagehide', resetCursor);
 
     animate();
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       document.removeEventListener('pointermove', moveCursor);
-      document.removeEventListener('mouseleave', hideCursor);
+      document.removeEventListener('mouseleave', resetCursor);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       document.removeEventListener('mouseover', onHover);
       document.removeEventListener('mouseout', onHoverOut);
+      window.removeEventListener('blur', resetCursor);
+      window.removeEventListener('focus', resetCursor);
+      window.removeEventListener('pagehide', resetCursor);
     };
-  }, [isMobile, reduceMotion]);
+  }, [isMobile, routeKey]);
 
-  if (isMobile || reduceMotion) return null; // Don’t render anything on mobile/reduced-motion
+  if (isMobile) return null;
 
   return (
     <>

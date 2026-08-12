@@ -20,10 +20,11 @@ import mash5 from '../../assets/Mash5.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
 import React, { useLayoutEffect, useEffect } from 'react';
-import { Seo, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
+import BookFlip from '../../components/BookFlip/BookFlip';
 
 const AUTHOR_SAME_AS = [
   'https://dribbble.com/Zmactavish',
@@ -184,8 +185,46 @@ const PicturesFlex = styled.div`
   align-items: center;
   height: auto;
   width: 100vw;
-  background-color: black;
+  background-color: var(--surface-secondary);
   flex-direction: column;
+`;
+
+const OralHistorySection = styled.section`
+  width: 100vw;
+  padding: clamp(5rem, 9vh, 8rem) 0;
+  box-sizing: border-box;
+  background: var(--surface-secondary);
+`;
+
+const OralHistoryIntro = styled.div`
+  width: min(88vw, 1180px);
+  margin: 0 auto clamp(2.5rem, 6vh, 4.5rem);
+  color: ${(props) => props.theme.pageText};
+
+  @media (max-width: 1320px) {
+    width: min(90vw, 1080px);
+  }
+
+  @media (max-width: 900px) {
+    width: 92vw;
+  }
+`;
+
+const OralHistoryTitle = styled.h2`
+  max-width: 24ch;
+  margin: 0 0 1.25rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-wrap: balance;
+`;
+
+const OralHistoryCopy = styled.p`
+  max-width: 70ch;
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
 `;
 
 const TopImagesFlex = styled.div`
@@ -194,7 +233,7 @@ const TopImagesFlex = styled.div`
   align-items: flex-start;
   gap: 0vw;
   width: 100vw;
-  background-color: white;
+  background-color: var(--surface-primary);
   padding: 2vw 0;
   box-sizing: border-box;
 `;
@@ -207,7 +246,7 @@ export const ThreeImageGrid = styled.div`
   padding: 100px 40px;
   flex-wrap: wrap;
   overflow: hidden;
-  background-color: white;
+  background-color: var(--surface-primary);
   height: auto;
   box-sizing: border-box; /* ensure padding doesn't affect centering calculations */
 
@@ -369,7 +408,7 @@ export const TwoImageGrid = styled.div`
   padding: clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px);
   flex-wrap: wrap;
   overflow: hidden;
-  background-color: white;
+  background-color: var(--surface-primary);
   height: auto;
   box-sizing: border-box;
 
@@ -670,8 +709,8 @@ export default function Dwelling() {
           />
           <h1 style={visuallyHiddenHeadingStyle}>Dwelling by Zack MacTavish</h1>
           <style>{`
-            /* Keep the measured section white */
-            .blend-img { background-color: white !important; }
+            /* Keep the split root transparent; the measured image backdrop stays neutral. */
+            .blend-img { background-color: transparent !important; }
 
             /* Image should multiply blend to pick up grey background */
             .blend-img img {
@@ -684,7 +723,7 @@ export default function Dwelling() {
             .blend-backdrop { pointer-events: none; }
           `}</style>
           {/* Top housemash images horizontally */}
-         <div style={{ backgroundColor: 'white', width: '100vw' }}>
+         <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
            <TwoImageGrid className="large">
                <ResponsiveImage src={housemash} webpSrc={housemashWebp} webpSrcSet={`${housemashWebp640} 640w, ${housemashWebp960} 960w, ${housemashWebp} 2200w`} avifSrc={housemashAvif} avifSrcSet={`${housemashAvif640} 640w, ${housemashAvif960} 960w, ${housemashAvif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage from the Dwelling series" width={4000} height={3000} loading="eager" decoding="sync" fetchPriority="high" />
                <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} webpSrcSet={`${housemash2Webp640} 640w, ${housemash2Webp960} 960w, ${housemash2Webp} 2200w`} avifSrc={housemash2Avif} avifSrcSet={`${housemash2Avif640} 640w, ${housemash2Avif960} 960w, ${housemash2Avif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage with stitched details from the Dwelling series" width={4000} height={3000} loading="lazy" decoding="async" />
@@ -705,37 +744,47 @@ export default function Dwelling() {
 </FullHeightTextSection>
 
           {/* Open House Front: keep section white; add only top padding */}
-          <div style={{ backgroundColor: 'white', width: '100vw', paddingTop: '4vh' }}>
+          <NarrativeFeatureSection style={{ paddingTop: '4vh' }}>
             <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={housefront} imageAlt="Open House Front mixed-media painting with embroidery" imageAvif={housefrontAvif} imageWebp={housefrontWebp}>
               <ArtHeader>Open House Front</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* Open House Back: image-level multiply blend; section has white background */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={houseback} imageAlt="Open House Back mixed-media painting with embroidery" imageAvif={housebackAvif} imageWebp={housebackWebp}>
               <ArtHeader>Open House Back</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
             {/* Tuzio family sections using ImageTextSplit with full white background */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit className="blend-img" imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={greatgrandparentsAvif} imageWebp={greatgrandparentsWebp}>
               <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
               <ArtYear>July, 1960</ArtYear>
               <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
             </ImageTextSplit>
-          </div>
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+          </NarrativeFeatureSection>
+          <NarrativeFeatureSection>
             <ImageTextSplit className="blend-img" imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={grandparentsAvif} imageWebp={grandparentsWebp}>
               <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
               <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
+
+          <OralHistorySection>
+            <OralHistoryIntro>
+              <OralHistoryTitle>From Then and Now: Conversations with My Grandmother</OralHistoryTitle>
+              <OralHistoryCopy>
+                I interviewed my grandmother, Janet, about her life and the memories she carries from one home and generation to the next. Alongside our conversations, I collected photographs from her family archive and brought the stories and images together in this book.
+              </OralHistoryCopy>
+            </OralHistoryIntro>
+            <BookFlip assetDirectory="dwelling-book" bookTitle="From Then and Now" />
+          </OralHistorySection>
 
     
 
@@ -747,85 +796,85 @@ export default function Dwelling() {
 </TwoImageGrid>
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt1} imageAlt="Quilt artwork of my apartment in Logan Square, Chicago" imageAvif={quilt1Avif} imageWebp={quilt1Webp}>
     <ArtHeader>Quilt 1</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt2} imageAlt="Quilt artwork of the dorms in downtown Chicago" imageAvif={quilt2Avif} imageWebp={quilt2Webp}>
     <ArtHeader>Quilt 2</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>Dorms, Downtown, Chicago</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt3} imageAlt="Quilt artwork of my grandma's house" imageAvif={quilt3Avif} imageWebp={quilt3Webp}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's house</ArtDesc>
   </ImageTextSplit>
-</div>
+</NarrativeFeatureSection>
 
 
           {/* Quilt 4, Quilt 5, Quilt 6 as ImageTextSplit blocks on white */}
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+<NarrativeFeatureSection>
   <ImageTextSplit className="blend-img" imageSrc={quilt4} imageAlt="Quilt artwork of East Providence, Rhode Island" imageAvif={quilt4Avif} imageWebp={quilt4Webp}>
     <ArtHeader>Quilt 4</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt5} imageAlt="Quilt artwork of the house with Richie" imageAvif={quilt5Avif} imageWebp={quilt5Webp}>
     <ArtHeader>Quilt 5</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>House with Richie</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt artwork of my grandma's first house" imageAvif={quilt6Avif} imageWebp={quilt6Webp}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>My grandma's first house</ArtDesc>
   </ImageTextSplit>
-</div>
+</NarrativeFeatureSection>
 
 
           {/* Quilt 7, Quilt 8, Quilt 9 as ImageTextSplit blocks on white */}
 
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt7} imageAlt="Quilt artwork of Armistice Boulevard in Pawtucket, Rhode Island" imageAvif={quilt7Avif} imageWebp={quilt7Webp}>
     <ArtHeader>Quilt 7</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt8} imageAlt="Quilt artwork of the Bruzzi house in Pawtucket, Rhode Island" imageAvif={quilt8Avif} imageWebp={quilt8Webp}>
     <ArtHeader>Quilt 8</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
-</div>
-<div style={{ backgroundColor: 'white', width: '100vw' }}>
+</NarrativeFeatureSection>
+<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt9} imageAlt="Quilt artwork of Olympia Avenue in Pawtucket, Rhode Island" imageAvif={quilt9Avif} imageWebp={quilt9Webp}>
     <ArtHeader>Quilt 9</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Olympia Ave, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
-</div>
+</NarrativeFeatureSection>
 
           {/* Manistee Street section (added to match pasted code) */}
-          <div style={{ backgroundColor: 'white', width: '100vw', padding: '5vh 0' }}>
+          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Reduction relief woodblock print of Manistee Street" imageAvif={manisteeblockAvif} imageWebp={manisteeblockWebp}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>
               <ArtDesc>Reduction relief woodblock print.</ArtDesc>
             </ImageTextSplit>
-          </div>
+          </NarrativeFeatureSection>
 
           {/* Grid of small images */}
           <PicturesFlex>
@@ -857,7 +906,7 @@ export default function Dwelling() {
           </PicturesFlex>
 
           {/* Final DWELLING MASH section */}
-          <div style={{ backgroundColor: 'white', width: '100vw' }}>
+          <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
             <ThreeImageGrid className="large roomy">
               <ResponsiveImage src={house3} webpSrc={house3Webp} avifSrc={house3Avif} alt="Dwelling collage of a neighborhood house" />
               <ResponsiveImage src={house7} webpSrc={house7Webp} avifSrc={house7Avif} alt="Dwelling collage of a residential streetscape" />

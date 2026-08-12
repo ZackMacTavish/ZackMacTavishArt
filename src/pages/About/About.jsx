@@ -5,7 +5,7 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { Suspense, lazy, useLayoutEffect, useEffect, useState } from 'react';
-import { Seo, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import styled, { keyframes } from 'styled-components';
 import me from '../../assets/Me.jpeg';
 import meWebp from '../../assets/optimized/Me.webp';
@@ -107,7 +107,7 @@ const ParagraphTwo = styled.div`
 // Keep split copy styles local so inherited layout props do not offset centering.
 const SplitText = styled.div`
   width: auto;
-  color: #5d5d5d;
+  color: ${(props) => props.theme.narrativeText};
   font-family: 'Space Grotesk', sans-serif;
   font-size: inherit;
   font-weight: 500;
@@ -214,7 +214,7 @@ export const QuiltText = styled(ParagraphTwo)`
 
 const SplitQuiltText = styled.div`
   width: auto;
-  color: #ffffff;
+  color: ${(props) => props.theme.pageText};
   font-family: 'Space Grotesk', sans-serif;
   font-size: inherit;
   font-weight: 500;
@@ -437,7 +437,7 @@ const About = () => {
       />
       <h1 style={visuallyHiddenHeadingStyle}>About Zack MacTavish</h1>
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
-      <div style={{ backgroundColor: 'white', width: '100vw', position: 'relative', padding: '8vh 0' }}>
+      <NarrativeFeatureSection style={{ position: 'relative', padding: '8vh 0' }}>
         <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={me} imageWebp={meWebp} imageWebpSet={`${meWebp640} 640w, ${meWebp960} 960w, ${meWebp} 2200w`} imageAvif={meAvif} imageAvifSet={`${meAvif640} 640w, ${meAvif960} 960w, ${meAvif} 2200w`} imageSizes="(max-width: 900px) 100vw, 40vw" imageAlt="Portrait of Zack MacTavish" imageWidth={960} imageHeight={960} imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
           <SplitText>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
@@ -452,7 +452,7 @@ const About = () => {
             <Arrow />
           </ArrowWrapper>
         )}
-      </div>
+      </NarrativeFeatureSection>
       {/* ---------- Module 2 removed per request ---------- */}
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}

@@ -9,6 +9,7 @@ import { Seo } from '../../foundation/adapter';
 import { Link, useLocation } from 'react-router-dom';
 import { canonicalFromLocation } from '../../utils/seo';
 import ogImage from '../../assets/og/website-logoresolutions-1200x630.png';
+import { useTheme } from 'styled-components';
 
 const ProjectCarousel = lazy(() => import('./ProjectCarousel'));
 const Socials = lazy(() => import('../../Components/Social Bar/Socials'));
@@ -23,6 +24,7 @@ const AUTHOR_SAME_AS = [
 
 export default function LandingPage({ showCarousel = true }) {
   const location = useLocation();
+  const theme = useTheme();
   const canonical = canonicalFromLocation(location);
   const [disableBackdropBlur, setDisableBackdropBlur] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
@@ -164,7 +166,7 @@ export default function LandingPage({ showCarousel = true }) {
   }, []);
 
   return (
-    <main style={{ backgroundColor: '#0a0a0a', minHeight: '100vh', position: 'relative' }}>
+    <main style={{ backgroundColor: theme.pageBackground, minHeight: '100vh', position: 'relative' }}>
       <Seo
         title="Zack MacTavish Art & Design"
         description="Portfolio home showcasing art, design, printmaking, photography, and 3D works by Zack MacTavish."
@@ -214,7 +216,7 @@ export default function LandingPage({ showCarousel = true }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-start',
-          color: '#f3f0e8',
+          color: theme.pageText,
         }}
       >
         <p
@@ -223,7 +225,7 @@ export default function LandingPage({ showCarousel = true }) {
             fontSize: useMobileHeaderLayout ? '0.72rem' : '0.8rem',
             letterSpacing: '0.16em',
             textTransform: 'uppercase',
-            color: 'rgba(243,240,232,0.68)',
+            color: theme.pageMuted,
             margin: '0 0 0.75rem',
           }}
         >
@@ -246,7 +248,7 @@ export default function LandingPage({ showCarousel = true }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: useMobileHeaderLayout ? '1rem' : 'clamp(1rem, 1.7vw, 1.15rem)',
             lineHeight: 1.6,
-            color: 'rgba(243,240,232,0.82)',
+            color: theme.pageMuted,
             margin: '1rem 0 0',
             maxWidth: useMobileHeaderLayout ? '100%' : '100%',
           }}
@@ -279,15 +281,15 @@ export default function LandingPage({ showCarousel = true }) {
                     key={item.to}
                     to={item.to}
                     style={{
-                      color: '#f3f0e8',
+                      color: theme.controlText,
                       textDecoration: 'none',
-                      border: '1px solid rgba(243,240,232,0.2)',
+                      border: `1px solid ${theme.controlBorder}`,
                       padding: '0.5rem 0.8rem',
                       borderRadius: '999px',
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: '0.92rem',
                       textAlign: 'center',
-                      backgroundColor: 'rgba(10,10,10,0.35)',
+                      backgroundColor: theme.controlBackground,
                       backdropFilter: disableBackdropBlur ? 'none' : 'blur(6px)',
                     }}
                   >

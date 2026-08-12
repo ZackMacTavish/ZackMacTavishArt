@@ -5,7 +5,7 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, ImageTextSplit } from '../../foundation/adapter'
+import { Seo, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
@@ -140,12 +140,10 @@ const FiftyWidth = styled.div`
   width: 50vw;
   display: flex;
   justify-content: center;
-  background-color: white;
+  background-color: var(--surface-primary);
 `;
 
 const splitSectionStyle = {
-  backgroundColor: 'white',
-  width: '100vw',
   padding: '5vh 0',
 };
 
@@ -218,7 +216,7 @@ export default function MergedGraffiti() {
   </TextContainer>
 </FullHeightTextSection>
 
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={splitSectionStyle}>
         <ImageTextSplit imageSrc={one} imageWebp={oneWebp} imageAvif={oneAvif} imageAlt="No. 1 Rhino render">
           <ArtHeader>No. 1</ArtHeader>
           <ArtYear>2017</ArtYear>
@@ -236,11 +234,11 @@ export default function MergedGraffiti() {
           <ArtYear>2017</ArtYear>
           <ArtDesc>Render made in Rhino, and Keyshot.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* --- Graffiti Section --- */}
-      <div style={{ backgroundColor: '#191919', width: '100%', display: 'block', padding: '8vh 0' }}>
-        <ThreeImageGrid className="rounded-corners" style={{ backgroundColor: '#191919' }}>
+      <div style={{ backgroundColor: 'var(--surface-secondary)', width: '100%', display: 'block', padding: '8vh 0' }}>
+        <ThreeImageGrid className="rounded-corners" style={{ backgroundColor: 'var(--surface-secondary)' }}>
           <ResponsiveImage src={artbash1} webpSrc={artbash1Webp} avifSrc={artbash1Avif} alt="Art Bash graffiti collage 1" />
           <ResponsiveImage src={artbash2} webpSrc={artbash2Webp} avifSrc={artbash2Avif} alt="Art Bash graffiti collage 2" />
           <ResponsiveImage src={artbash3} webpSrc={artbash3Webp} avifSrc={artbash3Avif} alt="Art Bash graffiti collage 3" />
@@ -263,7 +261,7 @@ export default function MergedGraffiti() {
 />
    
 
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={splitSectionStyle}>
         <ImageTextSplit imageSrc={bfa} imageWebp={bfaWebp} imageAvif={bfaAvif} imageAlt="BFA Exhibition mural">
           <ArtHeader>BFA Exhibition < br/>(Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
@@ -281,19 +279,21 @@ export default function MergedGraffiti() {
           <ArtYear>2019</ArtYear>
           <ArtDesc>Spray paint on cinderblock.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
-  <NewSection $Backgroundcolor="white" $Backgroundheight="125vh">
+  <NarrativeFeatureSection>
+  <NewSection $Backgroundcolor="transparent" $Backgroundheight="125vh">
         <FiftyWidth>
           <BeesStyle as={ResponsiveImage} src={Bees} webpSrc={BeesWebp} avifSrc={BeesAvif} alt="Graffiti lettering study" />
         </FiftyWidth>
-        <ParagraphFour style={{ color: '#ffffff' }}>
+        <ParagraphFour data-narrative-text>
         This illustration of B’s in different styles was created for a self-published book about the art of graffiti writing.
         </ParagraphFour>
       </NewSection>
+      </NarrativeFeatureSection>
 
       {/* Continue with remaining Graffiti sections */}
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={splitSectionStyle}>
         <ImageTextSplit imageSrc={mucha} imageWebp={muchaWebp} imageAvif={muchaAvif} imageAlt="Orange Line graffiti piece">
           <ArtHeader>ORANGE LINE (Chicago, IL)</ArtHeader>
           <ArtYear>2016</ArtYear>
@@ -311,15 +311,15 @@ export default function MergedGraffiti() {
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
-      <div style={{ backgroundColor: 'white', width: '100%' }}>
+      <div style={{ backgroundColor: 'var(--surface-primary)', width: '100%' }}>
         <SingleImageGrid className="narrow rounded-corners">
           <ResponsiveImage src={riso} webpSrc={risoWebp} avifSrc={risoAvif} alt="Graffiti riso spread" />
         </SingleImageGrid>
       </div>
 
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={splitSectionStyle}>
         <ImageTextSplit imageSrc={sushix} imageWebp={sushixWebp} imageAvif={sushixAvif} imageAlt="Sushi X graffiti piece">
           <ArtHeader>Sushi X</ArtHeader>
           <ArtYear>2016</ArtYear>
@@ -337,14 +337,14 @@ export default function MergedGraffiti() {
           <ArtYear>2019</ArtYear>
           <ArtDesc>Spray paint on cement.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/* <RisoFlex>
   <RisoItem $Width="80vw" src={Lines} />
     <RisoItem $Width="80vw" src={Lines} />
       </RisoFlex> */}
 
-      <section style={splitSectionStyle}>
+      <NarrativeFeatureSection style={splitSectionStyle}>
         <ImageTextSplit imageSrc={sushixtwo} imageWebp={sushixtwoWebp} imageAvif={sushixtwoAvif} imageAlt="Sushi X collaboration graffiti piece">
           <ArtHeader>Sushi X</ArtHeader>
           <ArtYear>2016</ArtYear>
@@ -362,7 +362,7 @@ export default function MergedGraffiti() {
           <ArtYear>2016</ArtYear>
           <ArtDesc>Spray paint on cinderblock.</ArtDesc>
         </ImageTextSplit>
-      </section>
+      </NarrativeFeatureSection>
 
       {/*
 <RisoFlex>
