@@ -180,7 +180,7 @@ export default function IntroAnimation({ onIntroReady }) {
             position: 'absolute',
             bottom: '2rem',
             right: '2.5rem',
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '1.1rem',
             color: theme.pageMuted,
             letterSpacing: '0.05em',

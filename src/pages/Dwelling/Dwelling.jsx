@@ -20,7 +20,7 @@ import mash5 from '../../assets/Mash5.png';
 import og from '../../assets/No.3.png';
 import grain from '../../assets/Grain.jpg';
 import React, { useLayoutEffect, useEffect } from 'react';
-import { Seo, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
+import { FullHeightTextSection, ImageTextSplit, NarrativeFeatureSection, Seo, TextContainer, TextContent } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
@@ -36,7 +36,6 @@ const AUTHOR_SAME_AS = [
 import styled from 'styled-components';
 import { RisoItem } from '../3d/MergedGraffiti';
 import { ArtDesc, ArtHeader, ArtSectionthreeog, ArtText, ArtTextthree, ArtTexttwo, ArtYear, GridRowThree, GridRowTwo, Orbital, ArtSectionThreeone } from '../COMPOSITION/Composition';
-import { TextContainer, TextContent, FullHeightTextSection } from '../Printmaking/Artworks';
 
 
 // Assets
@@ -156,7 +155,8 @@ export const TextSection = styled.h1`
   justify-content: center;
   align-items: center;
   width: 55vw;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 45, 'WONK' 1;
   padding-left: 2vw;
   color: white;
   font-size: 2.5rem;
@@ -190,8 +190,8 @@ const PicturesFlex = styled.div`
 `;
 
 const OralHistorySection = styled.section`
-  width: 100vw;
-  padding: clamp(5rem, 9vh, 8rem) 0;
+  width: 100%;
+  padding: var(--space-section-spacious) 0;
   box-sizing: border-box;
   background: var(--surface-secondary);
 `;
@@ -213,9 +213,10 @@ const OralHistoryIntro = styled.div`
 const OralHistoryTitle = styled.h2`
   max-width: 24ch;
   margin: 0 0 1.25rem;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 600;
+  font-weight: 550;
+  font-variation-settings: 'SOFT' 50, 'WONK' 1;
   line-height: 1.08;
   text-wrap: balance;
 `;
@@ -242,8 +243,8 @@ export const ThreeImageGrid = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;   /* container height follows tallest image */
-  gap: 64px;
-  padding: 100px 40px;
+  gap: var(--space-grid-gap);
+  padding: var(--space-section-spacious) var(--space-page-gutter);
   flex-wrap: wrap;
   overflow: hidden;
   background-color: var(--surface-primary);
@@ -367,8 +368,8 @@ export const ThreeImageGrid = styled.div`
 
   @media (max-width: 900px) {
     flex-direction: column;
-    gap: 32px;
-    padding: 60px 20px;
+    gap: var(--space-grid-gap);
+    padding: var(--space-section) var(--space-page-gutter);
     align-items: center;    /* center stacked images horizontally */
     content-visibility: auto;
     contain-intrinsic-size: 1000px;
@@ -400,12 +401,93 @@ export const ThreeImageGrid = styled.div`
   }
 `;
 
+export const FramedThreeImageGrid = styled(ThreeImageGrid)`
+  --art-cell-height: clamp(20rem, 30vw, 31rem);
+  --art-cell-padding: clamp(1rem, 2vw, 2rem);
+  --art-grid-width: 88rem;
+
+  width: min(calc(100% - 3rem), var(--art-grid-width));
+  max-width: var(--art-grid-width);
+  margin-inline: auto;
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  padding: var(--space-section-spacious) 0;
+  background: transparent;
+
+  &.full-width {
+    width: 100%;
+    max-width: none;
+    padding-inline: var(--space-page-gutter);
+  }
+
+  & > img,
+  & > picture {
+    position: relative;
+    isolation: isolate;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    flex: 0 0 calc((100% - 3rem) / 3);
+    width: calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+    height: var(--art-cell-height);
+    max-height: none;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #ececec;
+  }
+
+  & > picture > img,
+  & > img {
+    position: absolute;
+    inset: var(--art-cell-padding);
+    width: calc(100% - (2 * var(--art-cell-padding))) !important;
+    height: calc(100% - (2 * var(--art-cell-padding))) !important;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 24px;
+    mix-blend-mode: var(--art-image-blend, normal);
+  }
+
+  &.full-bleed > picture > img,
+  &.full-bleed > img {
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  &.full-bleed > picture,
+  &.full-bleed > img {
+    aspect-ratio: var(--art-media-aspect-ratio, 1 / 1);
+    height: auto;
+  }
+
+  @media (max-width: 900px) {
+    --art-cell-height: min(68svh, 31rem);
+    width: min(calc(100% - 2rem), var(--art-grid-width));
+    padding: var(--space-section-compact) 0;
+
+    &.full-width {
+      width: 100%;
+      padding-inline: var(--space-page-gutter);
+    }
+
+    & > img,
+    & > picture {
+      flex-basis: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+`;
+
 export const TwoImageGrid = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px;
-  padding: clamp(50px, 8vw, 100px) clamp(60px, 8vw, 120px);
+  gap: var(--space-grid-gap);
+  padding: var(--space-section-spacious) var(--space-page-gutter);
   flex-wrap: wrap;
   overflow: hidden;
   background-color: var(--surface-primary);
@@ -461,8 +543,8 @@ export const TwoImageGrid = styled.div`
 
   @media (max-width: 900px) {
     flex-direction: column;
-    gap: 32px;
-    padding: 40px 20px;
+    gap: var(--space-grid-gap);
+    padding: var(--space-section) var(--space-page-gutter);
     align-items: center;
     content-visibility: auto;
     contain-intrinsic-size: 900px;
@@ -501,7 +583,7 @@ export const SingleImageGrid = styled.div`
   width: min(80vw, 1400px);
   max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(50px, 8vw, 100px) clamp(20px, 4vw, 40px);
+  padding: var(--space-section-spacious) var(--space-page-gutter);
   box-sizing: border-box;
 
   & > img,
@@ -549,7 +631,7 @@ export const SingleImageGrid = styled.div`
 
   @media (max-width: 900px) {
     width: min(92vw, 100%);
-    padding: 40px 20px;
+    padding: var(--space-section) var(--space-page-gutter);
 
     &.narrow {
       width: min(92vw, 100%);
@@ -743,17 +825,13 @@ export default function Dwelling() {
   </TextContainer>
 </FullHeightTextSection>
 
-          {/* Open House Front: keep section white; add only top padding */}
-          <NarrativeFeatureSection style={{ paddingTop: '4vh' }}>
+          {/* Open House front and back */}
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={housefront} imageAlt="Open House Front mixed-media painting with embroidery" imageAvif={housefrontAvif} imageWebp={housefrontWebp}>
               <ArtHeader>Open House Front</ArtHeader>
               <ArtYear>2021-22</ArtYear>
               <ArtDesc>Acrylic, sewing, and embroidery on canvas.</ArtDesc>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* Open House Back: image-level multiply blend; section has white background */}
-          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={houseback} imageAlt="Open House Back mixed-media painting with embroidery" imageAvif={housebackAvif} imageWebp={housebackWebp}>
               <ArtHeader>Open House Back</ArtHeader>
               <ArtYear>2021-22</ArtYear>
@@ -761,15 +839,13 @@ export default function Dwelling() {
             </ImageTextSplit>
           </NarrativeFeatureSection>
 
-            {/* Tuzio family sections using ImageTextSplit with full white background */}
+            {/* Tuzio and Bruzzi family photographs */}
           <NarrativeFeatureSection>
             <ImageTextSplit className="blend-img" imageSrc={greatgrandparents} imageAlt="David, Janet, Herman, and Nana Tuzio" imageAvif={greatgrandparentsAvif} imageWebp={greatgrandparentsWebp}>
               <ArtHeader>David, Janet, Herman, and Nana Tuzio</ArtHeader>
               <ArtYear>July, 1960</ArtYear>
               <ArtDesc>My uncle, grandmother, and great-great-grandparents who immigrated from Italy.</ArtDesc>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-          <NarrativeFeatureSection>
             <ImageTextSplit className="blend-img" imageSrc={grandparents} imageAlt="David, Janet, Dominic, and Marie Bruzzi" imageAvif={grandparentsAvif} imageWebp={grandparentsWebp}>
               <ArtHeader>David, Janet, Dominic, and Marie Bruzzi</ArtHeader>
               <ArtDesc>My uncle, grandmother, and great-grandparents.</ArtDesc>
@@ -802,15 +878,11 @@ export default function Dwelling() {
     <ArtYear>2025</ArtYear>
     <ArtDesc>My apartment, Logan Square, Chicago</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt2} imageAlt="Quilt artwork of the dorms in downtown Chicago" imageAvif={quilt2Avif} imageWebp={quilt2Webp}>
     <ArtHeader>Quilt 2</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>Dorms, Downtown, Chicago</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt3} imageAlt="Quilt artwork of my grandma's house" imageAvif={quilt3Avif} imageWebp={quilt3Webp}>
     <ArtHeader>Quilt 3</ArtHeader>
     <ArtYear>2025</ArtYear>
@@ -826,15 +898,11 @@ export default function Dwelling() {
     <ArtYear>2025</ArtYear>
     <ArtDesc>East Providence, Rhode Island</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt5} imageAlt="Quilt artwork of the house with Richie" imageAvif={quilt5Avif} imageWebp={quilt5Webp}>
     <ArtHeader>Quilt 5</ArtHeader>
     <ArtYear>2025</ArtYear>
     <ArtDesc>House with Richie</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit className="blend-img" imageSrc={quilt6} imageAlt="Quilt artwork of my grandma's first house" imageAvif={quilt6Avif} imageWebp={quilt6Webp}>
     <ArtHeader>Quilt 6</ArtHeader>
     <ArtYear>2025</ArtYear>
@@ -851,15 +919,11 @@ export default function Dwelling() {
     <ArtYear>2024</ArtYear>
     <ArtDesc>Armistice Blvd., Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt8} imageAlt="Quilt artwork of the Bruzzi house in Pawtucket, Rhode Island" imageAvif={quilt8Avif} imageWebp={quilt8Webp}>
     <ArtHeader>Quilt 8</ArtHeader>
     <ArtYear>2024</ArtYear>
     <ArtDesc>Bruzzi house, Pawtucket, RI</ArtDesc>
   </ImageTextSplit>
-</NarrativeFeatureSection>
-<NarrativeFeatureSection>
   <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={quilt9} imageAlt="Quilt artwork of Olympia Avenue in Pawtucket, Rhode Island" imageAvif={quilt9Avif} imageWebp={quilt9Webp}>
     <ArtHeader>Quilt 9</ArtHeader>
     <ArtYear>2024</ArtYear>
@@ -868,7 +932,7 @@ export default function Dwelling() {
 </NarrativeFeatureSection>
 
           {/* Manistee Street section (added to match pasted code) */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit className="blend-img" imageSrc={manisteeblock} imageAlt="Reduction relief woodblock print of Manistee Street" imageAvif={manisteeblockAvif} imageWebp={manisteeblockWebp}>
               <ArtHeader>Manistee Street</ArtHeader>
               <ArtYear>2022</ArtYear>

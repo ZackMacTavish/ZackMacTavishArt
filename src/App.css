@@ -1,10 +1,10 @@
 /* Import fonts first */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,SOFT,WONK,wght@9..144,0..100,0..1,100..900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 /* Global body styles */
 body {
     overflow-x: hidden;
-    font-family: 'Space Grotesk', sans-serif; /* Apply font here */
+    font-family: var(--font-body);
 }
 
 .App {

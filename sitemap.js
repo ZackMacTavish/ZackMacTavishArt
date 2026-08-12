@@ -12,7 +12,8 @@ export const ROUTES = [
   { path: '/composition', changefreq: 'monthly', priority: '0.8' },
   { path: '/dwelling', changefreq: 'monthly', priority: '0.8' },
   { path: '/photography', changefreq: 'monthly', priority: '0.8' },
-  { path: '/printmaking', changefreq: 'monthly', priority: '0.8' }
+  { path: '/printmaking', changefreq: 'monthly', priority: '0.8' },
+  { path: '/cv', changefreq: 'monthly', priority: '0.8' }
 ];
 
 // Map each route to a stable image URL (relative to siteUrl). The build step
@@ -26,6 +27,7 @@ const ROUTE_IMAGE_DEFAULTS = {
   '/dwelling': '/og-default.png',
   '/photography': '/og-default.png',
   '/printmaking': '/og-default.png',
+  '/cv': '/og-default.png',
 };
 
 const ROUTE_IMAGE_TITLES = {
@@ -36,6 +38,7 @@ const ROUTE_IMAGE_TITLES = {
   '/dwelling': 'Dwelling — Zack MacTavish',
   '/photography': 'Photography — Zack MacTavish',
   '/printmaking': 'Printmaking — Zack MacTavish',
+  '/cv': 'Artist CV — Zachary MacTavish',
 };
 
 const cwd = process.cwd();

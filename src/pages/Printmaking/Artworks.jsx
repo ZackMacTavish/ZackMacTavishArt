@@ -67,7 +67,7 @@ function useBlendBackdrop() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 }
-import { Seo, Grid60, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
+import { FullHeightTextSection, Grid60, ImageTextSplit, NarrativeFeatureSection, Seo, TextContainer, TextContent } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 
@@ -91,7 +91,7 @@ import {
   GridRowTwo,
   Orbital
 } from '../COMPOSITION/Composition';
-import { TwoImageGrid, ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
+import { FramedThreeImageGrid as SharedFramedThreeImageGrid, TwoImageGrid as SharedTwoImageGrid } from '../Dwelling/Dwelling';
 import styled from 'styled-components';
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '/src/assets/og/website-logoresolutions-1200x630.png';
@@ -296,104 +296,94 @@ const RisoFlex = styled.div`
   justify-content: center;
   background-color: ${(props) => props.theme.backgroundTwo};
   align-items: center;
-  height: auto;
-  padding: 3vh 0;
+  padding: var(--space-section-spacious) 0;
   width: 100vw;
 `;
 
 const RisoItem = styled.img`
-  width: ${(props) => props.$Width || 'auto'};
-  max-width: 1000px;
+  box-sizing: border-box;
+  width: min(calc(100% - 3rem), 56.25rem);
+  max-width: 56.25rem;
   height: auto;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 24px;
+  background: #ececec;
+
+  & > img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    border-radius: 24px !important;
+    mix-blend-mode: multiply;
+  }
 
   @media (max-width: 1000px) {
-    width: 90vw;
-    padding-top: 3vh;
-  }
-
-  @media (max-width: 450px) {
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+    width: min(calc(100% - 2rem), 56.25rem);
+    padding: clamp(1rem, 4vw, 1.5rem);
   }
 `;
 
-export const FullHeightTextSection = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--surface-secondary);
-  width: 100vw; /* full width */
-  min-height: 100vh;
-  padding: 5vh 5vw;
+const artworkFrameStyles = `
+  position: relative;
+  isolation: isolate;
   box-sizing: border-box;
-  text-align: left;
-
-  /* Prevent section from feeling too tall on short screens */
-  @media (max-height: 700px) {
-    min-height: 70vh;
-    padding: 4vh 5vw;
-  }
-
-  @media (max-height: 500px) {
-    min-height: 60vh;
-  }
-
-  @media (max-width: 850px) {
-    flex-direction: column;
-    justify-content: center;
-    min-height: 80vh;
-    padding: 4vh 4vw;
-    content-visibility: auto;
-    contain-intrinsic-size: 900px;
-  }
+  display: grid;
+  place-items: center;
+  height: var(--art-cell-height);
+  padding: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ececec;
 `;
 
-export const TextContainer = styled.div`
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important; /* vertical centering */
-  align-items: center !important;     /* horizontal centering */
-  width: 100%; /* container takes full width */
-  box-sizing: border-box;
-  padding: 0 5vw;
+const TwoImageGrid = styled(SharedTwoImageGrid)`
+  --art-cell-height: clamp(24rem, 42vw, 38rem);
+  --art-cell-padding: clamp(1.25rem, 2.5vw, 2.75rem);
+  --art-grid-width: 76rem;
 
-  @media (max-width: 850px) {
-    padding: 0 4vw;
-    justify-content: center !important;
-  }
-`;
+  width: min(calc(100% - 3rem), var(--art-grid-width));
+  max-width: var(--art-grid-width);
+  gap: var(--space-grid-gap);
+  padding: var(--space-section-spacious) 0;
+  background: transparent;
 
-export const TextContent = styled.p`
-  font-family: 'Space Grotesk', sans-serif;
-  color: ${(props) => props.theme.narrativeText};
-  font-size: clamp(1.2rem, 1.5vw, 1.42rem);
-  max-width: 50ch;
-  line-height: 1.65;
-  margin: 0;
-  text-align: left; /* always left-aligned */
-
-  @media (max-width: 1400px) {
-    max-width: 50ch;
+  &.one-row > img,
+  &.one-row > picture {
+    flex-basis: calc((100% - clamp(1rem, 2vw, 2rem)) / 2);
+    max-width: calc((100% - clamp(1rem, 2vw, 2rem)) / 2);
+    ${artworkFrameStyles}
   }
 
-  @media (max-width: 850px) {
-    font-size: 1.4rem;
-    max-width: 75vw; /* still shrink width for readability */
+  &.one-row > picture > img,
+  &.one-row > img {
+    position: absolute;
+    inset: var(--art-cell-padding);
+    width: calc(100% - (2 * var(--art-cell-padding))) !important;
+    height: calc(100% - (2 * var(--art-cell-padding))) !important;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 24px;
+    mix-blend-mode: multiply;
   }
 
-  a.inline-link {
-    color: ${(props) => props.theme.narrativeText};
-    text-decoration: underline;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3em;
+  @media (max-width: 900px) {
+    --art-cell-height: min(70svh, 34rem);
+    width: min(calc(100% - 2rem), var(--art-grid-width));
+    padding: var(--space-section-compact) 0;
 
-    svg {
-      width: 0.8em;
-      height: 0.8em;
-      vertical-align: middle;
+    &.one-row > img,
+    &.one-row > picture {
+      flex-basis: auto;
+      width: 100%;
+      max-width: 100%;
     }
   }
+`;
+
+const ThreeImageGrid = styled(SharedFramedThreeImageGrid)`
+  --art-image-blend: multiply;
 `;
 
 // ===================== COMPONENT =====================
@@ -521,7 +511,7 @@ export default function Artworks() {
 </FullHeightTextSection>
 
         {/* Screenprints */}
-  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw', padding: '8vh 0' }}>
+  <div style={{ backgroundColor: 'var(--surface-primary)', width: '100%' }}>
       <ThreeImageGrid
         className="large multiply"
         style={{ width: 'min(98vw, 100%)', maxWidth: '1800px', margin: '0 auto' }}
@@ -588,8 +578,8 @@ export default function Artworks() {
 
 
 
-      {/* Painting Feature Section: white background, gray image containers */}
-      <NarrativeFeatureSection style={{ padding: '4vh 0' }}>
+      {/* Painting Feature Sections: white background, gray image containers */}
+      <NarrativeFeatureSection $spacing="compact">
         <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={oliviacollab4} imageWebp={oliviacollab4Webp} imageAvif={oliviacollab4Avif} imageAlt="Olivia Collaboration print">
           <ArtHeader>Olivia Collaboration</ArtHeader>
           <ArtYear>2022</ArtYear>
@@ -607,7 +597,9 @@ export default function Artworks() {
           <ArtYear>2015-21</ArtYear>
           <ArtDesc>Spray paint and acrylic paint on wood panel.</ArtDesc>
         </ImageTextSplit>
+      </NarrativeFeatureSection>
 
+      <NarrativeFeatureSection $spacing="compact">
         <ImageTextSplit imageMode="framed" imageBlendMode="multiply" imageSrc={yellowlily} imageWebp={yellowlilyWebp} imageAvif={yellowlilyAvif} imageAlt="Yellow Lily painting">
           <ArtHeader>Yellow Lily</ArtHeader>
           <ArtYear>2020</ArtYear>
@@ -801,7 +793,7 @@ export default function Artworks() {
                     </div>
 
          <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
-           <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
+           <ThreeImageGrid className="large" style={{ backgroundColor: 'transparent' }}>
              <ResponsiveImage src={collage41} webpSrc={collage41Webp} avifSrc={collage41Avif} alt="Abstract collage artwork 41" />
              <ResponsiveImage src={collage42} webpSrc={collage42Webp} avifSrc={collage42Avif} alt="Abstract collage artwork 42" />
              <ResponsiveImage src={collage43} webpSrc={collage43Webp} avifSrc={collage43Avif} alt="Abstract collage artwork 43" />

@@ -62,8 +62,10 @@ const Navdiv = styled.div`
   backdrop-filter: blur(6px);
   position: fixed;
   width: 100vw;
-  height: 8vh;
+  height: var(--layout-header-height);
   padding: 0 3vw;
+  box-sizing: border-box;
+  border-bottom: 1px solid ${(props) => props.theme.pageSubtle};
   z-index: 1000;
 
   @media (max-width: 900px), (prefers-reduced-motion: reduce) {
@@ -80,6 +82,7 @@ const StrokeWrapper = styled.div`
   height: 8px;
   pointer-events: none;
   overflow: visible;
+  clip-path: inset(-150px -100px 0);
 `;
 
 const SolidStroke = styled.span`
@@ -420,11 +423,17 @@ const DropdownMenu = styled(Link)`
   padding: 0.75rem 1rem;
   color: ${(props) => props.theme.pageText};
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
-  &:hover {
-    background-color: ${(props) => props.theme.controlBackground};
-    color: ${(props) => props.theme.controlText};
+  &:hover,
+  &:focus-visible {
+    background-color: ${(props) => props.theme.pageSubtle};
+    box-shadow: inset 3px 0 0 #e88d67;
+    color: ${(props) => props.theme.pageText};
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 `;
 
@@ -602,6 +611,9 @@ export default function Nav({ hidden = false, themeMode = 'light', customCursorA
           <ListItem>
             <NavLink to="/About">About</NavLink>
           </ListItem>
+          <ListItem>
+            <NavLink to="/cv">CV</NavLink>
+          </ListItem>
           <HelpItem>
             <HelpButton
               ref={helpButtonRef}
@@ -621,13 +633,6 @@ export default function Nav({ hidden = false, themeMode = 'light', customCursorA
           </HelpItem>
         </NavLinks>
 
-        <StrokeWrapper>
-          <SolidStroke />
-          <NeonStroke />
-          <PinkMicroStroke />
-          <SpotlightLeft />
-          <SpotlightRight />
-        </StrokeWrapper>
       </NavLinksWrapper>
 
       {isMobile && isMobileMenuOpen ? (
@@ -641,6 +646,7 @@ export default function Nav({ hidden = false, themeMode = 'light', customCursorA
           <MobileMenuLink to="/photography" onClick={() => setIsMobileMenuOpen(false)}>Photography</MobileMenuLink>
           <MobileMenuLink to="/3d" onClick={() => setIsMobileMenuOpen(false)}>3D + Graffiti</MobileMenuLink>
           <MobileMenuLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About</MobileMenuLink>
+          <MobileMenuLink to="/cv" onClick={() => setIsMobileMenuOpen(false)}>CV</MobileMenuLink>
         </MobileMenuOverlay>
       ) : null}
 

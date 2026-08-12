@@ -5,7 +5,7 @@ import icon192 from '../../assets/og/website-logoresolutions-192px.png';
 import icon256 from '../../assets/og/favicon-clean-256.png';
 import icon512 from '../../assets/og/website-logoresolutions-512px.png';
 import React, { useLayoutEffect } from 'react';
-import { Seo, Grid60, ImageTextSplit, NarrativeFeatureSection } from '../../foundation/adapter'
+import { FullHeightTextSection, Grid60, ImageTextSplit, NarrativeFeatureSection, Seo, TextContainer, TextContent } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
@@ -20,7 +20,6 @@ const AUTHOR_SAME_AS = [
 ];
 import styled from 'styled-components';
 
-import { FullHeightTextSection, TextContainer, TextContent } from '../Printmaking/Artworks';
 // Removed QuiltContainer/QuiltImage/QuiltText in favor of foundation ImageTextSplit
 
 // Assets
@@ -37,6 +36,9 @@ import renderoneAvif from '../../assets/optimized/Render1.avif';
 import artbook from '../../assets/Artbook.png';
 import artbookWebp from '../../assets/optimized/Artbook.webp';
 import artbookAvif from '../../assets/optimized/Artbook.avif';
+import compositionEtching from '../../assets/Composition-Etching-2026.jpg';
+import compositionEtchingWebp from '../../assets/optimized/Composition-Etching-2026.webp';
+import compositionEtchingAvif from '../../assets/optimized/Composition-Etching-2026.avif';
 import orbital from '../../assets/Orbital.jpg';
 import orbitalWebp from '../../assets/optimized/Orbital.webp';
 import orbitalAvif from '../../assets/optimized/Orbital.avif';
@@ -117,7 +119,7 @@ const LanderSection = styled.div`
   width: 100vw;
   min-height: 100vh; /* ensures full height but can shrink on smaller screens */
   overflow: hidden;
-  padding: 2vh 0;
+  padding: var(--space-section-compact) 0;
 
   @media (max-height: 800px) {
     min-height: 70vh; /* shrink height on smaller viewports */
@@ -145,7 +147,7 @@ const CenteredRenderSection = styled.div`
   align-items: center;
   width: 100vw;
   background-color: ${props => props.theme.backgroundTwo};
-  padding: 4vh 0;
+  padding: var(--space-section-compact) 0;
 `;
 
 const FeatureRender = styled.img`
@@ -203,8 +205,9 @@ const BlogCardCopy = styled.div`
 
 const BlogTitle = styled.h2`
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.18rem, 1.45vw, 1.45rem);
+  font-variation-settings: 'SOFT' 45, 'WONK' 1;
   line-height: 1.12;
   color: ${(props) => props.theme.narrativeText};
 `;
@@ -411,7 +414,7 @@ export const ArtSectionthreeog = styled.div`
     grid-template-columns: 100vw;
     grid-template-rows: auto;
     row-gap: 2ch;
-    padding: 5vh 0 5vh 0; // add padding top for stacked layout
+    padding: var(--space-section-compact) 0;
   }
 `;
 
@@ -499,9 +502,12 @@ export const ArtTextthree = styled(ArtText)`
 
 
 export const ArtHeader = styled.h1`
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 2.5rem;
-  margin: 0 0 0.5rem 0;
+  font-variation-settings: 'SOFT' 55, 'WONK' 1;
+  line-height: 1.05;
+  margin: 0 0 0.65rem 0;
   color: inherit;
 
   @media(max-width: 1750px) { font-size: 1.8rem; }
@@ -509,13 +515,14 @@ export const ArtHeader = styled.h1`
 `;
 
 export const ArtYear = styled.h3`
-  font-weight: 500;
-  font-size: 2rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
   margin: 0 0 1rem 0;  // spacing below year
   color: inherit;
 
-  @media(max-width: 1750px) { font-size: 1.5rem; }
-  @media(max-width: 830px) { font-size: 1.2rem; }
+  @media(max-width: 830px) { font-size: 0.78rem; }
 `;
 
 export const ArtDesc = styled.h2`
@@ -645,30 +652,30 @@ export default function Composition() {
 {/*Art Book + Text */}
 {/* ---------- Art Book + Text Section ---------- */}
 {/* ---------- Art Book + Text Section ---------- */}
-<div style={{ backgroundColor: 'var(--surface-secondary)', width: '100vw', padding: '8vh 0' }}>
+<div style={{ backgroundColor: 'var(--surface-secondary)', width: '100%', padding: 'var(--space-section-spacious) 0' }}>
   <ImageTextSplit className="tight-split" imageSrc={artbook} imageWebp={artbookWebp} imageAvif={artbookAvif} imageAlt="Composition artist book">
     <SplitTextComp>
       I self-published a limited edition book for Composition. All 30 copies sold during the run of the series, and the book extended the exhibition's interest in journaling, documentation, and building an archive around the work.
     </SplitTextComp>
   </ImageTextSplit>
-  <div style={{ width: '100vw', background: 'var(--surface-secondary)', padding: '4vh 0' }}>
+  <div style={{ width: '100%', background: 'var(--surface-secondary)', padding: 'var(--space-section-compact) 0' }}>
       <BookFlip />
     </div>
 </div>
 
 
 
-
-          {/* Orbital */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          {/* Framed works */}
+          <NarrativeFeatureSection>
+            <ImageTextSplit imageMode="framed" imageSrc={compositionEtching} imageWebp={compositionEtchingWebp} imageAvif={compositionEtchingAvif} imageAlt="Untitled etching by Zachary MacTavish, 2026">
+              <ArtHeader>UNTITLED ETCHING</ArtHeader>
+              <ArtYear>2026</ArtYear>
+              <ArtDesc>Etching</ArtDesc>
+            </ImageTextSplit>
             <ImageTextSplit imageMode="framed" imageSrc={orbital} imageWebp={orbitalWebp} imageAvif={orbitalAvif} imageAlt="ORBITAL mixed-media work from Composition">
               <ArtHeader>ORBITAL</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* Erasure 1 */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={spraywash} imageWebp={spraywashWebp} imageAvif={spraywashAvif} imageAlt="Erasure 1">
               <ArtHeader>ERASURE I</ArtHeader>
               <ArtYear>2021</ArtYear>
@@ -684,7 +691,7 @@ export default function Composition() {
 
 
           {/* Staircases */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageSrc={staircases} imageWebp={staircasesWebp} imageAvif={staircasesAvif} imageAlt="Staircases">
               <ArtHeader>STAIRCASES</ArtHeader>
               <ArtYear>2021</ArtYear>
@@ -721,24 +728,16 @@ export default function Composition() {
 
 
 
-          {/* CONEY ISLAND, NY */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          {/* New York photographs */}
+          <NarrativeFeatureSection>
             <ImageTextSplit imageSrc={coney} imageWebp={coneyWebp} imageAvif={coneyAvif} imageAlt="Coney Island, NY">
               <ArtHeader>CONEY ISLAND, NY</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* BROOKLYN, NY I */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={brooklyn} imageWebp={brooklynWebp} imageAvif={brooklynAvif} imageAlt="Brooklyn, NY I">
               <ArtHeader>BROOKLYN, NY I</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* BROOKLYN, NY II */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageSrc={brooklyn2} imageWebp={brooklyn2Webp} imageAvif={brooklyn2Avif} imageAlt="Brooklyn, NY II">
               <ArtHeader>BROOKLYN, NY II</ArtHeader>
               <ArtYear>2021</ArtYear>
@@ -752,23 +751,19 @@ export default function Composition() {
 
 
           {/* RUG I */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit imageSrc={rug} imageWebp={rugWebp} imageAvif={rugAvif} imageAlt="Rug I">
               <ArtHeader>RUG I</ArtHeader>
               <ArtYear>2021</ArtYear>
             </ImageTextSplit>
           </NarrativeFeatureSection>
 
-          {/* COMPOSITION III */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          {/* COMPOSITION III and IV */}
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageSrc={mash1} imageWebp={mash1Webp} imageAvif={mash1Avif} imageAlt="Composition III">
               <ArtHeader>COMPOSITION III</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* COMPOSITION IV */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash2} imageWebp={mash2Webp} imageAvif={mash2Avif} imageAlt="Composition IV">
               <ArtHeader>COMPOSITION IV</ArtHeader>
               <ArtYear>2019</ArtYear>
@@ -781,24 +776,16 @@ export default function Composition() {
 </CenteredRenderSection>
 
 
-          {/* COMPOSITION V */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          {/* COMPOSITION V, VI, and VII */}
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageSrc={mash3} imageWebp={mash3Webp} imageAvif={mash3Avif} imageAlt="Composition V">
               <ArtHeader>COMPOSITION V</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* COMPOSITION VI */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash4} imageWebp={mash4Webp} imageAvif={mash4Avif} imageAlt="Composition VI">
               <ArtHeader>COMPOSITION VI</ArtHeader>
               <ArtYear>2019</ArtYear>
             </ImageTextSplit>
-          </NarrativeFeatureSection>
-
-          {/* COMPOSITION VII */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
             <ImageTextSplit imageMode="framed" imageSrc={mash5} imageWebp={mash5Webp} imageAvif={mash5Avif} imageAlt="Composition VII">
               <ArtHeader>COMPOSITION VII</ArtHeader>
               <ArtYear>2020</ArtYear>
@@ -812,7 +799,7 @@ export default function Composition() {
 
 
           {/* COMPOSITION I */}
-          <NarrativeFeatureSection style={{ padding: '5vh 0' }}>
+          <NarrativeFeatureSection>
             <ImageTextSplit imageMode="framed" imageSrc={og} imageWebp={ogWebp} imageAvif={ogAvif} imageAlt="Composition I">
               <ArtHeader>COMPOSITION I</ArtHeader>
               <ArtYear>2018</ArtYear>

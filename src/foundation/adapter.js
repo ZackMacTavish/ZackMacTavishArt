@@ -11,7 +11,13 @@ export const Seo = FoundationSeo || SEOFallback
 export const Grid60 = FoundationGrid60 || null
 
 export const NarrativeFeatureSection = styled.section`
-	width: 100vw;
+	width: 100%;
+	box-sizing: border-box;
+	padding-block: ${props => {
+		if (props.$spacing === 'compact') return 'var(--space-section-compact)'
+		if (props.$spacing === 'spacious') return 'var(--space-section-spacious)'
+		return 'var(--space-section)'
+	}};
 	background-color: ${props => props.theme.narrativeBackground};
 	color: ${props => props.theme.narrativeText};
 	content-visibility: auto;
@@ -22,6 +28,76 @@ export const NarrativeFeatureSection = styled.section`
 	h3,
 	[data-narrative-text] {
 		color: ${props => props.theme.narrativeText};
+	}
+`
+
+export const FullHeightTextSection = styled.section`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 100vh;
+	padding: var(--space-section) var(--space-page-gutter);
+	box-sizing: border-box;
+	text-align: left;
+	background-color: var(--surface-secondary);
+
+	@media (max-height: 700px) {
+		min-height: 70vh;
+		padding-block: var(--space-section-compact);
+	}
+
+	@media (max-height: 500px) {
+		min-height: 60vh;
+	}
+
+	@media (max-width: 850px) {
+		flex-direction: column;
+		justify-content: center;
+		min-height: 80vh;
+		padding: var(--space-section-compact) var(--space-page-gutter);
+		content-visibility: auto;
+		contain-intrinsic-size: 900px;
+	}
+`
+
+export const TextContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	box-sizing: border-box;
+	padding-inline: var(--space-page-gutter);
+`
+
+export const TextContent = styled.p`
+	margin: 0;
+	max-width: 50ch;
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: clamp(1.2rem, 1.5vw, 1.42rem);
+	font-weight: 500;
+	line-height: 1.65;
+	text-align: left;
+	color: ${props => props.theme.narrativeText};
+
+	@media (max-width: 850px) {
+		max-width: 75vw;
+		font-size: 1.4rem;
+	}
+
+	a.inline-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3em;
+		color: ${props => props.theme.narrativeText};
+		text-decoration: underline;
+
+		svg {
+			width: 0.8em;
+			height: 0.8em;
+			vertical-align: middle;
+		}
 	}
 `
 

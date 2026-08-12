@@ -36,6 +36,10 @@ const ROUTE_METADATA = {
     title: 'Printmaking | Zack MacTavish Art & Design',
     description: 'Screen printing and mixed media works, including collaborations with Olivia Zita Smith and CMYK experiments.',
   },
+  '/cv': {
+    title: 'Artist CV | Zachary MacTavish',
+    description: 'Artist CV and resume for Zachary (Zack) MacTavish, including exhibitions, graffiti events, awards, and education.',
+  },
 };
 
 const AUTHOR = {
@@ -67,6 +71,25 @@ function buildJsonLd(routePath, url) {
       '@context': 'https://schema.org',
       ...AUTHOR,
       url,
+    };
+  }
+
+  if (routePath === '/cv') {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      name: 'Artist CV | Zachary MacTavish',
+      url,
+      mainEntity: {
+        ...AUTHOR,
+        jobTitle: 'Multidisciplinary Artist',
+        url: 'https://zackmactavish.com',
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: 'School of the Art Institute of Chicago',
+        },
+        knowsAbout: ['Painting', 'Textile art', 'Collage', 'Printmaking', 'Graffiti', 'Photography'],
+      },
     };
   }
 

@@ -221,7 +221,7 @@ export default function LandingPage({ showCarousel = true }) {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: useMobileHeaderLayout ? '0.72rem' : '0.8rem',
             letterSpacing: '0.16em',
             textTransform: 'uppercase',
@@ -233,12 +233,14 @@ export default function LandingPage({ showCarousel = true }) {
         </p>
         <h1
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
+            fontFamily: 'var(--font-display)',
             fontSize: useMobileHeaderLayout ? 'clamp(2rem, 11vw, 3rem)' : 'clamp(2.5rem, 5vw, 4.75rem)',
+            fontWeight: 600,
+            fontVariationSettings: "'SOFT' 65, 'WONK' 1",
             lineHeight: 0.95,
             margin: 0,
             textTransform: 'uppercase',
-            letterSpacing: '0.02em',
+            letterSpacing: 0,
           }}
         >
           Zack MacTavish

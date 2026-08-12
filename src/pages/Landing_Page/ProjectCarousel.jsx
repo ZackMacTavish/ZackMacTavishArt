@@ -466,7 +466,7 @@ export default function ProjectCarousel() {
           {project.date ? (
             <p
               style={{
-                fontFamily: 'monospace',
+                fontFamily: 'var(--font-mono)',
                 fontSize: '0.85rem',
                 color: theme.pageMuted,
                 margin: 0,
@@ -502,7 +502,7 @@ export default function ProjectCarousel() {
             bottom: '2.5rem',
             right: '2.5rem',
             zIndex: 10,
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '1rem',
             color: theme.pageMuted,
             display: 'flex',

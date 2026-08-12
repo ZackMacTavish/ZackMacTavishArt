@@ -50,7 +50,7 @@ background-color: ${(props) => props.theme.backgroundColor};
 @media (max-width: 1000px) {
 flex-direction: column;
 height: auto;
-padding-bottom: 10vh;
+padding-bottom: var(--space-section-spacious);
 ;}
 `
 
@@ -68,7 +68,7 @@ export const NewSection = styled.div`
     align-items: center;     /* center children horizontally */
     justify-content: center; /* stack them centered */
     height: auto;
-    padding: 5vh 0 10vh 0;
+    padding: var(--space-section-compact) 0 var(--space-section-spacious);
     text-align: center;      /* also center any text */
   }
 `;
@@ -84,7 +84,8 @@ const ParagraphTwo = styled.div`
 
   @media (max-width: 1400px) {  
     font-size: 1.8rem;
-  }
+    padding: var(--space-section-compact) 0;
+    gap: var(--space-grid-gap);
 
   @media (max-width: 1000px) {  
     width: 90%;
@@ -167,14 +168,14 @@ export const QuiltContainer = styled.div`
   align-items: center; /* vertically center content on desktop */
   justify-content: flex-start; /* image on left for desktop */
   width: 100%;
-  padding: 5vh 10vw; /* desktop padding */
-  gap: 4vw;
+  padding: var(--space-section) var(--space-page-gutter);
+  gap: var(--space-grid-gap);
   background-color: ${(props) => props.theme.backgroundColor};
 
   @media (max-width: 1000px) {
     flex-direction: column;
-    padding: 4vh 0; /* remove horizontal padding on mobile */
-    gap: 2vh;
+    padding: var(--space-section-compact) 0;
+    gap: var(--space-grid-gap);
     align-items: center; /* center block horizontally */
   }
 `;
@@ -286,7 +287,9 @@ const GridHeader = styled.h1`
   font-size: clamp(16px, 5.5vw, 3.8rem);
   line-height: 1.2;
   color: white;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
   text-shadow: 2px 2px 50px rgba(0, 0, 0, 1);
   margin: 0;
 
@@ -437,7 +440,7 @@ const About = () => {
       />
       <h1 style={visuallyHiddenHeadingStyle}>About Zack MacTavish</h1>
       {/* ---------- Module 1: About Picture + First Paragraph (ImageTextSplit) ---------- */}
-      <NarrativeFeatureSection style={{ position: 'relative', padding: '8vh 0' }}>
+      <NarrativeFeatureSection $spacing="spacious" style={{ position: 'relative' }}>
         <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={me} imageWebp={meWebp} imageWebpSet={`${meWebp640} 640w, ${meWebp960} 960w, ${meWebp} 2200w`} imageAvif={meAvif} imageAvifSet={`${meAvif640} 640w, ${meAvif960} 960w, ${meAvif} 2200w`} imageSizes="(max-width: 900px) 100vw, 40vw" imageAlt="Portrait of Zack MacTavish" imageWidth={960} imageHeight={960} imageLoading="eager" imageDecoding="sync" imageFetchPriority="high">
           <SplitText>
        Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal 
@@ -456,7 +459,7 @@ const About = () => {
       {/* ---------- Module 2 removed per request ---------- */}
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
-      <div style={{ width: '100vw', padding: '0' }}>
+      <NarrativeFeatureSection style={{ backgroundColor: 'var(--surface-secondary)' }}>
         <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Installed quilt from the Dwelling series">
           <SplitQuiltText>
             His current work shifts focus from transition to permanence: the homes, families, 
@@ -465,7 +468,7 @@ const About = () => {
             through fiber and stitch, treating the domestic and inherited as subjects worthy of preservation.
           </SplitQuiltText>
         </ImageTextSplit>
-      </div>
+      </NarrativeFeatureSection>
 
       {/* ---------- Module 4: Three.js Scene ---------- */}
       <ArtDiv>

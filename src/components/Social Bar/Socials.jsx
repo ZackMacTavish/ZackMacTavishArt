@@ -76,14 +76,17 @@ export default function Socials() {
 
             
 
+            <IconLink href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer" data-label="Instagram" aria-label="Instagram">
+            <SocialImages src={instagram} alt="Instagram" loading="lazy" decoding="async" />
+            </IconLink>
+
             <IconLink href="https://dribbble.com/Zmactavish" target='_blank' rel="noreferrer" data-label="Dribbble" aria-label="Dribbble">
             <SocialImages src={dribbble} alt="Dribbble" loading="lazy" decoding="async" />
             </IconLink>
 
-            
-            <IconLink href="https://www.instagram.com/zackmichaelmactavish" target='_blank' rel="noreferrer" data-label="Instagram" aria-label="Instagram">
-            <SocialImages src={instagram} alt="Instagram" loading="lazy" decoding="async" />
-            </IconLink>
+            <IconLink href="https://medium.com/@zmactavish" target='_blank' rel="noreferrer" data-label="Medium" aria-label="Medium">
+            <SocialImages src={medium} alt="Medium" loading="lazy" decoding="async" />
+            </IconLink>  
 
            
             <IconLink href="https://www.linkedin.com/in/zacharymactavish/" target='_blank' rel="noreferrer" data-label="LinkedIn" aria-label="LinkedIn">
@@ -93,10 +96,6 @@ export default function Socials() {
             <IconLink href="https://github.com/ZackMacTavish" target='_blank' rel="noreferrer" data-label="GitHub" aria-label="GitHub">
             <SocialImages src={github} alt="GitHub" loading="lazy" decoding="async" />
             </IconLink>
-
-            <IconLink href="https://medium.com/@zmactavish" target='_blank' rel="noreferrer" data-label="Medium" aria-label="Medium">
-            <SocialImages src={medium} alt="Medium" loading="lazy" decoding="async" />
-            </IconLink>  
 
 
             

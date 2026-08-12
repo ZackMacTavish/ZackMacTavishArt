@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
 import {ThreeImageGrid } from '../Dwelling/Dwelling'; // adjust path as needed
+import styled from 'styled-components';
 // ===================== SEO/OG/FAVICON ASSETS =====================
 import ogImage1200 from '../../assets/og/website-logoresolutions-1200x630.png';
 // Removed PNG favicon imports
@@ -140,8 +141,16 @@ const AUTHOR_SAME_AS = [
   'https://medium.com/@zmactavish',
 ];
 
-const featureSectionStyle = { padding: '5vh 0' };
+const OpeningPolaroidGrid = styled(ThreeImageGrid)`
+  & > picture {
+    overflow: hidden;
+  }
 
+  & > picture > img {
+    transform: scale(1.025);
+    transform-origin: center;
+  }
+`;
 
 export default function Photography() {
   useLayoutEffect(() => {
@@ -185,12 +194,12 @@ export default function Photography() {
 
       {/* Section with three polaroids */}
 
-    <div style={{ backgroundColor: 'var(--surface-secondary)', width: '100vw', paddingTop: '8vh' }}>
-       <ThreeImageGrid style={{ backgroundColor: 'transparent' }}>
+    <div style={{ backgroundColor: 'var(--surface-secondary)', width: '100%', paddingTop: 'var(--layout-header-height)', boxSizing: 'border-box' }}>
+      <OpeningPolaroidGrid style={{ backgroundColor: 'transparent' }}>
          <ResponsiveImage src={polaroid1} webpSrc={polaroid1Webp} webpSrcSet={`${polaroid1Webp640} 640w, ${polaroid1Webp960} 960w, ${polaroid1Webp} 2200w`} avifSrc={polaroid1Avif} avifSrcSet={`${polaroid1Avif640} 640w, ${polaroid1Avif960} 960w, ${polaroid1Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="eager" decoding="sync" fetchPriority="high" />
          <ResponsiveImage src={polaroid2} webpSrc={polaroid2Webp} webpSrcSet={`${polaroid2Webp640} 640w, ${polaroid2Webp960} 960w, ${polaroid2Webp} 2200w`} avifSrc={polaroid2Avif} avifSrcSet={`${polaroid2Avif640} 640w, ${polaroid2Avif960} 960w, ${polaroid2Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="lazy" decoding="async" />
          <ResponsiveImage src={polaroid3} webpSrc={polaroid3Webp} webpSrcSet={`${polaroid3Webp640} 640w, ${polaroid3Webp960} 960w, ${polaroid3Webp} 2200w`} avifSrc={polaroid3Avif} avifSrcSet={`${polaroid3Avif640} 640w, ${polaroid3Avif960} 960w, ${polaroid3Avif} 2200w`} sizes="(max-width: 900px) 90vw, 26vw" alt="Polaroid film photograph" width={710} height={864} loading="lazy" decoding="async" />
-       </ThreeImageGrid>
+      </OpeningPolaroidGrid>
      </div>
 
 
@@ -215,7 +224,7 @@ export default function Photography() {
 />
 
       {/* Photography feature section */}
-      <NarrativeFeatureSection style={featureSectionStyle}>
+      <NarrativeFeatureSection>
         <ImageTextSplit imageSrc={eighteen} imageWebp={eighteenWebp} imageAvif={eighteenAvif} imageAlt="Film photograph of 1821 in Chicago">
           <ArtHeader>1821 (Chicago)</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -245,7 +254,7 @@ export default function Photography() {
 
  
       {/* Photography feature section */}
-      <NarrativeFeatureSection style={featureSectionStyle}>
+      <NarrativeFeatureSection>
         <ImageTextSplit imageSrc={kevin} imageWebp={kevinWebp} imageAvif={kevinAvif} imageAlt="Portrait photograph of Kevin taken on Holga 120N film">
           <ArtHeader>KEVIN</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -291,7 +300,7 @@ export default function Photography() {
 
   
       {/* Photography feature section */}
-      <NarrativeFeatureSection style={featureSectionStyle}>
+      <NarrativeFeatureSection>
         <ImageTextSplit imageSrc={goog} imageWebp={googWebp} imageAvif={googAvif} imageAlt="Film photograph titled GOOG">
           <ArtHeader>GOOG</ArtHeader>
           <ArtYear>2021</ArtYear>
@@ -338,7 +347,7 @@ width: "100vw",
 
 
       {/* Photography feature section */}
-      <NarrativeFeatureSection style={featureSectionStyle}>
+      <NarrativeFeatureSection>
         <ImageTextSplit imageSrc={Avalon} imageWebp={AvalonWebp} imageAvif={AvalonAvif} imageAlt="Film photograph of Avalon Theatre in Portland, Oregon">
           <ArtHeader>Avalon Theatre (Portland, OR)</ArtHeader>
           <ArtYear>2021</ArtYear>

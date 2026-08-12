@@ -1,8 +1,9 @@
 import React, { Suspense, lazy, useCallback, useEffect, useState } from "react";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import './App.css';
 import Customcursor from "./components/CustomCursor/customcursor";
+import Footer from "./components/Footer/Footer";
 
 // Themes
 import { GlobalStyles, lightTheme, darkTheme, tokens } from '@zackmactavish/foundation'
@@ -16,6 +17,7 @@ const Composition = lazy(() => import("./pages/COMPOSITION/Composition"));
 const Dwelling = lazy(() => import("./pages/Dwelling/Dwelling"));
 const Graffiti = lazy(() => import("./pages/3d/MergedGraffiti"));
 const Photography = lazy(() => import("./pages/Photography/Photography"));
+const CV = lazy(() => import("./pages/CV/CV"));
 
 // Combined Artworks Page
 const Artworks = lazy(() => import("./pages/Printmaking/Artworks"));
@@ -26,6 +28,11 @@ const LandingPage = lazy(() => import("./pages/Landing_Page/LandingPage"));
 
 const THEME_STORAGE_KEY = 'zackmactavish-theme';
 const CURSOR_STORAGE_KEY = 'zackmactavish-cursor';
+
+const RouteLoadingShell = styled.div`
+  min-height: 100vh;
+  background: ${(props) => props.theme.pageBackground};
+`;
 
 const canUseCustomCursor = () => {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
@@ -196,10 +203,6 @@ function AppRoutes({ theme }) {
     return () => window.removeEventListener('keydown', toggleCustomCursor, { capture: true });
   }, []);
 
-  useEffect(() => {
-    setShowNav(location.pathname !== "/");
-  }, [location.pathname]);
-
   return (
     <>
       {customCursorActive ? (
@@ -211,7 +214,7 @@ function AppRoutes({ theme }) {
         </Suspense>
       ) : null}
 
-      <Suspense fallback={null}>
+      <Suspense fallback={<RouteLoadingShell aria-hidden="true" />}>
         <Routes>
           <Route path="/" element={<HomeRoute onIntroReady={handleIntroReady} />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
@@ -221,9 +224,11 @@ function AppRoutes({ theme }) {
           <Route path="/dwelling" element={<Dwelling />} />
           <Route path="/photography" element={<Photography />} />
           <Route path="/printmaking" element={<Artworks />} />
+          <Route path="/cv" element={<CV />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      {showNav ? <Footer /> : null}
     </>
   );
 }
