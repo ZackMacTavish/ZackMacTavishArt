@@ -29,6 +29,24 @@
     <meta name="twitter:image" content="https://zackmactavish.com/og/3d.jpg" />
     <meta name="twitter:image:alt" content="3D rendered house composition from Zack MacTavish — 3D &amp; Graffiti work." />
     <script>
+      (function () {
+        var theme = 'light';
+
+        try {
+          theme = window.localStorage.getItem('zackmactavish-theme') === 'dark' ? 'dark' : 'light';
+        } catch (error) {
+          theme = 'light';
+        }
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+
+        var themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+          themeColor.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#f3f0e8');
+        }
+      })();
+
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'manual';
       }
@@ -62,12 +80,24 @@
     <link rel="apple-touch-icon" sizes="192x192" href="/logo192.png" />
 
     <style>
+      :root {
+        --initial-background: #f3f0e8;
+        --initial-text: #181818;
+        --initial-muted: rgba(24, 24, 24, 0.68);
+      }
+
+      :root[data-theme='dark'] {
+        --initial-background: #0a0a0a;
+        --initial-text: #f3f0e8;
+        --initial-muted: rgba(243, 240, 232, 0.68);
+      }
+
       html,
       body,
       #root {
         margin: 0;
         min-height: 100%;
-        background: #0a0a0a;
+        background: var(--initial-background);
       }
 
       /* Static landing skeleton — painted instantly on first byte for mobile.
@@ -75,7 +105,7 @@
          mobile header in src/pages/Landing_Page/LandingPage.jsx so there is no
          layout shift. */
       #landing-skeleton {
-        color: #f3f0e8;
+        color: var(--initial-text);
         min-height: 100vh;
         padding: 0 1rem;
         box-sizing: border-box;
@@ -86,7 +116,7 @@
         font-size: 0.72rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: rgba(243, 240, 232, 0.68);
+        color: var(--initial-muted);
         margin: 0 0 0.75rem;
       }
       #landing-skeleton h1 {
@@ -101,16 +131,16 @@
         font-family: 'Space Grotesk', system-ui, sans-serif;
         font-size: 1rem;
         line-height: 1.6;
-        color: rgba(243, 240, 232, 0.82);
+        color: var(--initial-muted);
         margin: 1rem 0 0;
       }
     </style>
 
     <title>3D &amp; Graffiti | Zack MacTavish Art &amp; Design</title>
-    <script type="module" crossorigin src="/assets/index-01WR7sWp.js"></script>
+    <script type="module" crossorigin src="/assets/index-CJ9-irDe.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/three-BgQdTZ1w.js">
     <link rel="modulepreload" crossorigin href="/assets/react-three-BKJczYnz.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-zEtQuIES.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-Bj_INVxu.css">
       <script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"3D & Graffiti Series","url":"https://zackmactavish.com/3d","author":{"@type":"Person","name":"Zack MacTavish","alternateName":["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],"sameAs":["https://dribbble.com/Zmactavish","https://www.instagram.com/zackmichaelmactavish","https://www.linkedin.com/in/zacharymactavish/","https://github.com/ZackMacTavish","https://medium.com/@zmactavish"]}}</script>
   </head>
   <body>
