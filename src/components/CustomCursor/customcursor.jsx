@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalCursorStyle = createGlobalStyle`
@@ -15,6 +16,8 @@ const AppCursorstyles = styled.div`
   backdrop-filter: blur(6px);
   pointer-events: none;
   position: fixed;
+  top: 0;
+  left: 0;
   transform: translate3d(0,0,0) translate(-50%, -50%) scale(1);
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   will-change: transform;
@@ -33,6 +36,7 @@ const AppCursorstyles = styled.div`
 const CustomCursor = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [portalTarget, setPortalTarget] = useState(() => document.fullscreenElement || document.body);
   const cursorRef = useRef(null);
   const hoveredRef = useRef(false);
   const target = useRef({ x: 0, y: 0 });
@@ -60,6 +64,15 @@ const CustomCursor = () => {
       mediaReduce.removeEventListener('change', checkMobile);
       mediaCoarse.removeEventListener('change', checkMobile);
     };
+  }, []);
+
+  useEffect(() => {
+    const syncPortalTarget = () => {
+      setPortalTarget(document.fullscreenElement || document.body);
+    };
+
+    document.addEventListener('fullscreenchange', syncPortalTarget);
+    return () => document.removeEventListener('fullscreenchange', syncPortalTarget);
   }, []);
 
   useEffect(() => {
@@ -147,7 +160,7 @@ const CustomCursor = () => {
   return (
     <>
       <GlobalCursorStyle />
-      <AppCursorstyles ref={cursorRef} />
+      {createPortal(<AppCursorstyles ref={cursorRef} />, portalTarget)}
     </>
   );
 };

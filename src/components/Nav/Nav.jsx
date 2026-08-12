@@ -237,6 +237,17 @@ const ListItem = styled.li`
      On touch devices iOS/Android emulate :hover on first tap which would
      reveal this dropdown and require a second tap to fire onClick. */
   @media (hover: hover) and (pointer: fine) {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 8rem;
+      height: 4vh;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
     &:hover > div {
       display: block;
     }
@@ -259,8 +270,9 @@ const NavLink = styled(Link)`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: calc(50% + 4vh);
+  left: 50%;
+  transform: translateX(-50%);
   background-color: rgba(74, 74, 74, 0.9);
   backdrop-filter: blur(6px);
   border-radius: 0.25rem;

@@ -9,6 +9,7 @@ import { Seo, Grid60, ImageTextSplit } from '../../foundation/adapter'
 import { useLocation } from 'react-router-dom'
 import { canonicalFromLocation, visuallyHiddenHeadingStyle } from '../../utils/seo'
 import ResponsiveImage from '../../components/Images/ResponsiveImage';
+import BookFlip from '../../components/BookFlip/BookFlip';
 
 const AUTHOR_SAME_AS = [
   'https://dribbble.com/Zmactavish',
@@ -644,19 +645,8 @@ export default function Composition() {
       I self-published a limited edition book for Composition. All 30 copies sold during the run of the series, and the book extended the exhibition's interest in journaling, documentation, and building an archive around the work.
     </SplitTextComp>
   </ImageTextSplit>
-  {/* Embedded flipbook iframe section */}
-    <div style={{ width: '100vw', background: '#f5f5f5', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '4vh 0' }}>
-      <iframe
-        width="1200px"
-        height="900px"
-        src="https://mixam.com/shares/60d165ccbf9efd41ff33dad2/embed"
-        loading="lazy"
-        allowFullScreen={true}
-  // allowTransparency removed: not a valid React DOM attribute
-        frameBorder="0"
-        style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.08)', borderRadius: '8px', background: 'white' }}
-        title="Composition Art Book Flip Through"
-      />
+  <div style={{ width: '100vw', background: '#f5f5f5', padding: '4vh 0' }}>
+      <BookFlip />
     </div>
 </div>
 
