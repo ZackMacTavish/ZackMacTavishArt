@@ -1,4 +1,4 @@
-import{b as T,R as p}from"./react-three-BKJczYnz.js";import{y as C,m as E,l as s}from"./index-C0yBYRFJ.js";function G({title:e,description:a,image:o,url:x,keywords:m}){return T.useEffect(()=>{const n=document;e&&(n.title=e);const i=(l,c,g)=>{let r=`meta[${l}='${c}']`,h=n.head.querySelector(r);h||(h=n.createElement("meta"),h.setAttribute(l,c),n.head.appendChild(h)),g&&h.setAttribute("content",g)},u=(l,c)=>{let g=`link[rel='${l}']`,r=n.head.querySelector(g);r||(r=n.createElement("link"),r.setAttribute("rel",l),n.head.appendChild(r)),c&&r.setAttribute("href",c)},d=x||(typeof window<"u"?window.location.href:void 0);a&&i("name","description",a),m&&i("name","keywords",Array.isArray(m)?m.join(", "):m),i("property","og:type","website"),e&&i("property","og:title",e),a&&i("property","og:description",a),o&&i("property","og:image",o),d&&i("property","og:url",d),i("name","twitter:card",o?"summary_large_image":"summary"),e&&i("name","twitter:title",e),a&&i("name","twitter:description",a),o&&i("name","twitter:image",o),d&&u("canonical",d)},[e,a,o,x,m]),null}const _=C||G,B=E||null,A=s.section`
+import{b as T,R as p}from"./react-three-BKJczYnz.js";import{y as C,m as E,l as s}from"./index-_Iv7ju2r.js";function G({title:e,description:a,image:o,url:x,keywords:m}){return T.useEffect(()=>{const n=document;e&&(n.title=e);const i=(l,c,g)=>{let r=`meta[${l}='${c}']`,h=n.head.querySelector(r);h||(h=n.createElement("meta"),h.setAttribute(l,c),n.head.appendChild(h)),g&&h.setAttribute("content",g)},u=(l,c)=>{let g=`link[rel='${l}']`,r=n.head.querySelector(g);r||(r=n.createElement("link"),r.setAttribute("rel",l),n.head.appendChild(r)),c&&r.setAttribute("href",c)},d=x||(typeof window<"u"?window.location.href:void 0);a&&i("name","description",a),m&&i("name","keywords",Array.isArray(m)?m.join(", "):m),i("property","og:type","website"),e&&i("property","og:title",e),a&&i("property","og:description",a),o&&i("property","og:image",o),d&&i("property","og:url",d),i("name","twitter:card",o?"summary_large_image":"summary"),e&&i("name","twitter:title",e),a&&i("name","twitter:description",a),o&&i("name","twitter:image",o),d&&u("canonical",d)},[e,a,o,x,m]),null}const _=C||G,B=E||null,A=s.section.attrs(e=>({"data-narrative-feature":"true","data-preserve-spacing":e.$preserveSpacing?"true":void 0}))`
 	width: 100%;
 	box-sizing: border-box;
 	padding-block: ${e=>e.$spacing==="compact"?"var(--space-section-compact)":e.$spacing==="spacious"?"var(--space-section-spacious)":"var(--space-section)"};
@@ -6,6 +6,14 @@ import{b as T,R as p}from"./react-three-BKJczYnz.js";import{y as C,m as E,l as s
 	color: ${e=>e.theme.narrativeText};
 	content-visibility: auto;
 	contain-intrinsic-size: 1200px;
+
+	&:has(+ [data-narrative-feature]:not([data-preserve-spacing])) {
+		padding-bottom: 0;
+	}
+
+	[data-narrative-feature] + &:not([data-preserve-spacing]) {
+		padding-top: 0;
+	}
 
 	h1,
 	h2,
@@ -164,7 +172,7 @@ import{b as T,R as p}from"./react-three-BKJczYnz.js";import{y as C,m as E,l as s
 
 		img {
 			width: ${e=>e.$imageMode==="framed"?"auto":"100%"};
-			max-width: ${e=>e.$mobileImageMaxWidth||e.$mobilePictureWidth||"92vw"};
+			max-width: ${e=>e.$imageMode==="framed"?"100%":e.$mobileImageMaxWidth||e.$mobilePictureWidth||"92vw"};
 			max-height: none;
 			min-height: 120px;
 			border-radius: 16px;

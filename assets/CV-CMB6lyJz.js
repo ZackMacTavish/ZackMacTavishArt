@@ -1,4 +1,4 @@
-import{b as u,j as a}from"./react-three-BKJczYnz.js";import{u as f,l as i,h as y}from"./index-C0yBYRFJ.js";import{c as x,S as b}from"./seo-CO2rvSk5.js";import{c as C}from"./createLucideIcon-BLj1Zo3d.js";import"./three-BgQdTZ1w.js";const v=[["path",{d:"M12 15V3",key:"m9g1x1"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",key:"ih7n3h"}],["path",{d:"m7 10 5 5 5-5",key:"brsn70"}]],S=C("download",v),A="/Zachary-MacTavish-Artist-CV-2026.pdf",w="Artist CV inquiry",j=`Hi Zachary,
+import{b as u,j as a}from"./react-three-BKJczYnz.js";import{u as f,l as i,h as y}from"./index-_Iv7ju2r.js";import{c as x,S as b}from"./seo-Da0DYCYc.js";import{c as C}from"./createLucideIcon-BLj1Zo3d.js";import"./three-BgQdTZ1w.js";const v=[["path",{d:"M12 15V3",key:"m9g1x1"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",key:"ih7n3h"}],["path",{d:"m7 10 5 5 5-5",key:"brsn70"}]],S=C("download",v),A="/Zachary-MacTavish-Artist-CV-2026.pdf",w="Artist CV inquiry",j=`Hi Zachary,
 
 I'm reaching out regarding your artwork and CV.
 

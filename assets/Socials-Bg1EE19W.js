@@ -1,4 +1,4 @@
-import{j as a}from"./react-three-BKJczYnz.js";import{i as n,d as s,a as l,b as o,g as c,l as i}from"./index-C0yBYRFJ.js";import"./three-BgQdTZ1w.js";const d=i.div`
+import{j as a}from"./react-three-BKJczYnz.js";import{i as n,d as s,a as l,b as o,g as c,l as i}from"./index-_Iv7ju2r.js";import"./three-BgQdTZ1w.js";const d=i.div`
 position: absolute;
 bottom: 2vw;
 display: flex;
