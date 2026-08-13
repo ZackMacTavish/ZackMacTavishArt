@@ -66,6 +66,9 @@ const siteThemes = {
     controlBackground: '#181818',
     controlText: '#f3f0e8',
     controlBorder: 'rgba(24, 24, 24, 0.2)',
+    landingControlBackground: 'rgba(255, 255, 255, 0.78)',
+    landingControlText: '#181818',
+    landingControlBorder: 'rgba(24, 24, 24, 0.16)',
     narrativeBackground: '#ffffff',
     narrativeText: '#222222',
     artworkBackground: '#ffffff',
@@ -89,6 +92,9 @@ const siteThemes = {
     controlBackground: 'rgba(10, 10, 10, 0.82)',
     controlText: '#f3f0e8',
     controlBorder: 'rgba(243, 240, 232, 0.2)',
+    landingControlBackground: 'rgba(10, 10, 10, 0.72)',
+    landingControlText: '#f3f0e8',
+    landingControlBorder: 'rgba(243, 240, 232, 0.2)',
     narrativeBackground: '#0a0a0a',
     narrativeText: '#f3f0e8',
     artworkBackground: '#ffffff',
@@ -151,7 +157,7 @@ function HomeRoute({ onIntroReady }) {
   return <IntroAnimation onIntroReady={onIntroReady} />;
 }
 
-function AppRoutes({ theme }) {
+function AppRoutes({ theme, onToggleTheme }) {
   const location = useLocation();
   const [showNav, setShowNav] = useState(location.pathname !== "/");
   const [customCursorAvailable, setCustomCursorAvailable] = useState(canUseCustomCursor);
@@ -210,7 +216,7 @@ function AppRoutes({ theme }) {
       ) : null}
       {showNav ? (
         <Suspense fallback={null}>
-          <Nav themeMode={theme} customCursorActive={customCursorActive} hidden={!showNav} />
+          <Nav themeMode={theme} onToggleTheme={onToggleTheme} customCursorActive={customCursorActive} hidden={!showNav} />
         </Suspense>
       ) : null}
 
@@ -236,14 +242,40 @@ function AppRoutes({ theme }) {
 function App() {
   const [theme, setTheme] = useState(() => {
     if (typeof window === 'undefined') return 'light';
-    return window.localStorage.getItem(THEME_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (storedTheme === 'light' || storedTheme === 'dark') return storedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+  const [followsSystemTheme, setFollowsSystemTheme] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return storedTheme !== 'light' && storedTheme !== 'dark';
   });
 
   useEffect(() => {
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    if (!followsSystemTheme) return undefined;
+
+    const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const syncSystemTheme = () => setTheme(colorScheme.matches ? 'dark' : 'light');
+
+    syncSystemTheme();
+    colorScheme.addEventListener('change', syncSystemTheme);
+    return () => colorScheme.removeEventListener('change', syncSystemTheme);
+  }, [followsSystemTheme]);
+
+  const handleToggleTheme = useCallback(() => {
+    setFollowsSystemTheme(false);
+    setTheme((currentTheme) => {
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      return nextTheme;
+    });
+  }, []);
 
   useEffect(() => {
     const toggleTheme = (event) => {
@@ -254,12 +286,12 @@ function App() {
       if (event.repeat || event.metaKey || event.ctrlKey || event.altKey || isEditable) return;
       if (event.key !== 'd' && event.key !== 'D') return;
 
-      setTheme((currentTheme) => currentTheme === 'light' ? 'dark' : 'light');
+      handleToggleTheme();
     };
 
     window.addEventListener('keydown', toggleTheme);
     return () => window.removeEventListener('keydown', toggleTheme);
-  }, []);
+  }, [handleToggleTheme]);
 
   const GS = GlobalStyles || GlobalStyles
 
@@ -268,7 +300,7 @@ function App() {
       <GS />
       <div className="App">
         <Router>
-          <AppRoutes theme={theme} />
+          <AppRoutes theme={theme} onToggleTheme={handleToggleTheme} />
         </Router>
       {import.meta.env.DEV ? <DevAgentation /> : null}
     </div>

@@ -459,7 +459,7 @@ const About = () => {
       {/* ---------- Module 2 removed per request ---------- */}
 
       {/* ---------- Module 3: Quilt + Third Paragraph (ImageTextSplit) ---------- */}
-      <NarrativeFeatureSection style={{ backgroundColor: 'var(--surface-secondary)' }}>
+      <NarrativeFeatureSection $preserveSpacing style={{ backgroundColor: 'var(--surface-secondary)' }}>
         <ImageTextSplit splitSize="medium" imageMaxHeight="500px" imageSrc={quilthanging} imageWebp={quilthangingWebp} imageAvif={quilthangingAvif} imageAlt="Installed quilt from the Dwelling series">
           <SplitQuiltText>
             His current work shifts focus from transition to permanence: the homes, families, 

@@ -38,7 +38,7 @@ export default function LandingPage({ showCarousel = true }) {
   });
   const [useMobileHeaderLayout, setUseMobileHeaderLayout] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-    return window.matchMedia('(max-width: 900px)').matches;
+    return window.matchMedia('(max-width: 979px)').matches;
   });
   const carouselSentinelRef = useRef(null);
 
@@ -154,7 +154,7 @@ export default function LandingPage({ showCarousel = true }) {
   useEffect(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
 
-    const mediaQuery = window.matchMedia('(max-width: 900px)');
+    const mediaQuery = window.matchMedia('(max-width: 979px)');
     const syncLayoutMode = () => setUseMobileHeaderLayout(mediaQuery.matches);
 
     syncLayoutMode();
@@ -276,22 +276,24 @@ export default function LandingPage({ showCarousel = true }) {
             ].map((row, rowIndex) => (
               <div
                 key={rowIndex}
+                className="landing-pill-row"
                 style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', width: 'auto' }}
               >
                 {row.map((item) => (
                   <Link
                     key={item.to}
                     to={item.to}
+                    className="landing-pill"
                     style={{
-                      color: theme.controlText,
+                      color: theme.landingControlText,
                       textDecoration: 'none',
-                      border: `1px solid ${theme.controlBorder}`,
+                      border: `1px solid ${theme.landingControlBorder}`,
                       padding: '0.5rem 0.8rem',
                       borderRadius: '999px',
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: '0.92rem',
                       textAlign: 'center',
-                      backgroundColor: theme.controlBackground,
+                      backgroundColor: theme.landingControlBackground,
                       backdropFilter: disableBackdropBlur ? 'none' : 'blur(6px)',
                     }}
                   >
@@ -336,6 +338,17 @@ export default function LandingPage({ showCarousel = true }) {
         .landing-socials-mobile img {
           width: 44px !important;
           padding: 0.4rem !important;
+        }
+        @media (min-width: 980px) and (max-width: 1090px) {
+          .landing-pill-row {
+            gap: 0.45rem !important;
+            flex-wrap: nowrap !important;
+          }
+          .landing-pill {
+            padding: 0.4rem 0.55rem !important;
+            font-size: 0.78rem !important;
+            white-space: nowrap;
+          }
         }
       `}</style>
 

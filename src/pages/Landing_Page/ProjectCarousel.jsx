@@ -177,6 +177,13 @@ export default function ProjectCarousel() {
       if (useVerticalStack || !section || !row) {
         currentIdxRef.current = 0;
         setShowInteractionCue(false);
+        if (section && useVerticalStack) {
+          section.style.height = 'auto';
+          section.style.minHeight = '100vh';
+          section.style.paddingTop = '1rem';
+          section.style.paddingBottom = '3rem';
+        }
+        if (row) row.style.removeProperty('transform');
 
         teardown = () => {};
 
@@ -203,9 +210,7 @@ export default function ProjectCarousel() {
         const cards = cardRefs.current.filter(Boolean);
         if (!cards.length) return [0];
 
-        const leadInset = section.offsetWidth >= 1400
-          ? Math.min(section.offsetWidth * 0.22, 380)
-          : Math.min(section.offsetWidth * 0.18, 240);
+        const leadInset = Math.min(section.offsetWidth * 0.24, 380);
 
         return cards.map((card) => {
           const centeredLeft = (section.offsetWidth - card.offsetWidth) / 2 + leadInset;
@@ -266,6 +271,14 @@ export default function ProjectCarousel() {
         currentIdxRef.current = newIdx;
       };
 
+      const syncRowToProgress = (progress) => {
+        const currentStartSnap = getStartSnap();
+        const dist = getScrollDist();
+        const currentPosition = currentStartSnap + progress * dist;
+        setRowX(-currentPosition);
+        updateCounter(getNearestIdx(currentPosition));
+      };
+
       refreshMetrics();
       setRowX(-getStartSnap());
 
@@ -281,6 +294,10 @@ export default function ProjectCarousel() {
           refreshMetrics();
           return `+=${getScrollDist()}`;
         },
+        onRefresh: (self) => {
+          refreshMetrics();
+          syncRowToProgress(self.progress);
+        },
         onUpdate: (self) => {
           const currentStartSnap = getStartSnap();
           const dist = getScrollDist();
@@ -293,7 +310,6 @@ export default function ProjectCarousel() {
       });
 
       const handleResize = () => {
-        refreshMetrics();
         ScrollTrigger.refresh();
       };
 
@@ -346,6 +362,7 @@ export default function ProjectCarousel() {
         window.removeEventListener('resize', handleResize);
         section.removeEventListener('wheel', handleWheel);
         stRef.current?.kill();
+        stRef.current = null;
         drag?.kill();
       };
     };
@@ -391,7 +408,7 @@ export default function ProjectCarousel() {
         onMouseMove={stacked ? undefined : (e) => handleMouseMove(e, i)}
         onMouseLeave={stacked ? undefined : () => handleMouseLeave(i)}
         style={{
-          width: stacked ? 'min(92vw, 38rem)' : 'min(70vw, 68rem)',
+          width: stacked ? 'min(92vw, 56rem)' : 'min(70vw, 68rem)',
           height: stacked ? 'auto' : '80vh',
           display: 'flex',
           flexDirection: 'column',
@@ -532,10 +549,12 @@ export default function ProjectCarousel() {
             gap: '0.7rem',
             padding: '0.8rem 1rem',
             borderRadius: '999px',
-            backgroundColor: theme.controlBackground,
-            border: `1px solid ${theme.controlBorder}`,
+            backgroundColor: theme.landingControlBackground,
+            border: `1px solid ${theme.landingControlBorder}`,
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             boxShadow: '0 18px 35px rgba(0,0,0,0.28)',
-            color: theme.controlText,
+            color: theme.landingControlText,
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '0.85rem',
             letterSpacing: '0.06em',
@@ -553,7 +572,7 @@ export default function ProjectCarousel() {
               justifyContent: 'center',
               width: '1.7rem',
               height: '1.7rem',
-              border: `1px solid ${theme.controlBorder}`,
+              border: `1px solid ${theme.landingControlBorder}`,
               borderRadius: '999px',
               animation: showInteractionCue ? 'carouselCueSlide 1.25s ease-in-out 3.6s infinite' : 'none',
             }}
@@ -581,7 +600,7 @@ export default function ProjectCarousel() {
           {!useVerticalStack && <div
             style={{
               flexShrink: 0,
-              width: 'clamp(24rem, 36vw, 40rem)',
+              width: 'calc(clamp(24rem, 36vw, 40rem) + clamp(0rem, calc(22.5rem - 18vw), 6rem))',
             }}
           />}
           {/* Right-side spacer so last card scrolls fully into view */}
@@ -600,12 +619,13 @@ export default function ProjectCarousel() {
         }}
       >
         <div
+          data-name-marquee="true"
           style={{
             display: 'flex',
             whiteSpace: 'nowrap',
             width: 'max-content',
-            animation: useVerticalStack ? 'none' : 'marqueeScroll 15s linear infinite',
-            willChange: useVerticalStack ? 'auto' : 'transform',
+            animation: 'marqueeScroll 15s linear infinite',
+            willChange: 'transform',
           }}
         >
           {[0, 1].map((n) => (
@@ -672,6 +692,11 @@ export default function ProjectCarousel() {
         @media (prefers-reduced-motion: reduce) {
           [data-carousel-card='true'] {
             transition: none !important;
+          }
+
+          [data-name-marquee='true'] {
+            animation: none !important;
+            will-change: auto !important;
           }
         }
       `}</style>

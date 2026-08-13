@@ -10,7 +10,10 @@ export const Seo = FoundationSeo || SEOFallback
 
 export const Grid60 = FoundationGrid60 || null
 
-export const NarrativeFeatureSection = styled.section`
+export const NarrativeFeatureSection = styled.section.attrs(props => ({
+	'data-narrative-feature': 'true',
+	'data-preserve-spacing': props.$preserveSpacing ? 'true' : undefined,
+}))`
 	width: 100%;
 	box-sizing: border-box;
 	padding-block: ${props => {
@@ -22,6 +25,14 @@ export const NarrativeFeatureSection = styled.section`
 	color: ${props => props.theme.narrativeText};
 	content-visibility: auto;
 	contain-intrinsic-size: 1200px;
+
+	&:has(+ [data-narrative-feature]:not([data-preserve-spacing])) {
+		padding-bottom: 0;
+	}
+
+	[data-narrative-feature] + &:not([data-preserve-spacing]) {
+		padding-top: 0;
+	}
 
 	h1,
 	h2,
@@ -245,7 +256,7 @@ const SplitMedia = styled.div`
 
 		img {
 			width: ${props => (props.$imageMode === 'framed' ? 'auto' : '100%')};
-			max-width: ${props => props.$mobileImageMaxWidth || props.$mobilePictureWidth || '92vw'};
+			max-width: ${props => (props.$imageMode === 'framed' ? '100%' : props.$mobileImageMaxWidth || props.$mobilePictureWidth || '92vw')};
 			max-height: none;
 			min-height: 120px;
 			border-radius: 16px;

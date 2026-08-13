@@ -384,6 +384,48 @@ const TwoImageGrid = styled(SharedTwoImageGrid)`
 
 const ThreeImageGrid = styled(SharedFramedThreeImageGrid)`
   --art-image-blend: multiply;
+
+  &.joined-row-start {
+    padding-bottom: 8px;
+  }
+
+  &.joined-row-end {
+    padding-top: 8px;
+  }
+
+  &.portrait-large > img,
+  &.portrait-large > picture {
+    flex: 0 0 calc((100% - 3rem) / 3);
+    width: calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+  }
+
+  @media (max-width: 900px) {
+    &.joined-row-start {
+      padding-bottom: calc(var(--space-grid-gap) / 2);
+    }
+
+    &.joined-row-end {
+      padding-top: calc(var(--space-grid-gap) / 2);
+    }
+
+    && > img,
+    && > picture {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: var(--art-cell-height);
+      max-height: none;
+    }
+
+    &.portrait-large > img,
+    &.portrait-large > picture {
+      flex-basis: auto;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 `;
 
 // ===================== COMPONENT =====================
@@ -531,7 +573,7 @@ export default function Artworks() {
  </div>
 
             <RisoFlex>
-              <RisoItem as={ResponsiveImage} $Width="60vw" src={oliviacollab3} webpSrc={oliviacollab3Webp} avifSrc={oliviacollab3Avif} alt="Olivia collaboration portrait" />
+              <RisoItem as={ResponsiveImage} $Width="60vw" src={oliviacollab3} webpSrc={oliviacollab3Webp} avifSrc={oliviacollab3Avif} alt="Olivia collaboration portrait" width={3515} height={2915} />
             </RisoFlex>
 
              <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
@@ -565,7 +607,7 @@ export default function Artworks() {
       {/* ===================== PAINTING SECTION ===================== */}
    
      
-     <FullHeightTextSection>
+          <FullHeightTextSection>
   <TextContainer>
     <TextContent>
       I often look for ways to capture moments from my life. Painting gives me a way to work through shape, color, and atmosphere.
@@ -620,7 +662,7 @@ export default function Artworks() {
       </NarrativeFeatureSection>
 
 <RisoFlex style={{ paddingBottom: "100px" }}>
-  <RisoItem as={ResponsiveImage} $Width="55vw" src={selfie} webpSrc={selfieWebp} avifSrc={selfieAvif} alt="Self portrait" />
+  <RisoItem as={ResponsiveImage} $Width="55vw" src={selfie} webpSrc={selfieWebp} avifSrc={selfieAvif} alt="Self portrait" width={3964} height={3285} />
 </RisoFlex>
 
 
@@ -637,7 +679,7 @@ export default function Artworks() {
       {/* ===================== COLLAGES SECTION ===================== */}
    
    
-       <FullHeightTextSection>
+        <FullHeightTextSection>
   <TextContainer>
     <TextContent>
       Collaging is a playful way for me to explore composition, shape, and color.  
@@ -663,7 +705,7 @@ export default function Artworks() {
                
                    <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread1} webpSrc={spread1Webp} avifSrc={spread1Avif} alt="Collage sketchbook spread 1" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread1} webpSrc={spread1Webp} avifSrc={spread1Avif} alt="Collage sketchbook spread 1" width={3938} height={3117} />
    
    </RisoFlex>
    
@@ -684,7 +726,7 @@ export default function Artworks() {
    
    <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread2} webpSrc={spread2Webp} avifSrc={spread2Avif} alt="Collage sketchbook spread 2" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread2} webpSrc={spread2Webp} avifSrc={spread2Avif} alt="Collage sketchbook spread 2" width={3939} height={2958} />
    
    </RisoFlex>
    
@@ -702,7 +744,7 @@ export default function Artworks() {
    
                <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread3} webpSrc={spread3Webp} avifSrc={spread3Avif} alt="Collage sketchbook spread 3" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread3} webpSrc={spread3Webp} avifSrc={spread3Avif} alt="Collage sketchbook spread 3" width={3939} height={3128} />
    
    </RisoFlex>
    
@@ -720,7 +762,7 @@ export default function Artworks() {
                                 
                    <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread4} webpSrc={spread4Webp} avifSrc={spread4Avif} alt="Collage sketchbook spread 4" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread4} webpSrc={spread4Webp} avifSrc={spread4Avif} alt="Collage sketchbook spread 4" width={3995} height={3174} />
    
    </RisoFlex>
    
@@ -738,7 +780,7 @@ export default function Artworks() {
       
                    <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread5} webpSrc={spread5Webp} avifSrc={spread5Avif} alt="Collage sketchbook spread 5" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread5} webpSrc={spread5Webp} avifSrc={spread5Avif} alt="Collage sketchbook spread 5" width={3884} height={3085} />
    
    </RisoFlex>
    
@@ -756,7 +798,7 @@ export default function Artworks() {
    
                    <RisoFlex >
    
-  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread6} webpSrc={spread6Webp} avifSrc={spread6Avif} alt="Collage sketchbook spread 6" />
+  <RisoItem as={ResponsiveImage} $Width='60vw' src={spread6} webpSrc={spread6Webp} avifSrc={spread6Avif} alt="Collage sketchbook spread 6" width={3906} height={3147} />
    
    </RisoFlex>
    {/* Section with 3 photos */}
@@ -778,6 +820,8 @@ export default function Artworks() {
     webpSrc={raptureWebp}
     avifSrc={raptureAvif}
     alt="Collage artwork titled Dabs Myla Remix"
+    width={5880}
+    height={3806}
     imgStyle={{ borderRadius: '18px' }}
   />
  </RisoFlex>
@@ -785,7 +829,7 @@ export default function Artworks() {
                     {/* Section with 3 photos */}
 
                     <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
-                      <ThreeImageGrid className="large">
+                      <ThreeImageGrid className="large joined-row-start">
                         <ResponsiveImage src={collage46} webpSrc={collage46Webp} avifSrc={collage46Avif} alt="Abstract collage artwork 46" />
                         <ResponsiveImage src={collage33} webpSrc={collage33Webp} avifSrc={collage33Avif} alt="Abstract collage artwork 33" />
                         <ResponsiveImage src={collage49} webpSrc={collage49Webp} avifSrc={collage49Avif} alt="Abstract collage artwork 49" />
@@ -793,7 +837,7 @@ export default function Artworks() {
                     </div>
 
          <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
-           <ThreeImageGrid className="large" style={{ backgroundColor: 'transparent' }}>
+           <ThreeImageGrid className="large joined-row-end" style={{ backgroundColor: 'transparent' }}>
              <ResponsiveImage src={collage41} webpSrc={collage41Webp} avifSrc={collage41Avif} alt="Abstract collage artwork 41" />
              <ResponsiveImage src={collage42} webpSrc={collage42Webp} avifSrc={collage42Avif} alt="Abstract collage artwork 42" />
              <ResponsiveImage src={collage43} webpSrc={collage43Webp} avifSrc={collage43Avif} alt="Abstract collage artwork 43" />

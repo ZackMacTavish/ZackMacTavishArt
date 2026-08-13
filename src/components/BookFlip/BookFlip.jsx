@@ -1,7 +1,14 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronFirst, ChevronLeft, ChevronRight, Expand, Shrink } from 'lucide-react';
 import styled from 'styled-components';
+
+const PAGE_ASPECT_RATIO = 424 / 600;
+
+const getEmbeddedPageHeight = () => {
+  if (typeof window === 'undefined') return 719;
+  return Math.max(320, Math.min(719, window.innerHeight - 129));
+};
 
 const Viewer = styled.section`
   width: min(92vw, 1240px);
@@ -32,9 +39,9 @@ const Stage = styled.div`
   align-items: center;
   justify-content: center;
   width: ${({ $isFullscreen }) => $isFullscreen ? 'min(96vw, 1200px)' : 'min(92vw, 1016px)'};
-  height: clamp(460px, 62vw, 720px);
+  height: clamp(320px, min(62vw, calc(100svh - 8rem)), 720px);
   margin: 0 auto;
-  overflow: hidden;
+  overflow: ${({ $isFlipping }) => $isFlipping ? 'visible' : 'hidden'};
   outline: none;
 
   &:focus-visible {
@@ -44,10 +51,21 @@ const Stage = styled.div`
 
   .book-flipbook {
     position: relative;
+    left: ${({ $pixelOffset }) => `${$pixelOffset}px`};
     z-index: 1;
     transform: translateX(${({ $coverPosition }) => $coverPosition === 'front' ? '-25%' : $coverPosition === 'back' ? '25%' : '0'});
     transition: transform 700ms ease;
   }
+
+  ${({ $coverPosition }) => $coverPosition === 'open' ? `
+    .book-flipbook .stf__item.--left > img {
+      clip-path: inset(0 2px 0 0);
+    }
+
+    .book-flipbook .stf__item.--right > img {
+      clip-path: inset(0 0 0 2px);
+    }
+  ` : ''}
 
   @media (max-width: 700px) {
     width: 100%;
@@ -59,6 +77,8 @@ const Stage = styled.div`
 const Page = styled.div`
   overflow: hidden;
   background: #fff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 `;
 
 const PageImage = styled.img`
@@ -70,6 +90,8 @@ const PageImage = styled.img`
   background: #fff;
   user-select: none;
   -webkit-user-drag: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 `;
 
 const Status = styled.div`
@@ -173,6 +195,9 @@ export default function BookFlip({ assetDirectory = 'composition-book', bookTitl
   const [isCoverOpening, setIsCoverOpening] = useState(false);
   const [isCoverClosing, setIsCoverClosing] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [pixelOffset, setPixelOffset] = useState(0);
+  const [embeddedPageHeight, setEmbeddedPageHeight] = useState(getEmbeddedPageHeight);
   const [error, setError] = useState('');
   const isFrontCover = currentPage === 0;
   const isBackCover = pages.length > 0 && currentPage === pages.length - 1;
@@ -200,6 +225,41 @@ export default function BookFlip({ assetDirectory = 'composition-book', bookTitl
 
     return () => controller.abort();
   }, [assetDirectory]);
+
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return undefined;
+
+    const alignBookToPixel = () => {
+      const bounds = stage.getBoundingClientRect();
+      const center = (bounds.left + bounds.right) / 2;
+      setPixelOffset(Math.round(center) - center);
+    };
+
+    alignBookToPixel();
+    const observer = new ResizeObserver(alignBookToPixel);
+    observer.observe(stage);
+    window.addEventListener('resize', alignBookToPixel);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', alignBookToPixel);
+    };
+  }, []);
+
+  useEffect(() => {
+    let resizeTimeout;
+    const updatePageSize = () => {
+      window.clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(() => setEmbeddedPageHeight(getEmbeddedPageHeight()), 120);
+    };
+
+    window.addEventListener('resize', updatePageSize);
+    return () => {
+      window.clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', updatePageSize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -258,23 +318,25 @@ export default function BookFlip({ assetDirectory = 'composition-book', bookTitl
         tabIndex={0}
         onKeyDown={handleKeyDown}
         $isFullscreen={isFullscreen}
+        $isFlipping={isFlipping}
         $isSinglePage={showFrontCover || isBackCover}
         $coverPosition={showFrontCover ? 'front' : isBackCover ? 'back' : 'open'}
+        $pixelOffset={pixelOffset}
       >
         {error && <Status role="alert">{error}</Status>}
         {!error && pages.length === 0 && <Status role="status">Loading book...</Status>}
         {pages.length > 0 && (
           <HTMLFlipBook
-            key={isFullscreen ? 'fullscreen' : 'embedded'}
+            key={isFullscreen ? 'fullscreen' : `embedded-${embeddedPageHeight}`}
             ref={bookRef}
             startPage={currentPage}
             width={424}
             height={600}
             size="stretch"
             minWidth={120}
-            maxWidth={isFullscreen ? 600 : 508}
+            maxWidth={isFullscreen ? 600 : Math.round(embeddedPageHeight * PAGE_ASPECT_RATIO)}
             minHeight={170}
-            maxHeight={isFullscreen ? 849 : 719}
+            maxHeight={isFullscreen ? 849 : embeddedPageHeight}
             drawShadow={false}
             showCover
             usePortrait={false}
@@ -283,8 +345,12 @@ export default function BookFlip({ assetDirectory = 'composition-book', bookTitl
             flippingTime={700}
             onFlip={(event) => setCurrentPage(event.data)}
             onChangeState={(event) => {
-              if (event.data === 'flipping' && isFrontCover) setIsCoverOpening(true);
+              if (event.data === 'flipping') {
+                setIsFlipping(true);
+                if (isFrontCover) setIsCoverOpening(true);
+              }
               if (event.data === 'read') {
+                setIsFlipping(false);
                 setIsCoverOpening(false);
                 setIsCoverClosing(false);
               }

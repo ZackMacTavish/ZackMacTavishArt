@@ -526,6 +526,16 @@ export const TwoImageGrid = styled.div`
     padding-right: clamp(24px, 3vw, 48px);
   }
 
+  &.rounded-corners > img,
+  &.rounded-corners > picture {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  &.rounded-corners > picture > img {
+    border-radius: inherit;
+  }
+
   /* force two images to stay on a single row (desktop) */
   &.one-row {
     flex-wrap: nowrap;
@@ -806,7 +816,7 @@ export default function Dwelling() {
           `}</style>
           {/* Top housemash images horizontally */}
          <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
-           <TwoImageGrid className="large">
+           <TwoImageGrid className="large rounded-corners">
                <ResponsiveImage src={housemash} webpSrc={housemashWebp} webpSrcSet={`${housemashWebp640} 640w, ${housemashWebp960} 960w, ${housemashWebp} 2200w`} avifSrc={housemashAvif} avifSrcSet={`${housemashAvif640} 640w, ${housemashAvif960} 960w, ${housemashAvif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage from the Dwelling series" width={4000} height={3000} loading="eager" decoding="sync" fetchPriority="high" />
                <ResponsiveImage src={housemash2} webpSrc={housemash2Webp} webpSrcSet={`${housemash2Webp640} 640w, ${housemash2Webp960} 960w, ${housemash2Webp} 2200w`} avifSrc={housemash2Avif} avifSrcSet={`${housemash2Avif640} 640w, ${housemash2Avif960} 960w, ${housemash2Avif} 2200w`} sizes="(max-width: 900px) 92vw, 47vw" alt="Layered house collage with stitched details from the Dwelling series" width={4000} height={3000} loading="lazy" decoding="async" />
            </TwoImageGrid>
@@ -866,10 +876,12 @@ export default function Dwelling() {
 
           {/* DWELLING MASH I Section (formerly DWELLING MASH II) */}
 
-<TwoImageGrid>
-  <ResponsiveImage src={house1} webpSrc={house1Webp} avifSrc={house1Avif} alt="Dwelling collage of a house exterior" imgStyle={{ transform: "scale(0.9)" }} />
-  <ResponsiveImage src={house2} webpSrc={house2Webp} avifSrc={house2Avif} alt="Dwelling collage of a layered house exterior" imgStyle={{ transform: "scale(0.9)" }} />
-</TwoImageGrid>
+<div style={{ width: '100%', backgroundColor: 'var(--surface-primary)' }}>
+  <TwoImageGrid className="one-row rounded-corners">
+    <ResponsiveImage src={house1} webpSrc={house1Webp} avifSrc={house1Avif} alt="Dwelling collage of a house exterior" imgStyle={{ transform: "scale(0.9)" }} />
+    <ResponsiveImage src={house2} webpSrc={house2Webp} avifSrc={house2Avif} alt="Dwelling collage of a layered house exterior" imgStyle={{ transform: "scale(0.9)" }} />
+  </TwoImageGrid>
+</div>
 
           {/* Quilt 1, Quilt 2, Quilt 3 as ImageTextSplit blocks on white */}
 <NarrativeFeatureSection>
@@ -971,7 +983,7 @@ export default function Dwelling() {
 
           {/* Final DWELLING MASH section */}
           <div style={{ backgroundColor: 'var(--surface-primary)', width: '100vw' }}>
-            <ThreeImageGrid className="large roomy">
+            <ThreeImageGrid className="large roomy rounded-corners">
               <ResponsiveImage src={house3} webpSrc={house3Webp} avifSrc={house3Avif} alt="Dwelling collage of a neighborhood house" />
               <ResponsiveImage src={house7} webpSrc={house7Webp} avifSrc={house7Avif} alt="Dwelling collage of a residential streetscape" />
               <ResponsiveImage src={house4} webpSrc={house4Webp} avifSrc={house4Avif} alt="Dwelling collage of a house with layered architectural details" />

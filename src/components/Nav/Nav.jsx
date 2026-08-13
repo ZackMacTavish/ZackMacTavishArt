@@ -191,7 +191,11 @@ const PinkMicroStroke = styled.span`
 `;
 
 const Logo = styled.img`
-  width: clamp(46px, 2.6vw, 90px);
+  display: block;
+  width: min(
+    clamp(46px, 2.6vw, 90px),
+    max(24px, calc(var(--layout-header-height) - 1rem))
+  );
   filter: ${(props) => props.theme.iconFilter};
   transition: all 0.3s ease;
 
@@ -354,6 +358,14 @@ const DialogClose = styled.button`
   color: ${(props) => props.theme.pageText};
   font: 600 0.75rem/1 'Space Grotesk', sans-serif;
 
+  @media (max-width: 900px) {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    font-size: 1.65rem;
+    font-weight: 400;
+  }
+
   &:focus-visible {
     outline: 2px solid #e88d67;
     outline-offset: 2px;
@@ -393,6 +405,42 @@ const ShortcutKey = styled.kbd`
   background: ${(props) => props.theme.pageBackground};
   color: ${(props) => props.theme.pageText};
   font: 700 0.9rem/1 'Space Grotesk', sans-serif;
+`;
+
+const ThemeToggleRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+`;
+
+const ThemeToggle = styled.button`
+  position: relative;
+  width: 3.25rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1px solid ${(props) => props.theme.controlBorder};
+  border-radius: 999px;
+  background: ${(props) => props.$checked ? props.theme.controlBackground : props.theme.pageSubtle};
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: ${(props) => props.$checked ? props.theme.controlText : props.theme.pageText};
+    transform: translateX(${(props) => props.$checked ? '1.45rem' : '0'});
+    transition: transform 180ms ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #e88d67;
+    outline-offset: 3px;
+  }
 `;
 
 const Dropdown = styled.div`
@@ -483,7 +531,7 @@ const MobileMenuLink = styled(Link)`
   padding: 0.35rem 1rem;
 `;
 
-export default function Nav({ hidden = false, themeMode = 'light', customCursorActive = false }) {
+export default function Nav({ hidden = false, themeMode = 'light', onToggleTheme, customCursorActive = false }) {
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
     return window.matchMedia('(max-width: 900px)').matches;
@@ -618,7 +666,7 @@ export default function Nav({ hidden = false, themeMode = 'light', customCursorA
             <HelpButton
               ref={helpButtonRef}
               type="button"
-              aria-label="Open keyboard shortcuts help"
+              aria-label={isMobile ? 'Open appearance settings' : 'Open keyboard shortcuts help'}
               aria-haspopup="dialog"
               data-cursor-hover
               onClick={(event) => {
@@ -662,37 +710,56 @@ export default function Nav({ hidden = false, themeMode = 'light', customCursorA
           <ShortcutsDialog
             role="dialog"
             aria-modal="true"
-            aria-labelledby="keyboard-shortcuts-title"
+            aria-labelledby="nav-settings-title"
           >
             <DialogHeader>
-              <DialogTitle id="keyboard-shortcuts-title">Keyboard Shortcuts</DialogTitle>
+              <DialogTitle id="nav-settings-title">{isMobile ? 'Appearance' : 'Keyboard Shortcuts'}</DialogTitle>
               <DialogClose
                 ref={closeButtonRef}
                 type="button"
-                aria-label="Close keyboard shortcuts help"
+                aria-label={isMobile ? 'Close appearance settings' : 'Close keyboard shortcuts help'}
                 onClick={(event) => {
                   restoreKeyboardFocusRef.current = event.detail === 0;
                   setIsShortcutsOpen(false);
                 }}
               >
-                Esc
+                {isMobile ? '×' : 'Esc'}
               </DialogClose>
             </DialogHeader>
-            <DialogIntro>Use these shortcuts to change how the portfolio appears and responds.</DialogIntro>
-            <ShortcutList>
-              <ShortcutItem>
-                <ShortcutKey>D</ShortcutKey>
-                <span>Toggle light and dark mode (currently {themeMode}).</span>
-              </ShortcutItem>
-              <ShortcutItem>
-                <ShortcutKey>C</ShortcutKey>
-                <span>Toggle the custom cursor (currently {customCursorActive ? 'custom' : 'native'}).</span>
-              </ShortcutItem>
-              <ShortcutItem>
-                <ShortcutKey>Esc</ShortcutKey>
-                <span>Close this panel.</span>
-              </ShortcutItem>
-            </ShortcutList>
+            {isMobile ? (
+              <>
+                <DialogIntro>Choose how the portfolio appears.</DialogIntro>
+                <ThemeToggleRow>
+                  <span>Dark mode</span>
+                  <ThemeToggle
+                    type="button"
+                    role="switch"
+                    aria-checked={themeMode === 'dark'}
+                    aria-label="Toggle dark mode"
+                    $checked={themeMode === 'dark'}
+                    onClick={onToggleTheme}
+                  />
+                </ThemeToggleRow>
+              </>
+            ) : (
+              <>
+                <DialogIntro>Use these shortcuts to change how the portfolio appears and responds.</DialogIntro>
+                <ShortcutList>
+                  <ShortcutItem>
+                    <ShortcutKey>D</ShortcutKey>
+                    <span>Toggle light and dark mode (currently {themeMode}).</span>
+                  </ShortcutItem>
+                  <ShortcutItem>
+                    <ShortcutKey>C</ShortcutKey>
+                    <span>Toggle the custom cursor (currently {customCursorActive ? 'custom' : 'native'}).</span>
+                  </ShortcutItem>
+                  <ShortcutItem>
+                    <ShortcutKey>Esc</ShortcutKey>
+                    <span>Close this panel.</span>
+                  </ShortcutItem>
+                </ShortcutList>
+              </>
+            )}
           </ShortcutsDialog>
         </ModalBackdrop>,
         document.body,
