@@ -1,7 +1,41 @@
 {
   "home": {
-    "file": "home.jpg",
-    "alt": "Zack MacTavish — multidisciplinary artist portfolio cover image."
+    "file": "home-og-black.jpg",
+    "alt": "White Zack MacTavish logo on a black background.",
+    "variants": {
+      "openGraph": {
+        "file": "home-og-black.jpg",
+        "width": 1200,
+        "height": 630,
+        "surfaces": [
+          "Microsoft Teams",
+          "Facebook",
+          "LinkedIn",
+          "Slack",
+          "Discord",
+          "Bluesky",
+          "Mastodon",
+          "WhatsApp",
+          "iMessage"
+        ]
+      },
+      "x": {
+        "file": "home-x-black.jpg",
+        "width": 1200,
+        "height": 628,
+        "surfaces": [
+          "X"
+        ]
+      },
+      "square": {
+        "file": "home-square-black.jpg",
+        "width": 1200,
+        "height": 1200,
+        "surfaces": [
+          "compact and square previews"
+        ]
+      }
+    }
   },
   "about": {
     "file": "about.jpg",

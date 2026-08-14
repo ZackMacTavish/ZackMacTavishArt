@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/three-CMFwDfOM.js","assets/react-three-BKJczYnz.js","assets/three-BgQdTZ1w.js","assets/index-_Iv7ju2r.js","assets/index-YIlnlg-K.css","assets/website-logoresolutions-1200x630-BPEdvRQz.js","assets/seo-Da0DYCYc.js","assets/ResponsiveImage-ER0KLJEM.js"])))=>i.map(i=>d[i]);
-import{l as i,u as b,_ as y,p as k}from"./index-_Iv7ju2r.js";import{b as a,j as t}from"./react-three-BKJczYnz.js";import{f as z,a as j,b as S,i as T,c as A,d as M,o as $}from"./website-logoresolutions-1200x630-BPEdvRQz.js";import{c as W,S as P,v as Z,N as d,I as c}from"./seo-Da0DYCYc.js";import{R as _}from"./ResponsiveImage-ER0KLJEM.js";const B="/assets/Me-BEhJ50qd.jpeg",l="/assets/Me-BZTy2liT.webp",p="/assets/Me-BSjk50SP.avif",E="/assets/Me-640-Bi9OgEeh.webp",H="/assets/Me-960-Bw29gW64.webp",G="/assets/Me-640-BmtY4yVB.avif",C="/assets/Me-960-D42P_fb-.avif",D="/assets/BlackTurtleneck-popart-01-Cfcb3PF3.jpg",I="/assets/BlackTurtleneck-popart-01-Daztt7du.webp",L="/assets/BlackTurtleneck-popart-01-BjHX9soD.avif",q="/assets/hangingquilts-CSgyMA7c.jpg",F="/assets/hangingquilts-BTrRmVGW.webp",N="/assets/hangingquilts-D4aaEPK3.avif",O=a.lazy(()=>y(()=>import("./three-CMFwDfOM.js"),__vite__mapDeps([0,1,2,3,4,5,6,7]))),m=["https://dribbble.com/Zmactavish","https://www.instagram.com/zackmichaelmactavish","https://www.linkedin.com/in/zacharymactavish/","https://github.com/ZackMacTavish","https://medium.com/@zmactavish"];i.div`
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/three-Pv8WF0e7.js","assets/react-three-BKJczYnz.js","assets/three-BgQdTZ1w.js","assets/index-B5kQS6qh.js","assets/index-YIlnlg-K.css","assets/website-logoresolutions-512px-CshVgYUQ.js","assets/seo-BwQEaD-Q.js","assets/ResponsiveImage-BKQq1MaY.js"])))=>i.map(i=>d[i]);
+import{l as i,u as f,_ as w}from"./index-B5kQS6qh.js";import{b as a,j as t}from"./react-three-BKJczYnz.js";import{f as x,a as u,b as v,i as b,c as y,d as k}from"./website-logoresolutions-512px-CshVgYUQ.js";import{c as z,S as j,v as T,N as r,I as s}from"./seo-BwQEaD-Q.js";import{R as S}from"./ResponsiveImage-BKQq1MaY.js";const A="/assets/Me-BEhJ50qd.jpeg",d="/assets/Me-BZTy2liT.webp",c="/assets/Me-BSjk50SP.avif",M="/assets/Me-640-Bi9OgEeh.webp",$="/assets/Me-960-Bw29gW64.webp",P="/assets/Me-640-BmtY4yVB.avif",W="/assets/Me-960-D42P_fb-.avif",Z="/assets/BlackTurtleneck-popart-01-Cfcb3PF3.jpg",_="/assets/BlackTurtleneck-popart-01-Daztt7du.webp",B="/assets/BlackTurtleneck-popart-01-BjHX9soD.avif",E="/assets/hangingquilts-CSgyMA7c.jpg",G="/assets/hangingquilts-BTrRmVGW.webp",H="/assets/hangingquilts-D4aaEPK3.avif",C=a.lazy(()=>w(()=>import("./three-Pv8WF0e7.js"),__vite__mapDeps([0,1,2,3,4,5,6,7]))),m=["https://dribbble.com/Zmactavish","https://www.instagram.com/zackmichaelmactavish","https://www.linkedin.com/in/zacharymactavish/","https://github.com/ZackMacTavish","https://medium.com/@zmactavish"];i.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -11,7 +11,7 @@ flex-direction: column;
 height: auto;
 padding-bottom: var(--space-section-spacious);
 ;}
-`;const R=i.div`
+`;const D=i.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +27,7 @@ padding-bottom: var(--space-section-spacious);
     padding: var(--space-section-compact) 0 var(--space-section-spacious);
     text-align: center;      /* also center any text */
   }
-`,Y=i.div`
+`,q=i.div`
   position: relative;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
@@ -57,7 +57,7 @@ padding-bottom: var(--space-section-spacious);
   @media (max-width: 450px) {
     font-size: 1.4rem;
   }
-`,Q=i.div`
+`,I=i.div`
   width: auto;
   color: ${e=>e.theme.narrativeText};
   font-family: 'Space Grotesk', sans-serif;
@@ -67,25 +67,6 @@ padding-bottom: var(--space-section-spacious);
   max-width: none;
   margin: 0;
   align-self: center;
-`,V=k`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-`,K=i.div`
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: ${V} 1.5s infinite ease-in-out;
-  opacity: ${e=>e.$visible?.8:0};
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-`,X=i.div`
-  width: 24px;
-  height: 24px;
-  border-left: 3px solid white;
-  border-bottom: 3px solid white;
-  transform: rotate(-45deg);
-  border-radius: 2px;
 `;i.img`
   width: 40vw;
   padding-left: 2vw;
@@ -101,7 +82,7 @@ padding-bottom: var(--space-section-spacious);
     width: 100%;
     padding-top: 6vh;
   }
-`;const J=i.div`
+`;const L=i.div`
   display: flex;
   flex-direction: row;
   align-items: center; /* vertically center content on desktop */
@@ -117,7 +98,7 @@ padding-bottom: var(--space-section-spacious);
     gap: var(--space-grid-gap);
     align-items: center; /* center block horizontally */
   }
-`,U=i.img`
+`,N=i.img`
   flex: 0 0 auto;
   max-width: 33%; /* desktop size */
   height: auto;
@@ -127,7 +108,7 @@ padding-bottom: var(--space-section-spacious);
     max-width: 100%; /* full width on mobile */
     width: 100%;
   }
-`,ee=i(Y)`
+`,F=i(q)`
   flex: 1;
   max-width: 45%;
   padding-right: 8vw;
@@ -146,7 +127,7 @@ padding-bottom: var(--space-section-spacious);
     margin-top: 1vh; /* move text up slightly */
     padding-bottom: 3vh; /* add padding below */
   }
-`,te=i.div`
+`,O=i.div`
   width: auto;
   color: ${e=>e.theme.pageText};
   font-family: 'Space Grotesk', sans-serif;
@@ -156,10 +137,10 @@ padding-bottom: var(--space-section-spacious);
   max-width: none;
   margin: 0;
   align-self: center;
-`,ie=i.div`
+`,R=i.div`
   overflow-y: hidden;
   width: 100vw;
-`,ae=i.div`
+`,Q=i.div`
   display: grid;
   overflow-y: hidden;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -172,7 +153,7 @@ padding-bottom: var(--space-section-spacious);
     grid-template-rows: auto 1fr;
     height: auto;
   }
-`,oe=i.div`
+`,V=i.div`
   display: grid;
   grid-column-start: 2;
   grid-column-end: 5;
@@ -207,7 +188,7 @@ padding-bottom: var(--space-section-spacious);
     backdrop-filter: none;
     background: rgba(0, 0, 0, 0.5);
   }
-`,re=i.h1`
+`,K=i.h1`
   font-size: clamp(16px, 5.5vw, 3.8rem);
   line-height: 1.2;
   color: white;
@@ -226,7 +207,7 @@ padding-bottom: var(--space-section-spacious);
   @media (max-width: 800px) {
     font-size: clamp(12px, 3.5vw, 2rem);
   }
-`,ne=i.p`
+`,Y=i.p`
   font-size: clamp(14px, 2.5vw, 1.4rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
@@ -242,7 +223,7 @@ padding-bottom: var(--space-section-spacious);
     font-size: clamp(14px, 3.5vw, 1.1rem);
     text-shadow: 0 0 15px rgba(0, 0, 0, 0.95), 1px 1px 8px rgba(0, 0, 0, 0.9);
   }
-`,se=i.a`
+`,J=i.a`
   display: inline-block;
   width: fit-content;
   padding: 0.85rem 2rem;
@@ -273,7 +254,7 @@ padding-bottom: var(--space-section-spacious);
     padding: 0.7rem 1.6rem;
     font-size: clamp(11px, 1.3vw, 0.9rem);
   }
-`,de=i.div`
+`,U=i.div`
   display: grid; 
   grid-column-start: 1;
   grid-column-end: -1;
@@ -285,4 +266,4 @@ padding-bottom: var(--space-section-spacious);
     width: 100vw !important;
     margin-left: calc(-50vw + 50%) !important;
   }
-`,ce=()=>{const[e,h]=a.useState(!0),[o,g]=a.useState(!1),[f,w]=a.useState(()=>typeof window>"u"?!1:window.innerWidth>900),[x,v]=a.useState(()=>typeof window>"u"||typeof window.matchMedia!="function"?!0:!window.matchMedia("(prefers-reduced-motion: reduce)").matches),u=b(),r=W(u);return a.useLayoutEffect(()=>{window.scrollTo(0,0)},[]),a.useEffect(()=>{const n=()=>{!o&&window.scrollY>50&&(h(!1),g(!0))};window.addEventListener("scroll",n);const s=()=>{w(window.innerWidth>900),v(!window.matchMedia("(prefers-reduced-motion: reduce)").matches)};return window.addEventListener("resize",s),()=>{window.removeEventListener("scroll",n),window.removeEventListener("resize",s)}},[o]),t.jsxs("div",{children:[t.jsx(P,{title:"About | Zack MacTavish Art & Design",description:"About Zack MacTavish, an artist and product designer based in Philadelphia, PA.",image:$,url:r,keywords:["about","artist","product designer","Philadelphia"],authorName:"Zack MacTavish",authorAlternateNames:["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],sameAs:m,favicons:[{rel:"icon",type:"image/png",sizes:"16x16",href:z},{rel:"icon",type:"image/png",sizes:"32x32",href:j},{rel:"apple-touch-icon",sizes:"180x180",href:S},{rel:"icon",type:"image/png",sizes:"192x192",href:T},{rel:"icon",type:"image/png",sizes:"256x256",href:A},{rel:"icon",type:"image/png",sizes:"512x512",href:M},{rel:"icon",href:"/favicon.ico"}],jsonLd:{"@context":"https://schema.org","@type":"Person",name:"Zack MacTavish",alternateName:["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],url:r,sameAs:m}}),t.jsx("h1",{style:Z,children:"About Zack MacTavish"}),t.jsxs(d,{$spacing:"spacious",style:{position:"relative"},children:[t.jsx(c,{splitSize:"medium",imageMaxHeight:"500px",imageSrc:B,imageWebp:l,imageWebpSet:`${E} 640w, ${H} 960w, ${l} 2200w`,imageAvif:p,imageAvifSet:`${G} 640w, ${C} 960w, ${p} 2200w`,imageSizes:"(max-width: 900px) 100vw, 40vw",imageAlt:"Portrait of Zack MacTavish",imageWidth:960,imageHeight:960,imageLoading:"eager",imageDecoding:"sync",imageFetchPriority:"high",children:t.jsx(Q,{children:"Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal history through painting, textile, collage, and print. Having moved over twenty times across six states, his practice is rooted in how displacement and movement shape identity over time. His first solo show, Composition, used the composition notebook as a metaphor for self-reflection across environments and personal growth."})}),!o&&t.jsx(K,{$visible:e,children:t.jsx(X,{})})]}),t.jsx(d,{$preserveSpacing:!0,style:{backgroundColor:"var(--surface-secondary)"},children:t.jsx(c,{splitSize:"medium",imageMaxHeight:"500px",imageSrc:q,imageWebp:F,imageAvif:N,imageAlt:"Installed quilt from the Dwelling series",children:t.jsx(te,{children:"His current work shifts focus from transition to permanence: the homes, families, and communities that endure across a life in motion. Working in quilting, embroidery, collage, painting, and an artist book, MacTavish archives personal and familial histories through fiber and stitch, treating the domestic and inherited as subjects worthy of preservation."})})}),t.jsx(ie,{children:t.jsxs(ae,{children:[t.jsxs(oe,{children:[t.jsx(re,{children:"Thanks for stopping by"}),t.jsx(ne,{children:"I built this website. Check out my design portfolio."}),t.jsx(se,{href:"https://mactavish.xyz",target:"_blank",rel:"noopener noreferrer",children:"View Portfolio"})]}),t.jsx(de,{children:f&&x?t.jsx(a.Suspense,{fallback:null,children:t.jsx(O,{})}):t.jsx(_,{style:{width:"100vw",height:"70vh",objectFit:"cover"},imgStyle:{width:"100vw",height:"70vh",objectFit:"cover"},src:D,webpSrc:I,avifSrc:L,alt:"Pop-art portrait",width:3706,height:3706,loading:"lazy",decoding:"async"})})]})})]})},fe=Object.freeze(Object.defineProperty({__proto__:null,NewSection:R,QuiltContainer:J,QuiltImage:U,QuiltText:ee,default:ce},Symbol.toStringTag,{value:"Module"}));export{fe as A,R as N,D as b};
+`,X=()=>{const[e,p]=a.useState(()=>typeof window>"u"?!1:window.innerWidth>900),[l,h]=a.useState(()=>typeof window>"u"||typeof window.matchMedia!="function"?!0:!window.matchMedia("(prefers-reduced-motion: reduce)").matches),g=f(),o=z(g);return a.useLayoutEffect(()=>{window.scrollTo(0,0)},[]),a.useEffect(()=>{const n=()=>{p(window.innerWidth>900),h(!window.matchMedia("(prefers-reduced-motion: reduce)").matches)};return window.addEventListener("resize",n),()=>{window.removeEventListener("resize",n)}},[]),t.jsxs("div",{children:[t.jsx(j,{title:"About | Zack MacTavish Art & Design",description:"About Zack MacTavish, an artist and product designer based in Philadelphia, PA.",image:"https://zackmactavish.com/og/about.jpg",url:o,keywords:["about","artist","product designer","Philadelphia"],authorName:"Zack MacTavish",authorAlternateNames:["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],sameAs:m,favicons:[{rel:"icon",type:"image/png",sizes:"16x16",href:x},{rel:"icon",type:"image/png",sizes:"32x32",href:u},{rel:"apple-touch-icon",sizes:"180x180",href:v},{rel:"icon",type:"image/png",sizes:"192x192",href:b},{rel:"icon",type:"image/png",sizes:"256x256",href:y},{rel:"icon",type:"image/png",sizes:"512x512",href:k},{rel:"icon",href:"/favicon.ico"}],jsonLd:{"@context":"https://schema.org","@type":"Person",name:"Zack MacTavish",alternateName:["Zachary MacTavish","Zack MacTavish Art","Zachary MacTavish Art"],url:o,sameAs:m}}),t.jsx("h1",{style:T,children:"About Zack MacTavish"}),t.jsx(r,{$spacing:"spacious",style:{position:"relative"},children:t.jsx(s,{splitSize:"medium",imageMaxHeight:"500px",imageSrc:A,imageWebp:d,imageWebpSet:`${M} 640w, ${$} 960w, ${d} 2200w`,imageAvif:c,imageAvifSet:`${P} 640w, ${W} 960w, ${c} 2200w`,imageSizes:"(max-width: 900px) 100vw, 40vw",imageAlt:"Portrait of Zack MacTavish",imageWidth:960,imageHeight:960,imageLoading:"eager",imageDecoding:"sync",imageFetchPriority:"high",children:t.jsx(I,{children:"Zachary MacTavish is a multidisciplinary artist exploring memory, place, and personal history through painting, textile, collage, and print. Having moved over twenty times across six states, his practice is rooted in how displacement and movement shape identity over time. His first solo show, Composition, used the composition notebook as a metaphor for self-reflection across environments and personal growth."})})}),t.jsx(r,{$preserveSpacing:!0,style:{backgroundColor:"var(--surface-secondary)"},children:t.jsx(s,{splitSize:"medium",imageMaxHeight:"500px",imageSrc:E,imageWebp:G,imageAvif:H,imageAlt:"Installed quilt from the Dwelling series",children:t.jsx(O,{children:"His current work shifts focus from transition to permanence: the homes, families, and communities that endure across a life in motion. Working in quilting, embroidery, collage, painting, and an artist book, MacTavish archives personal and familial histories through fiber and stitch, treating the domestic and inherited as subjects worthy of preservation."})})}),t.jsx(R,{children:t.jsxs(Q,{children:[t.jsxs(V,{children:[t.jsx(K,{children:"Thanks for stopping by"}),t.jsx(Y,{children:"I built this website. Check out my design portfolio."}),t.jsx(J,{href:"https://mactavish.xyz",target:"_blank",rel:"noopener noreferrer",children:"View Portfolio"})]}),t.jsx(U,{children:e&&l?t.jsx(a.Suspense,{fallback:null,children:t.jsx(C,{})}):t.jsx(S,{style:{width:"100vw",height:"70vh",objectFit:"cover"},imgStyle:{width:"100vw",height:"70vh",objectFit:"cover"},src:Z,webpSrc:_,avifSrc:B,alt:"Pop-art portrait",width:3706,height:3706,loading:"lazy",decoding:"async"})})]})})]})},ne=Object.freeze(Object.defineProperty({__proto__:null,NewSection:D,QuiltContainer:L,QuiltImage:N,QuiltText:F,default:X},Symbol.toStringTag,{value:"Module"}));export{ne as A,D as N,Z as b};
