@@ -1,4 +1,4 @@
-import{j as e,C as l,b as n,u,c as x}from"./react-three-BKJczYnz.js";import{l as d}from"./index-B5kQS6qh.js";import{b as h}from"./About-D-2akGOI.js";import{j as f,k as j}from"./three-BgQdTZ1w.js";import"./website-logoresolutions-512px-CshVgYUQ.js";import"./seo-BwQEaD-Q.js";import"./ResponsiveImage-BKQq1MaY.js";const g=d.div`
+import{j as e,C as l,b as n,u,c as x}from"./react-three-BKJczYnz.js";import{l as d}from"./index-Dw-E1ofS.js";import{b as h}from"./About-ClCa91Du.js";import{j as f,k as j}from"./three-BgQdTZ1w.js";import"./website-logoresolutions-512px-CshVgYUQ.js";import"./seo-B4vub4F-.js";import"./ResponsiveImage-Cekydfre.js";const g=d.div`
   width: 100vw;
   height: 100vh;
   background-color: black;
